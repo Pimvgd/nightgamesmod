@@ -25,25 +25,25 @@ public class Tackle extends Skill {
         if (target.roll(this, c, accuracy(c))
                         && getSelf().check(Attribute.Power, target.knockdownDC() - getSelf().get(Attribute.Animism))) {
             if (getSelf().get(Attribute.Animism) >= 1) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.special, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.special, target));
                 }
                 target.pain(c, 4 + Global.random(6));
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.normal, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
                 }
                 target.pain(c, 3 + Global.random(4));
             }
             c.setStance(new Mount(getSelf(), target));
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

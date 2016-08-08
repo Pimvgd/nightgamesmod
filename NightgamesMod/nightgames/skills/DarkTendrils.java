@@ -35,30 +35,30 @@ public class DarkTendrils extends Skill {
         getSelf().arouse(5, c);
         if (target.roll(this, c, accuracy(c))) {
             if (Global.random(2) == 1) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.normal, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
                 }
                 target.add(c, new Bound(target, Math.min(10 + 3 * getSelf().get(Attribute.Dark), 55), "shadows"));
             } else if (getSelf().check(Attribute.Dark, target.knockdownDC() - getSelf().getMojo().get())) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.weak, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.weak, target));
                 }
                 target.add(c, new Falling(target));
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.miss, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.miss, target));
                 }
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

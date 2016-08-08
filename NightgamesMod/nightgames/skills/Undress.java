@@ -46,9 +46,9 @@ public class Undress extends Skill {
             res = Global.random(50) > difficulty ? Result.weak : Result.miss;
         }
 
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, res, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             if (target.is(Stsflag.blinded))
                 printBlinded(c);
             else

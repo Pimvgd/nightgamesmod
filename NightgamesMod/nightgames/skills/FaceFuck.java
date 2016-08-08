@@ -60,7 +60,7 @@ public class FaceFuck extends Skill {
         selfDamage += Global.random(selfDamage * 2 / 3);
         targetDamage += Global.random(targetDamage * 2 / 3);
 
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, res, target));
         } else {
             c.write(getSelf(), receive(c, 0, res, target));

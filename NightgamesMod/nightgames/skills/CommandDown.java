@@ -25,7 +25,7 @@ public class CommandDown extends PlayerCommand {
     @Override
     public boolean resolve(Combat c, Character target) {
         c.setStance(new Mount(getSelf(), target));
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
         } else {
             c.write(getSelf(), receive(c, 0, Result.normal, target));

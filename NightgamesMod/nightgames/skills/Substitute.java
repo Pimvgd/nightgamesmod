@@ -39,7 +39,7 @@ public class Substitute extends Skill {
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), String.format("By the time %s realizes %s's pinning a dummy, you're already behind %s.",
                             target.name(), target.pronoun(), target.directObject()));
         } else {

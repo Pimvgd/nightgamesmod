@@ -31,9 +31,9 @@ public class Slap extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (target.roll(this, c, accuracy(c))) {
             if (isSlime()) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.critical, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.critical, target));
                 }
                 target.pain(c, Global.random(10) + getSelf().get(Attribute.Slime) + getSelf().get(Attribute.Power) / 2);
@@ -47,9 +47,9 @@ public class Slap extends Skill {
                 target.emote(Emotion.nervous, 40);
                 target.emote(Emotion.angry, 30);
             } else if (getSelf().get(Attribute.Animism) >= 8) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.special, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.special, target));
                 }
                 if (getSelf().has(Trait.pimphand)) {
@@ -64,9 +64,9 @@ public class Slap extends Skill {
                     target.emote(Emotion.angry, 30);
                 }
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.normal, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
                 }
                 if (getSelf().has(Trait.pimphand)) {
@@ -81,9 +81,9 @@ public class Slap extends Skill {
             }
 
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

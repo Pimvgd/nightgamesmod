@@ -61,16 +61,16 @@ public class PullOut extends Skill {
             result = Result.special;
         }
         if (c.getStance().en == Stance.anal) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, result, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, result, target));
             }
             c.setStance(c.getStance().insertRandom());
         } else if (result == Result.special) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, result, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, result, target));
             }
             c.setStance(new StandingOver(getSelf(), target));
@@ -80,9 +80,9 @@ public class PullOut extends Skill {
                 boolean escaped = getSelf().check(Attribute.Power,
                                 10 - getSelf().escape(c) + target.get(Attribute.Power));
                 if (escaped) {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, result, target));
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, result, target));
                     }
                 } else {
@@ -90,7 +90,7 @@ public class PullOut extends Skill {
                         BodyPart part = c.getStance().anallyPenetrated(getSelf()) ? target.body.getRandom("ass")
                                         : target.body.getRandomPussy();
                         String partString = part.describe(target);
-                        if (getSelf().human()) {
+                        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                             c.write(getSelf(), "You try to pull out of " + target.name() + "'s " + partString
                                             + ", but her legs immediately tighten against your waist, holding you inside her. The mere friction from her action sends a shiver down your spine.");
                         } else {
@@ -99,7 +99,7 @@ public class PullOut extends Skill {
                                             + ", but your legs immediately pull her back in, holding you inside her.");
                         }
                     } else if (getSelf().hasStatus(Stsflag.armlocked)) {
-                        if (getSelf().human()) {
+                        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                             c.write(getSelf(), "You try to pull yourself off of " + target.name()
                                             + ", but she merely pulls you back on top of her, surrounding you in her embrace.");
                         } else {
@@ -110,7 +110,7 @@ public class PullOut extends Skill {
                         BodyPart part = c.getStance().anallyPenetrated(target) ? target.body.getRandom("ass")
                                         : target.body.getRandomPussy();
                         String partString = part.describe(target);
-                        if (getSelf().human()) {
+                        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                             c.write(getSelf(), "You try to pull yourself out of " + target.name() + "'s " + partString
                                             + ", but she clamps down hard on your cock while smiling at you. You almost cum from the sensation, and quickly abandon ideas about your escape.");
                         } else {
@@ -135,9 +135,9 @@ public class PullOut extends Skill {
                 int m = 8;
                 getSelf().body.pleasure(target, target.body.getRandom("pussy"), getSelf().body.getRandom("cock"), m, c, this);
                 return false;
-            } else if (getSelf().human()) {
+            } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, result, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, result, target));
             }
             c.setStance(c.getStance().insertRandom());

@@ -44,9 +44,9 @@ public class Offer extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         if (target.getArousal().get() < 15) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             getSelf().add(c, new Shamed(getSelf()));
@@ -58,9 +58,9 @@ public class Offer extends Skill {
         if (target.hasDick() || target.has(Trait.strapped)) {
             if (getSelf().hasPussy()) {
                 // offer pussy to dick/strapon
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.special, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.special, target));
                 }
                 c.setStance(new Missionary(target, getSelf()), getSelf(), true);
@@ -71,9 +71,9 @@ public class Offer extends Skill {
 
             } else {
                 // offer ass to dick/strapon
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.anal, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.anal, target));
                 }
                 c.setStance(new Anal(target, getSelf()), getSelf(), true);
@@ -87,9 +87,9 @@ public class Offer extends Skill {
         } else {
             assert getSelf().hasDick() && target.hasPussy();
             // Offer cock to female
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
             }
             c.setStance(new Cowgirl(target, getSelf()), getSelf(), true);

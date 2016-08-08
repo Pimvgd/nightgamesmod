@@ -37,9 +37,9 @@ public class EyesOfTemptation extends Skill {
     public boolean resolve(Combat c, Character target) {
         Result result = target.is(Stsflag.blinded) ? Result.special
                         : target.roll(this, c, accuracy(c)) ? Result.normal : Result.miss;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, result, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, 0, result, target));
         }
         if (result == Result.normal) {
@@ -76,7 +76,7 @@ public class EyesOfTemptation extends Skill {
                             "As {other:subject-action:gaze|gazes} into {self:name-possessive} eyes, {other:subject-action:feel|feels} {other:possessive} will slipping into the abyss.",
                             getSelf(), target);
         } else if (modifier == Result.special) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 return Global.format(
                                 "You focus your eyes on {other:name}, but with {other:possessive} eyesight blocked the power just seeps away uselessly.",
                                 getSelf(), target);

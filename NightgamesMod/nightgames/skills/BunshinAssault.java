@@ -46,10 +46,10 @@ public class BunshinAssault extends Skill {
         int clones = Math.min(Math.min(getSelf().getMojo().get()/3, getSelf().get(Attribute.Ninjutsu)/3),6);
         Result r;
         getSelf().buildMojo(c, (6-clones)*3);
-        if(getSelf().human()){
+        if(getSelf().human() || c.isBeingWatchedFrom(getSelf())){
             c.write(String.format("You form %d shadow clones and rush forward.",clones));
         }
-        else if(target.human()){
+        else if(target.human() || c.isBeingWatchedFrom(target)){
             c.write(String.format("%s moves in a blur and suddenly you see %d of %s approaching you.",getSelf().name(),clones,getSelf().pronoun()));
         }
         for(int i=0;i<clones;i++){
@@ -72,17 +72,17 @@ public class BunshinAssault extends Skill {
                     target.pain(c,Global.random(12)+getSelf().get(Attribute.Power));
                     break;
                 }
-                if(getSelf().human()){
+                if(getSelf().human() || c.isBeingWatchedFrom(getSelf())){
                     c.write(getSelf(),deal(c,0,r,target));
                 }
-                else if(target.human()){
+                else if(target.human() || c.isBeingWatchedFrom(target)){
                     c.write(getSelf(),receive(c,0,r,getSelf()));
                 }
             }else{
-                if(getSelf().human()){
+                if(getSelf().human() || c.isBeingWatchedFrom(getSelf())){
                     c.write(getSelf(),deal(c,0,Result.miss,target));
                 }
-                else if(target.human()){
+                else if(target.human() || c.isBeingWatchedFrom(target)){
                     c.write(getSelf(),receive(c,0,Result.miss,getSelf()));
                 }
             }

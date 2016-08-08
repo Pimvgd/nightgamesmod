@@ -29,7 +29,7 @@ public class FondleBreasts extends Skill {
         if (target.roll(this, c, accuracy(c))) {
             if (target.breastsAvailable()) {
                 m += 4;
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, m, Result.normal, target));
                 } else {
                     c.write(getSelf(), receive(c, m, Result.normal, target));
@@ -37,7 +37,7 @@ public class FondleBreasts extends Skill {
                 target.body.pleasure(getSelf(), getSelf().body.getRandom("hands"), target.body.getRandom("breasts"), m,
                                 c, this);
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, m, Result.normal, target));
                 } else {
                     c.write(getSelf(), receive(c, m, Result.normal, target));
@@ -46,9 +46,9 @@ public class FondleBreasts extends Skill {
                                 c, this);
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

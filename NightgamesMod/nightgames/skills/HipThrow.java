@@ -36,18 +36,18 @@ public class HipThrow extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (getSelf().check(Attribute.Power, target.knockdownDC())) {
             int m = Global.random(6) + target.get(Attribute.Power) / 2;
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, m, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, m, Result.normal, target));
             }
             target.pain(c, m);
             target.add(c, new Falling(target));
             target.emote(Emotion.angry, 5);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

@@ -44,13 +44,13 @@ public class ShrinkRay extends Skill {
         getSelf().consume(Item.Battery, 2);
         boolean permanent = Global.random(20) == 0 && (getSelf().human() || target.human())
                         && !target.has(Trait.stableform);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             if (target.hasDick()) {
                 c.write(getSelf(), deal(c, permanent ? 1 : 0, Result.special, target));
             } else {
                 c.write(getSelf(), deal(c, permanent ? 1 : 0, Result.normal, target));
             }
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             if (target.hasDick()) {
                 c.write(getSelf(), receive(c, permanent ? 1 : 0, Result.special, target));
             } else {

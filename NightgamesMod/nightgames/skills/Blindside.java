@@ -37,7 +37,7 @@ public class Blindside extends Skill {
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(),
                             String.format("You move up to %s and kiss %s strongly. "
                                             + "While %s is distracted, you throw %s down and plant "

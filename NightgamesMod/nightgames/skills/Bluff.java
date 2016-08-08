@@ -34,7 +34,7 @@ public class Bluff extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         int m = 20 + Global.random(25);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, m, Result.normal, target));
         } else {
             c.write(getSelf(), receive(c, m, Result.normal, target));

@@ -31,14 +31,14 @@ public class UseOnahole extends Skill {
         if (target.roll(this, c, accuracy(c))) {
             if (getSelf().has(Item.Onahole2)) {
                 m += 5;
-                if (target.human()) {
+                if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.upgrade, target));
                 } else {
                     c.write(getSelf(), deal(c, 0, Result.upgrade, target));
                 }
                 target.body.pleasure(getSelf(), null, target.body.getRandomCock(), m, c, this);
             } else {
-                if (target.human()) {
+                if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
                 } else {
                     c.write(getSelf(), deal(c, 0, Result.upgrade, target));
@@ -46,9 +46,9 @@ public class UseOnahole extends Skill {
                 target.body.pleasure(getSelf(), null, target.body.getRandomCock(), m, c, this);
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

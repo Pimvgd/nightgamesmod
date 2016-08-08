@@ -39,9 +39,9 @@ public class CockWorship extends Skill {
         if (getSelf().has(Trait.silvertongue)) {
             m += 4;
         }
-        if (target.human()) {
+        if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, m, Result.normal, target));
-        } else if (getSelf().human()) {
+        } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, m, Result.normal, target));
         }
         BodyPart mouth = getSelf().body.getRandom("mouth");

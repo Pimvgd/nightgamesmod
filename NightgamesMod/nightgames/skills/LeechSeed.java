@@ -36,9 +36,9 @@ public class LeechSeed extends Skill {
             if (!target.is(Stsflag.fucked) && target.hasPussy()) {
                 results = Result.normal;
             }
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, results, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, results, target));
             }
             if (results == Result.normal) {
@@ -48,9 +48,9 @@ public class LeechSeed extends Skill {
                 target.add(c, new Seeded(target, getSelf(), "ass"));
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

@@ -24,9 +24,9 @@ public class Suckle extends Skill {
     public boolean resolve(Combat c, Character target) {
         Result results = target.has(Trait.lactating) ? Result.special : Result.normal;
         int m = (getSelf().get(Attribute.Seduction) > 10 ? 8 : 4) + Global.random(6);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, results, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, 0, results, target));
         }
         if (getSelf().has(Trait.silvertongue)) {

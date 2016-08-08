@@ -47,9 +47,9 @@ public class HeelGrind extends Skill {
     public boolean resolve(Combat c, Character target) {
         int m = 12 + Global.random(6);
         int m2 = m / 2;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, m, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, m, Result.normal, target));
         }
         target.body.pleasure(getSelf(), getSelf().body.getRandom("feet"), target.body.getRandom("pussy"), m, c, this);

@@ -33,9 +33,9 @@ public class Bravado extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         int x = cost;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, x, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, x, Result.normal, target));
         }
         getSelf().calm(c, 20 + x / 2);

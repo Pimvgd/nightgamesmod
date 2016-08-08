@@ -40,10 +40,10 @@ public class Carry extends Fuck {
     public boolean resolve(Combat c, Character target) {
         String premessage = premessage(c, target);
         if (target.roll(this, c, accuracy(c))) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), Global.capitalizeFirstLetter(
                                 premessage + deal(c, premessage.length(), Result.normal, target)));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), premessage + receive(c, premessage.length(), Result.normal, getSelf()));
             }
             int m = 5 + Global.random(5);
@@ -55,10 +55,10 @@ public class Carry extends Fuck {
             getSelf().body.pleasure(target, getTargetOrgan(target), getSelfOrgan(), otherm, c, this);
             c.setStance(new Standing(getSelf(), target), getSelf(), getSelf().canMakeOwnDecision());
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), Global
                                 .capitalizeFirstLetter(premessage + deal(c, premessage.length(), Result.miss, target)));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), premessage + receive(c, premessage.length(), Result.miss, target));
             }
             getSelf().add(c, new Falling(getSelf()));

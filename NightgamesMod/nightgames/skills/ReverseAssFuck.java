@@ -69,9 +69,9 @@ public class ReverseAssFuck extends Fuck {
         c.write(getSelf(), Global.format(premessage, getSelf(), target));
 
         int m = 5 + Global.random(5);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, m, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, m, Result.normal, target));
         }
 

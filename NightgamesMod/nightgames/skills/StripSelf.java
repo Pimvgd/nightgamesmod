@@ -44,7 +44,7 @@ public class StripSelf extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         Clothing clothing = null;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             Optional<Clothing> stripped = getSelf().getOutfit().getEquipped().stream()
                             .filter(article -> article.getName().equals(choice)).findAny();
             if (stripped.isPresent()) {

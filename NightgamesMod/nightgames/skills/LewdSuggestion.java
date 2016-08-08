@@ -36,19 +36,19 @@ public class LewdSuggestion extends Skill {
         boolean alreadyTranced =
                         target.is(Stsflag.charmed) || target.is(Stsflag.enthralled) || target.is(Stsflag.trance);
         if (!alreadyTranced && Global.random(3) == 0) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;
         } else if (target.is(Stsflag.horny)) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.strong, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.strong, target));
             }
-        } else if (getSelf().human()) {
+        } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
         } else {
             c.write(getSelf(), receive(c, 0, Result.normal, target));

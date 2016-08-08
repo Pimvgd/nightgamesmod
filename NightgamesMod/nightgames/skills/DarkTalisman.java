@@ -37,9 +37,9 @@ public class DarkTalisman extends Skill {
     public boolean resolve(Combat c, Character target) {
         Result result = target.is(Stsflag.blinded) ? Result.special
                         : target.roll(this, c, accuracy(c)) ? Result.normal : Result.miss;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, result, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, 0, result, target));
         }
         getSelf().consume(Item.Talisman, 1);

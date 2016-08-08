@@ -43,7 +43,7 @@ public class Paizuri extends Skill {
         }
 
         int m = 4 + Global.random(3);
-        if (target.human()) {
+        if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(0, Result.normal, target, breasts));
         }
         target.body.pleasure(getSelf(), getSelf().body.getRandom("breasts"), target.body.getRandom("cock"), m, c, this);

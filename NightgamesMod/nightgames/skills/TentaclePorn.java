@@ -44,19 +44,19 @@ public class TentaclePorn extends Skill {
             if (target.mostlyNude()) {
                 int m = Global.random(getSelf().get(Attribute.Fetish)) / 2 + 1;
                 if (target.bound()) {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.special, target));
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, Result.special, target));
                     }
                     TentaclePart.pleasureWithTentacles(c, target, m, target.body.getRandomCock());
                     TentaclePart.pleasureWithTentacles(c, target, m, target.body.getRandomPussy());
                     TentaclePart.pleasureWithTentacles(c, target, m, target.body.getRandomBreasts());
                     TentaclePart.pleasureWithTentacles(c, target, m, target.body.getRandomAss());
-                } else if (getSelf().human()) {
+                } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.normal, target));
                     TentaclePart.pleasureWithTentacles(c, target, m, target.body.getRandom("skin"));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
                     TentaclePart.pleasureWithTentacles(c, target, m, target.body.getRandom("skin"));
                 }
@@ -65,17 +65,17 @@ public class TentaclePorn extends Skill {
                 }
                 target.emote(Emotion.horny, 20);
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.weak, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.weak, target));
                 }
             }
             target.add(c, new Bound(target, Math.min(10 + 3 * getSelf().get(Attribute.Fetish), 50), "tentacles"));
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

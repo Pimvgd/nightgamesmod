@@ -69,31 +69,31 @@ public class Blowjob extends Skill {
         }
         if (isVaginal(c)) {
             m += 4;
-            if (target.human()) {
+            if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, m, Result.intercourse, target));
-            } else if (getSelf().human()) {
+            } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, m, Result.intercourse, target));
             }
             target.body.pleasure(getSelf(), getSelf().body.getRandom("pussy"), target.body.getRandom("cock"), m, c, this);
         } else if (facesitting) {
-            if (target.human()) {
+            if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, m, Result.reverse, target));
-            } else if (getSelf().human()) {
+            } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, m, Result.reverse, target));
             }
             target.body.pleasure(getSelf(), getSelf().body.getRandom("mouth"), target.body.getRandom("cock"), m, c, this);
             target.buildMojo(c, 10);
         } else if (!c.getStance().mobile(target) || target.roll(this, c, accuracy(c))) {
             if (getSelf().has(Trait.silvertongue)) {
-                if (target.human()) {
+                if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, m, Result.special, target));
-                } else if (getSelf().human()) {
+                } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, m, Result.special, target));
                 }
             } else {
-                if (target.human()) {
+                if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, m, Result.normal, target));
-                } else if (getSelf().human()) {
+                } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, m, Result.normal, target));
                 }
             }
@@ -109,9 +109,9 @@ public class Blowjob extends Skill {
                 c.setStance(new SixNine(getSelf(), target));
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

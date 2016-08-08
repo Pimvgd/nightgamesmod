@@ -49,16 +49,16 @@ public class Aphrodisiac extends Skill {
             target.arouse(magnitude, c);
             target.emote(Emotion.horny, 20);
         } else if (getSelf().has(Item.Aersolizer)) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.special, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.special, getSelf()));
             }
             getSelf().consume(Item.Aphrodisiac, 1);
             target.arouse(magnitude, c);
             target.emote(Emotion.horny, 20);
         } else if (target.roll(this, c, accuracy(c))) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, magnitude, Result.normal, target));
             } else {
                 c.write(getSelf(), receive(c, magnitude, Result.normal, getSelf()));
@@ -67,9 +67,9 @@ public class Aphrodisiac extends Skill {
             getSelf().consume(Item.Aphrodisiac, 1);
             target.arouse(magnitude, c);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

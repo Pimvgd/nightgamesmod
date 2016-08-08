@@ -25,23 +25,23 @@ public class Escape extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (getSelf().bound()) {
             if (getSelf().check(Attribute.Cunning, 5 - getSelf().escape(c))) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), "You slip your hands out of your restraints.");
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), getSelf().name() + " manages to free herself.");
                 }
                 getSelf().free();
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), "You try to slip your restraints, but can't get free.");
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), getSelf().name() + " squirms against her restraints fruitlessly.");
                 }
                 getSelf().struggle();
                 return false;
             }
         } else if (getSelf().check(Attribute.Cunning, 10 + target.get(Attribute.Cunning) - getSelf().escape(c))) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 if (getSelf().hasStatus(Stsflag.cockbound)) {
                     c.write(getSelf(), "You somehow managed to wiggle out of " + target.name()
                                     + "'s iron grip on your dick.");
@@ -49,7 +49,7 @@ public class Escape extends Skill {
                     return true;
                 }
                 c.write(getSelf(), "Your quick wits find a gap in " + target.name() + "'s hold and you slip away.");
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 if (getSelf().hasStatus(Stsflag.cockbound)) {
                     c.write(getSelf(), "She somehow managed to wiggle out of your iron grip on her dick.");
                     getSelf().removeStatus(Stsflag.cockbound);
@@ -61,7 +61,7 @@ public class Escape extends Skill {
             }
             c.setStance(new Neutral(getSelf(), target));
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 if (getSelf().hasStatus(Stsflag.cockbound)) {
                     c.write(getSelf(), "You try to escape " + target.name()
                                     + "'s iron grip on your dick. However, her pussy tongue has other ideas. She runs her tongue up and down your cock and leaves you gasping with pleasure.");
@@ -75,7 +75,7 @@ public class Escape extends Skill {
                     c.write(getSelf(), "You think you see an opening in " + target.name()
                                     + "'s stance, but she corrects it before you can take advantage.");
                 }
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), getSelf().name()
                                 + " manages to slip out of your grip for a moment, but you tickle her before she can get far and regain control.");
             }

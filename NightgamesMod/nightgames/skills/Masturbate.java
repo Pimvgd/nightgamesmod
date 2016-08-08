@@ -73,7 +73,7 @@ public class Masturbate extends Skill {
         withO = getSelfOrgan();
         targetO = getTargetOrgan(c, getSelf());
 
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             if (getSelf().getArousal().get() <= 15) {
                 c.write(getSelf(), deal(c, 0, Result.weak, target));
             } else {
@@ -84,7 +84,7 @@ public class Masturbate extends Skill {
                     c.write(getSelf(), "Touching yourself amuses Mara, reducing her control over you.");
                 }
             }
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, 0, Result.normal, target));
         }
         int pleasure;

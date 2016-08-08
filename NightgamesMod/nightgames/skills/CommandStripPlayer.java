@@ -23,7 +23,7 @@ public class CommandStripPlayer extends PlayerCommand {
     @Override
     public boolean resolve(Combat c, Character target) {
         getSelf().undress(c);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
         }
         return true;

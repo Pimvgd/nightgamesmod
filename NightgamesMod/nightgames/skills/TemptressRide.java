@@ -59,7 +59,7 @@ public class TemptressRide extends Thrust {
         FiredUp status = (FiredUp) getSelf().status.stream().filter(s -> s instanceof FiredUp).findAny().orElse(null);
         int stack = status == null || !status.getPart().equals("pussy") ? 0 : status.getStack();
 
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, stack, Result.normal, target));
         } else {
             c.write(getSelf(), receive(c, stack, Result.normal, target));

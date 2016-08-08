@@ -27,9 +27,9 @@ public class Restrain extends Skill {
 
     public boolean resolve(Combat c, Character target, boolean nofail) {
         if (nofail || target.roll(this, c, accuracy(c))) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
             }
             c.setStance(new Pin(getSelf(), target));
@@ -37,9 +37,9 @@ public class Restrain extends Skill {
             target.emote(Emotion.desperate, 10);
             getSelf().emote(Emotion.dominant, 20);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

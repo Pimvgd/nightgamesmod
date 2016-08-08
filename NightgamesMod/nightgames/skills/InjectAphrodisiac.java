@@ -32,7 +32,7 @@ public class InjectAphrodisiac extends Skill {
 
     public boolean resolve(Combat c, Character target) {
         int magnitude = 2 + getSelf().get(Attribute.Medicine);
-        if (this.getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, magnitude, Result.normal, target));
         } else {
             c.write(getSelf(), receive(c, magnitude, Result.normal, this.getSelf()));

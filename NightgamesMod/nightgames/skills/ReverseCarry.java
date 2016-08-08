@@ -35,9 +35,9 @@ public class ReverseCarry extends Carry {
         String premessage = premessage(c, target);
 
         if (target.roll(this, c, accuracy(c))) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), premessage + deal(c, premessage.length(), Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), premessage + receive(c, premessage.length(), Result.normal, getSelf()));
             }
             int m = 5 + Global.random(5);
@@ -49,9 +49,9 @@ public class ReverseCarry extends Carry {
             getSelf().body.pleasure(target, getTargetOrgan(target), getSelfOrgan(), otherm, c, this);
             c.setStance(new Jumped(getSelf(), target), getSelf(), getSelf().canMakeOwnDecision());
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), premessage + deal(c, premessage.length(), Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), premessage + receive(c, premessage.length(), Result.miss, target));
             }
             getSelf().add(c, new Falling(getSelf()));

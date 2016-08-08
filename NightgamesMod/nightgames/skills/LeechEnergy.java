@@ -107,9 +107,9 @@ public class LeechEnergy extends Skill {
             target.drainStaminaAsMojo(c, getSelf(), 10 + Global.random(20), 1.5f);
             target.body.pleasure(getSelf(), selfPart, part, 10 + Global.random(20), c, this);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

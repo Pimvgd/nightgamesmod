@@ -30,17 +30,17 @@ public class Wait extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         if (focused() && !c.getStance().sub(getSelf())) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.strong, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.strong, target));
             }
             getSelf().heal(c, Global.random(4));
             getSelf().calm(c, Global.random(8));
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
             }
             getSelf().heal(c, Global.random(4));

@@ -50,9 +50,9 @@ public class BunshinService extends Skill {
                         / 4, getSelf().get(Attribute.Ninjutsu) / 3), 5);
         getSelf().buildMojo(c, (5 - clones) * 4);
         Result r;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(String.format("You form %d shadow clones and rush forward.", clones));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(String.format("%s moves in a blur and suddenly you see %d of %s approaching you.", getSelf().name(),
                             clones, getSelf().pronoun()));
         }
@@ -90,15 +90,15 @@ public class BunshinService extends Skill {
                                         this);
                         break;
                 }
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, r, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, r, getSelf()));
                 }
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.miss, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.miss, getSelf()));
                 }
             }

@@ -66,7 +66,7 @@ public class TailPeg extends Skill {
                 target.add(c, new Shamed(target));
                 shamed = true;
             }
-            if (target.human()) {
+            if (target.human() || c.isBeingWatchedFrom(target)) {
                 if (vaginal) {
                     c.write(getSelf(), receive(c, 0, Result.intercourse, target));
                 } else if (c.getStance().inserted(target)) {
@@ -82,7 +82,7 @@ public class TailPeg extends Skill {
                     c.write(getSelf(), "The shame of having your ass violated by " + getSelf().name()
                                     + " has destroyed your confidence.");
                 }
-            } else if (getSelf().human()) {
+            } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 if (vaginal) {
                     c.write(getSelf(), deal(c, 0, Result.intercourse, target));
                 }
@@ -120,7 +120,7 @@ public class TailPeg extends Skill {
                 target.add(c, new BodyFetish(target, getSelf(), "tail", .25));
             }
         } else {
-            if (target.human()) {
+            if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             } else {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));

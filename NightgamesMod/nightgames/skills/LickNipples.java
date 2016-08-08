@@ -28,10 +28,10 @@ public class LickNipples extends Skill {
     public boolean resolve(Combat c, Character target) {
         int m = 3 + Global.random(6);
         if (target.roll(this, c, accuracy(c))) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 // c.offerImage("LickNipples.jpg", "Art by Fujin Hitokiri");
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
             }
             if (getSelf().has(Trait.silvertongue)) {
@@ -40,9 +40,9 @@ public class LickNipples extends Skill {
             target.body.pleasure(getSelf(), getSelf().body.getRandom("mouth"), target.body.getRandom("breasts"), m, c, this);
 
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

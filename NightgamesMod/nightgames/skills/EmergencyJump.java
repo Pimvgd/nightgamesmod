@@ -43,10 +43,10 @@ public class EmergencyJump extends Skill {
         getSelf().add(new Primed(getSelf(),-2));
         getSelf().free();
         c.setStance(new Behind(getSelf(),target));
-        if(getSelf().human()){
+        if(getSelf().human() || c.isBeingWatchedFrom(getSelf())){
             c.write(getSelf(),deal(c,0,Result.normal,target));
         }
-        else if(target.human()){
+        else if(target.human() || c.isBeingWatchedFrom(target)){
             c.write(getSelf(),receive(c,0,Result.normal,target));
         }
         getSelf().emote(Emotion.confident, 15);

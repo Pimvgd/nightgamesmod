@@ -32,9 +32,9 @@ public class Stomp extends Skill {
         int pain = 0;
         if (target.has(Trait.brassballs)) {
             if (getSelf().has(Trait.heeldrop) && target.crotchAvailable() && target.hasBalls()) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.strong, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.strong, target));
                     if (Global.random(5) >= 1) {
                         c.write(getSelf(), getSelf().bbLiner(c));
@@ -43,16 +43,16 @@ public class Stomp extends Skill {
                 pain = 15 - (int) Math
                                 .round((5 + Global.random(5)) * target.getOutfit().getExposure(ClothingSlot.bottom));
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.weak2, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.weak2, target));
                 }
             }
         } else if (getSelf().has(Trait.heeldrop) && target.crotchAvailable()) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.special, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.special, target));
                 if (Global.random(5) >= 1) {
                     c.write(getSelf(), getSelf().bbLiner(c));
@@ -63,16 +63,16 @@ public class Stomp extends Skill {
             }
             pain += 30 - (int) Math.round((5 + Global.random(5)) * target.getOutfit().getExposure(ClothingSlot.bottom));
         } else if (target.has(ClothingTrait.armored)) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.weak, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.weak, target));
             }
             pain += 5 - (int) Math.round((2 + Global.random(3)) * target.getOutfit().getExposure(ClothingSlot.bottom));
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
                 if (Global.random(5) >= 1) {
                     c.write(getSelf(), getSelf().bbLiner(c));

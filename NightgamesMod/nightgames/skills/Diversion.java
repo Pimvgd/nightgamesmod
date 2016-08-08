@@ -34,13 +34,13 @@ public class Diversion extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         if (getSelf().breastsAvailable()) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.special, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.special, target));
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));

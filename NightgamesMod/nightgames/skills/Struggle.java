@@ -37,13 +37,13 @@ public class Struggle extends Skill {
         if (getSelf().bound()) {
             Bound status = (Bound) target.getStatus(Stsflag.bound);
             if (getSelf().check(Attribute.Power, -getSelf().escape(c))) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     if (status != null) {
                         c.write(getSelf(), "You manage to break free from the " + status + ".");
                     } else {
                         c.write(getSelf(), "You manage to snap the restraints that are binding your hands.");
                     }
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     if (status != null) {
                         c.write(getSelf(), getSelf().name() + " slips free from the " + status + ".");
                     } else {
@@ -52,13 +52,13 @@ public class Struggle extends Skill {
                 }
                 getSelf().free();
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     if (status != null) {
                         c.write(getSelf(), "You struggle against the " + status + ", but can't get free.");
                     } else {
                         c.write(getSelf(), "You struggle against your restraints, but can't get free.");
                     }
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     if (status != null) {
                         c.write(getSelf(), getSelf().name() + " struggles against the " + status
                                         + ", but can't free her hands.");
@@ -77,7 +77,7 @@ public class Struggle extends Skill {
                                 target.getStamina().get() / 2 - getSelf().getStamina().get() / 2
                                                 + target.get(Attribute.Power) - getSelf().get(Attribute.Power)
                                                 - getSelf().escape(c) + diffMod)) {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         if (knotted) {
                             c.write(getSelf(), "With a herculean effort, you painfully force "
                                             + target.possessivePronoun()
@@ -87,7 +87,7 @@ public class Struggle extends Skill {
                         } else {
                             c.write(getSelf(), "You manage to break away from " + target.name() + ".");
                         }
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         if (knotted) {
                             c.write(getSelf(), getSelf().name()
                                             + " roughly pulls away from you, groaning loudly as the knot in your dick pops free of her ass.");
@@ -100,7 +100,7 @@ public class Struggle extends Skill {
                     }
                     c.setStance(new Neutral(getSelf(), target));
                 } else {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         if (knotted) {
                             c.write(getSelf(), "You try to force " + target.possessivePronoun()
                                             + " dick out of your ass, but the knot at its base is utterly unyielding.");
@@ -108,7 +108,7 @@ public class Struggle extends Skill {
                             c.write(getSelf(), "You try to pull free, but " + target.name()
                                             + " has a good grip on your waist.");
                         }
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         if (knotted) {
                             c.write(getSelf(),
                                             " frantically attempts to get your cock out of her ass, but your knot is keeping it inside her warm depths.");
@@ -177,7 +177,7 @@ public class Struggle extends Skill {
                                         getSelf(), target));
                         getSelf().body.pleasure(target, target.body.getRandom("pussy"),
                                         getSelf().body.getRandom("cock"), 8, c, this);
-                    } else if (getSelf().human()) {
+                    } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         if (c.getStance().inserted(getSelf())) {
                             c.write(getSelf(), "You try to tip " + target.name()
                                             + " off balance, but she drops her hips firmly, pushing your cock deep inside her and pinning you to the floor.");
@@ -190,7 +190,7 @@ public class Struggle extends Skill {
                                                 + ", but she drives her cock into you to the hilt, pinning you down.");
                             }
                         }
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         if (c.getStance().behind(target)) {
                             c.write(getSelf(), getSelf().name()
                                             + " struggles to gain a more dominant position, but with you behind her, holding her waist firmly, there is nothing she can do.");
@@ -206,18 +206,18 @@ public class Struggle extends Skill {
         } else {
             if (getSelf().check(Attribute.Power, target.getStamina().get() / 2 - getSelf().getStamina().get() / 2
                             + target.get(Attribute.Power) - getSelf().get(Attribute.Power) - getSelf().escape(c))) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), "You manage to scrabble out of " + target.name() + "'s grip.");
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), getSelf().name() + " squirms out from under you.");
                 }
                 c.setStance(new Neutral(getSelf(), target));
             } else {
                 if (c.getStance().enumerate() == Stance.facesitting) {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), "You try to free yourself from " + target.name()
                                         + ", but she drops her ass over your face again, forcing you to service her.");
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), getSelf().name()
                                         + " struggles against you, but you drop your ass over her face again, forcing her to service you.");
                     }
@@ -230,10 +230,10 @@ public class Struggle extends Skill {
                     getSelf().struggle();
                     return false;
                 } else {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), "You try to free yourself from " + target.name()
                                         + "'s grasp, but she has you pinned too well.");
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(),
                                         getSelf().name() + " struggles against you, but you maintain your position.");
                     }

@@ -28,9 +28,9 @@ public class Spank extends Skill {
             if (shamed) {
                 getSelf().spendMojo(c, 5);
             }
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.special, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.special, target));
             }
             if (shamed) {
@@ -43,9 +43,9 @@ public class Spank extends Skill {
             }
             target.pain(c, Global.random(6 + target.get(Attribute.Perception) / 2) + 3);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
             }
             target.pain(c, Global.random(6) + 3);

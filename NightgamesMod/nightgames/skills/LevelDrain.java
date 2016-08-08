@@ -56,9 +56,9 @@ public class LevelDrain extends Drain {
     public boolean resolve(Combat c, Character target) {
 
         int type = Global.centeredrandom(2, getSelf().get(Attribute.Dark) / 20.0f, 2);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, type, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, type, Result.normal, target));
         }
         switch (type) {
@@ -69,7 +69,7 @@ public class LevelDrain extends Drain {
                 int stolen = stealXP(target);
                 if (stolen > 0) {
                     getSelf().add(c, new Satiated(getSelf(), stolen, 0));
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write("You have absorbed " + stolen + " XP from " + target.name() + "!\n");
                     } else {
                         c.write(getSelf().name() + " has absorbed " + stolen + " XP from you!\n");
@@ -80,7 +80,7 @@ public class LevelDrain extends Drain {
                 int xpStolen = 95 + 5 * target.getLevel();
                 getSelf().add(c, new Satiated(target, xpStolen, 0));
                 c.write(target.dong());
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write("You have stolen a level from " + target.name() + "'s levels and absorbed it as " + xpStolen
                                     + " XP!\n");
                 } else {

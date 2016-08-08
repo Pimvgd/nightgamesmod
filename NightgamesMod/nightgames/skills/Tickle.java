@@ -46,15 +46,15 @@ public class Tickle extends Skill {
                     bonus += 5 + Global.random(4);
                     weak += 3 + Global.random(4);
                 }
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, result, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, result, target));
                 }
                 if (getSelf().has(Trait.ticklemonster) && target.mostlyNude()) {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.special, target));
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, Result.special, target));
                     }
                     bonus += 5 + Global.random(4);
@@ -77,9 +77,9 @@ public class Tickle extends Skill {
                 target.weaken(c, weak / 2 + 2 + target.get(Attribute.Perception) + Global.random(6));
             } else if (hastickler() && Global.random(2) == 1) {
                 if (target.breastsAvailable() && c.getStance().reachTop(getSelf())) {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.item, target));
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, Result.item, target));
                     }
                     int bonus = 0;
@@ -93,9 +93,9 @@ public class Tickle extends Skill {
                                     4 + Global.random(4), bonus, c, false, this);
                     target.weaken(c, bonus / 2 + 2 + target.get(Attribute.Perception));
                 } else {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.weak, target));
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, Result.weak, target));
                     }
                     int bonus = 0;
@@ -110,9 +110,9 @@ public class Tickle extends Skill {
                     target.weaken(c, bonus / 2 + target.get(Attribute.Perception));
                 }
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.normal, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
                 }
                 int bonus = 0;
@@ -130,9 +130,9 @@ public class Tickle extends Skill {
                 target.weaken(c, weak);
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

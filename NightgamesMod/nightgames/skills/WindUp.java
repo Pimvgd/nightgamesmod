@@ -52,9 +52,9 @@ public class WindUp extends Skill {
                         / 10);
         getSelf().add(new Primed(getSelf(), charges + 1));
         getSelf().spendMojo(c, charges * 10);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, 0, Result.normal, target));
         }
         return true;

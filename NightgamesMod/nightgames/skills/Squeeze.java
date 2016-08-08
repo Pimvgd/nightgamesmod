@@ -32,9 +32,9 @@ public class Squeeze extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (target.roll(this, c, accuracy(c))) {
             if (target.has(Trait.brassballs)) {
-                if (target.human()) {
+                if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.weak2, target));
-                } else if (getSelf().human()) {
+                } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.weak2, target));
                 }
             } else if (target.crotchAvailable()) {
@@ -42,7 +42,7 @@ public class Squeeze extends Skill {
                     getSelf().consume(Item.Battery, 2);
                     if (target.human()) {
                         c.write(getSelf(), receive(c, 0, Result.special, target));
-                    } else if (getSelf().human()) {
+                    } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.special, target));
                     }
                     target.pain(c, Global.random(8 + target.get(Attribute.Perception)) + 16);
@@ -50,16 +50,16 @@ public class Squeeze extends Skill {
                         target.pain(c, 6);
                     }
                 } else if (target.has(ClothingTrait.armored)) {
-                    if (target.human()) {
+                    if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, Result.item, target));
-                    } else if (getSelf().human()) {
+                    } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.item, target));
                     }
                     target.pain(c, Global.random(3));
                 } else {
-                    if (target.human()) {
+                    if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, Result.normal, target));
-                    } else if (getSelf().human()) {
+                    } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.normal, target));
                     }
                     if (target.has(Trait.achilles)) {
@@ -68,9 +68,9 @@ public class Squeeze extends Skill {
                     target.pain(c, Global.random(7) + 5);
                 }
             } else {
-                if (target.human()) {
+                if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.weak, target));
-                } else if (getSelf().human()) {
+                } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.weak, target));
                 }
                 target.pain(c, (int) Math.round(Global.random(7) + 5 - 5 * target.getExposure(ClothingSlot.bottom)));
@@ -78,9 +78,9 @@ public class Squeeze extends Skill {
 
             target.emote(Emotion.angry, 15);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

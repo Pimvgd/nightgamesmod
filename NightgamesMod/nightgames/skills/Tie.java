@@ -30,25 +30,25 @@ public class Tie extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (getSelf().has(Item.Handcuffs, 1)) {
             getSelf().consume(Item.Handcuffs, 1);
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.special, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.special, target));
             }
             target.add(c, new Bound(target, 75, "handcuffs"));
         } else {
             getSelf().consume(Item.ZipTie, 1);
             if (target.roll(this, c, accuracy(c))) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.normal, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
                 }
                 target.add(c, new Bound(target, 50, "ziptie"));
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.miss, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.miss, target));
                 }
                 return false;

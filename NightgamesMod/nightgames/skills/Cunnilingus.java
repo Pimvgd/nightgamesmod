@@ -61,9 +61,9 @@ public class Cunnilingus extends Skill {
                 results = Result.reverse;
             }
         }
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, i, results, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, i, results, target));
         }
         if (i == -2) {

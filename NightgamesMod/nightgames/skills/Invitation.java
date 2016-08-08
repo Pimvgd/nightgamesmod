@@ -141,7 +141,7 @@ public class Invitation extends Skill {
         if (success) {
             c.setStance(c.getStance().insertRandomDom(target), getSelf(), getSelf().canMakeOwnDecision());
         }
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, result, target));
         } else {
             c.write(getSelf(), receive(c, 0, result, target));

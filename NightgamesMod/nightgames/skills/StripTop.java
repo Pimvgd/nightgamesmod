@@ -39,25 +39,25 @@ public class StripTop extends Skill {
                             && getSelf().check(Attribute.Cunning, difficulty) || !target.canAct()) {
                 extra = target.strip(ClothingSlot.top, c);
                 doubled = true;
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.critical, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.critical, target));
                 }
-            } else if (getSelf().human()) {
+            } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
             }
-            if (getSelf().human() && target.mostlyNude()) {
+            if ((getSelf().human() || c.isBeingWatchedFrom(getSelf())) && target.mostlyNude()) {
                 c.write(target, target.nakedLiner(c));
             }
             target.emote(Emotion.nervous, doubled ? 20 : 10);
         } else {
             stripped = target.outfit.getTopOfSlot(ClothingSlot.top);
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             target.weaken(c, Global.random(6) + getSelf().get(Attribute.Power) / 4);

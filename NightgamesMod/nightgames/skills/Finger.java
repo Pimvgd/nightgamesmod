@@ -28,7 +28,7 @@ public class Finger extends Skill {
             int m = 6 + Global.random(4);
             if (getSelf().get(Attribute.Seduction) >= 8) {
                 m += 6;
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, m, Result.normal, target));
                 } else {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
@@ -36,7 +36,7 @@ public class Finger extends Skill {
                 target.body.pleasure(getSelf(), getSelf().body.getRandom("hands"), target.body.getRandom("pussy"), m,
                                 c, this);
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, m, Result.weak, target));
                 } else {
                     c.write(getSelf(), receive(c, 0, Result.weak, target));
@@ -45,9 +45,9 @@ public class Finger extends Skill {
                                 c, this);
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

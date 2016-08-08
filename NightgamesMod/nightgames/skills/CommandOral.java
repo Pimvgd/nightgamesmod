@@ -32,7 +32,7 @@ public class CommandOral extends PlayerCommand {
         boolean silvertongue = target.has(Trait.silvertongue);
         boolean lowStart = getSelf().getArousal().get() < 15;
         int m = (silvertongue ? 8 : 5) + Global.random(10);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             if (lowStart) {
                 if (m < 8) {
                     c.write(getSelf(), deal(c, 0, Result.weak, target));

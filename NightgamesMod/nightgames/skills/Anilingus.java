@@ -65,7 +65,7 @@ public class Anilingus extends Skill {
             n = 0;
             result = Result.miss;
         }
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, m, result, target));
         } else {
             c.write(getSelf(), receive(c, m, result, target));

@@ -34,14 +34,14 @@ public class Suggestion extends Skill {
     public boolean resolve(Combat c, Character target) {
         getSelf().spendMojo(c, 5);
         if (!target.is(Stsflag.cynical)) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
             }
             target.add(c, new Charmed(target));
             return true;
-        } else if (getSelf().human()) {
+        } else if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.miss, target));
         } else {
             c.write(getSelf(), receive(c, 0, Result.miss, target));

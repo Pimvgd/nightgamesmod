@@ -42,9 +42,9 @@ public class BreastRay extends Skill {
 
         boolean permanent = Global.random(20) == 0 && (getSelf().human() || target.human())
                         && !target.has(Trait.stableform);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, permanent ? 1 : 0, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, permanent ? 1 : 0, Result.normal, target));
         }
         target.add(c, new Hypersensitive(target));

@@ -36,14 +36,14 @@ public class ShamefulDisplay extends Skill {
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(deal(c, 0, Result.normal, target));
             if (Global.getPlayer().checkAddiction(AddictionType.MIND_CONTROL, target)) {
                 Global.getPlayer().unaddictCombat(AddictionType.MIND_CONTROL, 
                                 target, Addiction.LOW_INCREASE, c);
                 c.write(getSelf(), "Acting submissively voluntarily reduces Mara's control over you.");
             }
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(receive(c, 0, Result.normal, target));
         }
         getSelf().add(c, new Shamed(getSelf()));

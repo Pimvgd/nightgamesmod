@@ -51,9 +51,9 @@ public class Fly extends Fuck {
         String premessage = premessage(c, target);
 
         Result result = target.roll(this, c, accuracy(c)) ? Result.normal : Result.miss;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), premessage + deal(c, premessage.length(), result, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), premessage + receive(c, premessage.length(), result, getSelf()));
         }
         if (result == Result.normal) {

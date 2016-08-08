@@ -70,9 +70,9 @@ public class Kiss extends Skill {
             res = Result.divine;
             m += 20;
         }
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, m, res, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, m, res, target));
         }
         if (res == Result.upgrade) {

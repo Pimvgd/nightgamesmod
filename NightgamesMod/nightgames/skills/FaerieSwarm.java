@@ -33,16 +33,16 @@ public class FaerieSwarm extends Skill {
     public boolean resolve(Combat c, Character target) {
         getSelf().consume(Item.MinorScroll, 1);
         if (target.getOutfit().isNude()) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(deal(c, 0, Result.normal, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(receive(c, 0, Result.normal, target));
             }
             target.body.pleasure(getSelf(), null, null, 25 + Global.random(getSelf().get(Attribute.Arcane)), c, this);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(deal(c, 0, Result.weak, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(receive(c, 0, Result.weak, target));
             }
             target.undress(c);

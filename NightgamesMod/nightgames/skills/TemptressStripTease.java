@@ -61,7 +61,7 @@ public class TemptressStripTease extends StripTease {
         //assert technique > 0;
 
         if (isDance(c)) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.weak, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.weak, target));
@@ -72,7 +72,7 @@ public class TemptressStripTease extends StripTease {
             }
             getSelf().add(c, new Alluring(getSelf(), 3));
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));

@@ -41,9 +41,9 @@ public class FootPump extends Skill {
     @Override public boolean resolve(Combat c, Character target) {
         int m = 12 + Global.random(6);
         int m2 = m / 2;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, m, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, m, Result.normal, target));
         }
         target.body.pleasure(getSelf(), getSelf().body.getRandom("feet"), target.body.getRandom("cock"), m, c, this);
@@ -77,7 +77,7 @@ public class FootPump extends Skill {
 
     @Override public String receive(Combat c, int damage, Result modifier, Character target) {
         return Global.format(
-                        "{self:SUBJECT} wraps {self:possessive} legs around your waist and settles {self:possessive} feet on both sides of your {other:body-part:cock}. Cupping your dick with {self:possessive} arches, she starts making long and steady strokes up and down your {other:body-part:cock} as it remains trapped in between {self:possessive} arches. Reaching around you, {self:subject} begins to rub and gently flick your nipples with {self:possessive} fingers. Alternating between pumping and massaging the head of your {other:body-part:cock} with {self:possessive} toes you can�t help but groan in pleasure.",
+                        "{self:SUBJECT} wraps {self:possessive} legs around your waist and settles {self:possessive} feet on both sides of your {other:body-part:cock}. Cupping your dick with {self:possessive} arches, she starts making long and steady strokes up and down your {other:body-part:cock} as it remains trapped in between {self:possessive} arches. Reaching around you, {self:subject} begins to rub and gently flick your nipples with {self:possessive} fingers. Alternating between pumping and massaging the head of your {other:body-part:cock} with {self:possessive} toes you can't help but groan in pleasure.",
                         getSelf(), target);
     }
 

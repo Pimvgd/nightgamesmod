@@ -46,9 +46,9 @@ public class Footjob extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (target.roll(this, c, accuracy(c))) {
             int m = 8 + Global.random(6);
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), Global.format(deal(c, m, Result.normal, target), getSelf(), target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), Global.format(receive(c, m, Result.normal, target), getSelf(), target));
             }
             if (target.hasDick()) {
@@ -60,9 +60,9 @@ public class Footjob extends Skill {
                 target.add(c, new BodyFetish(target, getSelf(), "feet", .25));
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), Global.format(deal(c, 0, Result.miss, target), getSelf(), target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), Global.format(receive(c, 0, Result.miss, target), getSelf(), target));
             }
             return false;

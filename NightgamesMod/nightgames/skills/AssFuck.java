@@ -70,9 +70,9 @@ public class AssFuck extends Fuck {
         c.write(getSelf(), Global.format(premessage, getSelf(), target));
 
         int m = Global.random(5);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, premessage.length(), Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             if (getSelf().has(Trait.strapped) && getSelf().has(Item.Strapon2)) {
                 m += 3;
             }

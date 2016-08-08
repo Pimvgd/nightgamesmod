@@ -36,9 +36,9 @@ public class Kick extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (!target.getOutfit().slotUnshreddable(ClothingSlot.bottom) && getSelf().get(Attribute.Ki) >= 14
                         && Global.random(3) == 2) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.special, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.special, target));
             }
             target.shred(ClothingSlot.bottom);
@@ -48,14 +48,14 @@ public class Kick extends Skill {
             if (target.has(Trait.brassballs)) {
                 m *= .8;
             }
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 if (c.getStance().prone(getSelf())) {
                     c.write(getSelf(), deal(c, m, Result.strong, target));
                 } else {
                     c.write(getSelf(), deal(c, m, Result.normal, target));
 
                 }
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 if (c.getStance().prone(getSelf())) {
                     c.write(getSelf(), receive(c, m, Result.strong, target));
                 } else {
@@ -71,9 +71,9 @@ public class Kick extends Skill {
             target.pain(c, m);
             target.emote(Emotion.angry, 20);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

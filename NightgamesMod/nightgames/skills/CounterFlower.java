@@ -38,7 +38,7 @@ public class CounterFlower extends CounterBase {
     public void resolveCounter(Combat c, Character target) {
         target.nudify();
         if (target.hasDick() && getSelf().hasPussy()) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.normal, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
@@ -46,7 +46,7 @@ public class CounterFlower extends CounterBase {
             c.setStance(new FlowerSex(getSelf(), target), getSelf(), true);
             new Thrust(getSelf()).resolve(c, target);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
             } else {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));

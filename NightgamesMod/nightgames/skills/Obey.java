@@ -28,9 +28,9 @@ public class Obey extends Skill {
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), "You patiently await your mistress' command.");
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), getSelf().name() + " stares ahead blankly, waiting for her orders.");
         }
         return true;

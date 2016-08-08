@@ -61,9 +61,9 @@ public class Drain extends Skill {
         int strength = Math.max(10, 1 + getSelf().get(Attribute.Dark) / 4);
         int type = Math.max(1, Global.centeredrandom(6, getSelf().get(Attribute.Dark) / 3.0, 3));
 
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, type, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, type, Result.normal, target));
         }
         switch (type) {

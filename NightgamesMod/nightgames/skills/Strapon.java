@@ -46,7 +46,7 @@ public class Strapon extends Skill {
     public boolean resolve(Combat c, Character target) {
         List<Clothing> unequipped = getSelf().getOutfit().equip(Clothing.getByID("strapon"));
         if (unequipped.isEmpty()) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), Global.capitalizeFirstLetter(deal(c, 0, Result.normal, target)));
             } else if (!target.is(Stsflag.blinded)) {
                 c.write(getSelf(), Global.capitalizeFirstLetter(receive(c, 0, Result.normal, target)));
@@ -54,7 +54,7 @@ public class Strapon extends Skill {
                 printBlinded(c);
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), "You take off your " + unequipped.get(0)
                                 + " and fasten a strap on dildo onto yourself.");
             } else if (!target.is(Stsflag.blinded)){

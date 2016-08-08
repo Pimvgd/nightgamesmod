@@ -31,9 +31,9 @@ public class Charm extends Skill {
             printBlinded(c);
             return false;
         }
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, 0, Result.normal, target));
         }
         double mag = 2 + Global.random(4) + 5 * getSelf().body.getCharismaBonus(target);

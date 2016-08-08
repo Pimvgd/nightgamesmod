@@ -31,7 +31,7 @@ public class Parasite extends Skill {
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (target.human()) {
+        if (target.human() || c.isBeingWatchedFrom(target)) {
             receive(c, 0, Result.normal, target);
         } else {
             deal(c, 0, Result.normal, target);

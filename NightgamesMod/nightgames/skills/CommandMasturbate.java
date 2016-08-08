@@ -28,7 +28,7 @@ public class CommandMasturbate extends PlayerCommand {
         target.body.pleasure(target, target.body.getRandom("hands"), target.body.getRandomGenital(), m, c, this);
 
         boolean lowEnd = target.getArousal().get() < 15;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             if (lowStart) {
                 if (lowEnd) {
                     c.write(getSelf(), deal(c, 0, Result.weak, target));

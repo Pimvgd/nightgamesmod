@@ -43,7 +43,7 @@ public class FootWorship extends Skill {
         n = 20;
         BodyPart mouth = getSelf().body.getRandom("mouth");
         BodyPart feet = target.body.getRandom("feet");
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), Global.format(deal(c, 0, Result.normal, target), getSelf(), target));
         } else {
             c.write(getSelf(), Global.format(receive(c, 0, Result.normal, target), getSelf(), target));

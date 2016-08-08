@@ -42,7 +42,7 @@ public class SuccubusSurprise extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         boolean oppHasBlessed = c.getStance().insertedPartFor(target).getMod(target).countsAs(target, CockMod.blessed);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             if (oppHasBlessed) {
                 c.write(getSelf(), deal(c, 0, Result.weak, target));
             } else {
@@ -64,7 +64,7 @@ public class SuccubusSurprise extends Skill {
         }
         new Grind(getSelf()).resolve(c, target);
 
-        if (!getSelf().human() && target.human() && !oppHasBlessed
+        if (!(getSelf().human() || c.isBeingWatchedFrom(getSelf())) && (target.human() || c.isBeingWatchedFrom(target)) && !oppHasBlessed
                         && getSelf().getType().equals("CUSTOM_NPCSamantha")) {
             c.write(getSelf(), "<br><br>\"<i>Do you like your surprise, " + target.name() + "? I do.\"</i>");
         }

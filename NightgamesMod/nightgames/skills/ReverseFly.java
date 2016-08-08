@@ -41,9 +41,9 @@ public class ReverseFly extends Fly {
         String premessage = premessage(c, target);
 
         Result result = target.roll(this, c, accuracy(c)) ? Result.normal : Result.miss;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), premessage + deal(c, 0, result, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), premessage + receive(c, 0, result, getSelf()));
         }
         if (result == Result.normal) {

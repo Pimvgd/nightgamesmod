@@ -37,9 +37,9 @@ public class UseCrop extends Skill {
         if (target.roll(this, c, accuracy(c))) {
             if (target.crotchAvailable() && c.getStance().reachBottom(getSelf())) {
                 if (getSelf().has(Item.Crop2) && Global.random(10) > 7 && !target.has(Trait.brassballs)) {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.critical, target));
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, Result.critical, target));
                     }
                     if (target.has(Trait.achilles)) {
@@ -48,26 +48,26 @@ public class UseCrop extends Skill {
                     target.emote(Emotion.angry, 10);
                     target.pain(c, 8 + Global.random(14) + target.get(Attribute.Perception));
                 } else {
-                    if (getSelf().human()) {
+                    if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                         c.write(getSelf(), deal(c, 0, Result.normal, target));
-                    } else if (target.human()) {
+                    } else if (target.human() || c.isBeingWatchedFrom(target)) {
                         c.write(getSelf(), receive(c, 0, Result.normal, target));
                     }
                     target.pain(c, 5 + Global.random(12) + target.get(Attribute.Perception) / 2);
                 }
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.weak, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.weak, target));
                 }
                 target.pain(c, 5 + Global.random(12));
             }
             target.emote(Emotion.angry, 15);
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

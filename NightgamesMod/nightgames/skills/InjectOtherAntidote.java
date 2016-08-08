@@ -28,7 +28,7 @@ public class InjectOtherAntidote extends Skill {
     }
 
     public boolean resolve(Combat c, Character target) {
-        if (this.getSelf().human()) {
+        if (this.getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
         } else {
             c.write(getSelf(), receive(c, 0, Result.normal, this.getSelf()));

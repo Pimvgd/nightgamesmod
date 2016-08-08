@@ -90,7 +90,7 @@ public class ThrowDraft extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         Item used = null;
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             for (Item i : getSelf().getInventory().keySet()) {
                 if (i.getName().equals(choice)) {
                     used = i;

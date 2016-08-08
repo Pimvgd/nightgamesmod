@@ -48,7 +48,7 @@ public class SpawnFaerie extends Skill {
         if (getSelf().has(Trait.tactician)) {
             ac += 3;
         }
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
             if (gender == Ptype.fairyfem) {
                 getSelf().pet = new FairyFem(getSelf(), power, ac);
@@ -56,7 +56,7 @@ public class SpawnFaerie extends Skill {
                 getSelf().pet = new FairyMale(getSelf(), power, ac);
             }
         } else {
-            if (target.human()) {
+            if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.normal, target));
             }
             getSelf().pet = new FairyFem(getSelf(), power, ac);

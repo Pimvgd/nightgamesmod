@@ -34,7 +34,7 @@ public class FootSmother extends Skill {
         Result result = Result.normal;
         int m = 0;
         m = 8 + Global.random(6);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), Global.format(deal(c, 0, Result.normal, target), getSelf(), target));
         } else {
             c.write(getSelf(), Global.format(receive(c, 0, Result.normal, target), getSelf(), target));

@@ -39,9 +39,9 @@ public class LustAura extends Skill {
     @Override
     public boolean resolve(Combat c, Character target) {
         getSelf().arouse(10, c);
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, 0, Result.normal, target));
         }
         target.add(c, new Horny(target, (float) (3 + 2 * getSelf().getExposure()), 3 + Global.random(3),

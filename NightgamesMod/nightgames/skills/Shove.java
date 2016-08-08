@@ -36,9 +36,9 @@ public class Shove extends Skill {
         boolean success = true;
         if (getSelf().get(Attribute.Ki) >= 1 && !target.getOutfit().slotUnshreddable(ClothingSlot.top)
                         && getSelf().canSpend(5)) {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.special, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.special, target));
             }
             target.shred(ClothingSlot.top);
@@ -48,17 +48,17 @@ public class Shove extends Skill {
             }
         } else if (c.getStance().getClass() == Mount.class || c.getStance().getClass() == ReverseMount.class) {
             if (getSelf().check(Attribute.Power, target.knockdownDC() + 5)) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), "You shove " + target.name()
                                     + " off of you and get to your feet before she can retaliate.");
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), getSelf().name() + " shoves you hard enough to free herself and jump up.");
                 }
                 c.setStance(new Neutral(getSelf(), target));
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), "You push " + target.name() + ", but you're unable to dislodge her.");
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), getSelf().name() + " shoves you weakly.");
                 }
                 success = false;
@@ -66,16 +66,16 @@ public class Shove extends Skill {
             target.pain(c, Global.random(10) + 10 + (getSelf().get(Attribute.Power) + getSelf().get(Attribute.Ki)) / 4);
         } else {
             if (getSelf().check(Attribute.Power, target.knockdownDC())) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), "You shove " + target.name() + " hard enough to knock her flat on her back.");
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), getSelf().name() + " knocks you off balance and you fall at her feet.");
                 }
                 target.add(c, new Falling(target));
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), "You shove " + target.name() + " back a step, but she keeps her footing.");
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(),
                                     getSelf().name() + " pushes you back, but you're able to maintain your balance.");
                 }

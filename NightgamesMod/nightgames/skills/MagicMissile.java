@@ -38,9 +38,9 @@ public class MagicMissile extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (target.roll(this, c, accuracy(c))) {
             if (target.mostlyNude() && Global.random(3) == 2) {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.critical, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.critical, target));
                 }
                 if (target.has(Trait.achilles)) {
@@ -49,18 +49,18 @@ public class MagicMissile extends Skill {
                 target.pain(c, Math.min(9 + Global.random(2 * getSelf().get(Attribute.Arcane) + 1), 100));
                 target.emote(Emotion.angry, 10);
             } else {
-                if (getSelf().human()) {
+                if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                     c.write(getSelf(), deal(c, 0, Result.normal, target));
-                } else if (target.human()) {
+                } else if (target.human() || c.isBeingWatchedFrom(target)) {
                     c.write(getSelf(), receive(c, 0, Result.normal, target));
                 }
                 target.pain(c, Math.min(100, 6 + Global.random(getSelf().get(Attribute.Arcane) + 2)));
                 target.emote(Emotion.angry, 5);
             }
         } else {
-            if (getSelf().human()) {
+            if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
                 c.write(getSelf(), deal(c, 0, Result.miss, target));
-            } else if (target.human()) {
+            } else if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, 0, Result.miss, target));
             }
             return false;

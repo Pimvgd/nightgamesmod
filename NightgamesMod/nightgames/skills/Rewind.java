@@ -40,9 +40,9 @@ public class Rewind extends Skill {
         getSelf().getStamina()
                  .fill();
         getSelf().clearStatus();
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(getSelf(), deal(c, 0, Result.normal, target));
-        } else if (target.human()) {
+        } else if (target.human() || c.isBeingWatchedFrom(target)) {
             c.write(getSelf(), receive(c, 0, Result.normal, target));
         }
         getSelf().emote(Emotion.confident, 25);

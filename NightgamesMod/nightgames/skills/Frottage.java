@@ -43,20 +43,20 @@ public class Frottage extends Skill {
         int m = 6 + Global.random(8);
         BodyPart receiver = target.hasDick() ? target.body.getRandomCock() : target.body.getRandomPussy();
         BodyPart dealer = getSelf().hasDick() ? getSelf().body.getRandomCock() : getSelf().body.getRandomPussy();
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             if (target.hasDick()) {
                 c.write(getSelf(), deal(c, m, Result.special, target));
             } else {
                 c.write(getSelf(), deal(c, m, Result.normal, target));
             }
         } else if (getSelf().has(Trait.strapped)) {
-            if (target.human()) {
+            if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, m, Result.special, target));
             }
             target.loseMojo(c, 10);
             dealer = null;
         } else {
-            if (target.human()) {
+            if (target.human() || c.isBeingWatchedFrom(target)) {
                 c.write(getSelf(), receive(c, m, Result.normal, target));
             }
         }

@@ -39,7 +39,7 @@ public class Stumble extends Skill {
         } else {
             c.setStance(new ReverseMount(target, getSelf()));
         }
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             c.write(deal(c, 0, Result.normal, target));
             if (Global.getPlayer().checkAddiction(AddictionType.MIND_CONTROL, target)) {
                 Global.getPlayer().unaddictCombat(AddictionType.MIND_CONTROL, 

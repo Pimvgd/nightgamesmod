@@ -17,7 +17,7 @@ public class Nothing extends Skill {
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (getSelf().human()) {
+        if (getSelf().human() || c.isBeingWatchedFrom(getSelf())) {
             deal(c, 0, Result.normal, target);
         } else {
             receive(c, 0, Result.normal, target);
