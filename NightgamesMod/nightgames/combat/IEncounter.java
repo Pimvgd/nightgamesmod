@@ -15,6 +15,8 @@ public interface IEncounter {
     boolean checkIntrude(Character c);
 
     void intrude(Character intruder, Character assist);
+    
+    void watch(Character intruder, Character assist);
 
     void trap(Character opportunist, Character target, Trap trap);
 
