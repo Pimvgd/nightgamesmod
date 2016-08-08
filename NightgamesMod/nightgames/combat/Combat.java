@@ -60,6 +60,7 @@ public class Combat extends Observable implements Cloneable {
     protected int timer;
     public Result state;
     private HashMap<String, String> images;
+    private HashMap<Character, Character> watchers;//<Watcher, FromPerspective>
     boolean lastFailed = false;
     private CombatLog log;
 
@@ -80,6 +81,7 @@ public class Combat extends Observable implements Cloneable {
         p1.state = State.combat;
         p2.state = State.combat;
         winner = Optional.empty();
+        watchers = new HashMap<>();
         if (doExtendedLog()) {
             log = new CombatLog(this);
         }
@@ -122,6 +124,41 @@ public class Combat extends Observable implements Cloneable {
             self.add(this, new DivineCharge(self, .3));
         }
     }
+    
+    public boolean addWatcher(Character watcher, Character perspective) {
+        if(watcher == p1 || watcher == p2 || watcher == null || perspective == null || watchers.containsKey(watcher) || (perspective != p1 && perspective != p2)){
+            return false;
+        }
+        watchers.put(watcher, perspective);
+        return true;
+    }
+    
+    public boolean hasDisplayEntity(){
+        return p1.human() || p2.human() || hasHumanWatcher();
+    }
+    
+    public boolean hasHumanWatcher() {
+        return watchers.keySet().stream().anyMatch(c -> c.human());
+    }
+    
+    public Character getHumanWatcher() {
+        return watchers.keySet().stream().filter(c -> c.human()).findAny().orElse(null);
+    }
+    
+    public boolean isBeingWatchedFrom(Character perspective){
+        return perspective.human() || (hasHumanWatcher() && watchers.get(getHumanWatcher()) == perspective);
+    }
+    
+    public Character getPerspective() {
+        Character humanWatcher = getHumanWatcher();
+        if (humanWatcher != null) {
+            return watchers.get(humanWatcher);   
+        }
+        if (p1.human()) {
+            return p1;
+        }
+        return p2;
+    }
 
     public void go() {
         phase = 0;
@@ -134,7 +171,7 @@ public class Combat extends Observable implements Cloneable {
         applyCombatStatuses(p1, p2);
         applyCombatStatuses(p2, p1);
 
-        if (!(p1.human() || p2.human())) {
+        if (!hasDisplayEntity()) {
             automate();
         }
         updateMessage();
@@ -261,7 +298,7 @@ public class Combat extends Observable implements Cloneable {
             phase = 2;
             updateMessage();
             winner = Optional.of(Global.noneCharacter());
-            if (!(p1.human() || p2.human())) {
+            if (!hasDisplayEntity()) {
                 end();
             }
             return;
@@ -275,7 +312,7 @@ public class Combat extends Observable implements Cloneable {
             winner = Optional.of(p2);
             phase = 2;
             updateMessage();
-            if (!(p1.human() || p2.human())) {
+            if (!hasDisplayEntity()) {
                 end();
             }
             return;
@@ -289,25 +326,17 @@ public class Combat extends Observable implements Cloneable {
             winner = Optional.of(p1);
             phase = 2;
             updateMessage();
-            if (!(p1.human() || p2.human())) {
+            if (!hasDisplayEntity()) {
                 end();
             }
             return;
         }
-        Character player;
-        Character other;
-        if (p1.human()) {
-            player = p1;
-            other = p2;
-        } else {
-            player = p2;
-            other = p1;
-        }
+        Character perspective = getPerspective();
         phase = 1;
         p1.regen(this);
         p2.regen(this);
-        message = describe(player, other);
-        if ((p1.human() || p2.human()) && !Global.checkFlag(Flag.noimage)) {
+        message = describe(perspective, getOther(perspective));
+        if (hasDisplayEntity() && !Global.checkFlag(Flag.noimage)) {
             Global.gui()
                   .clearImage();
             if (!imagePath.isEmpty()) {
@@ -319,7 +348,7 @@ public class Combat extends Observable implements Cloneable {
         p2act = null;
         p1.act(this);
 
-        if (Global.random(3) == 0 && (p1.human() || p2.human())) {
+        if (Global.random(3) == 0 && (p1.human() || p2.human())) {//TODO (Pimgd) watch taunts
             NPC commenter = (NPC) getOther(Global.getPlayer());
             Optional<String> comment = commenter.getComment(this);
             if (comment.isPresent()) {
@@ -400,7 +429,7 @@ public class Combat extends Observable implements Cloneable {
             p2.act(this);
         } else {
             clear();
-            if (p1.human() || p2.human()) {
+            if (hasDisplayEntity()) {
                 Global.gui()
                       .clearText();
             }
@@ -432,8 +461,11 @@ public class Combat extends Observable implements Cloneable {
             getStance().decay(this);
             getStance().checkOngoing(this);
             phase = 0;
-            if (!(p1.human() || p2.human())) {
+            if (!hasDisplayEntity()) {
                 turn();
+            } else if(!p1.human() && !p2.human() && hasHumanWatcher()) {
+                this.write("<br>"+p1.name()+" - Stamina: "+p1.getStamina().percent()+"%, Arousal: "+p1.getArousal().percent()+"%, Mojo: "+p1.getMojo().percent()+"%, Willpower: "+p1.getWillpower().percent()+"%.");
+                this.write("<br>"+p2.name()+" - Stamina: "+p2.getStamina().percent()+"%, Arousal: "+p2.getArousal().percent()+"%, Mojo: "+p2.getMojo().percent()+"%, Willpower: "+p2.getWillpower().percent()+"%.");
             }
             updateMessage();
         }
@@ -564,7 +596,7 @@ public class Combat extends Observable implements Cloneable {
                 doVictory(p2, p1);
                 phase = 2;
                 updateMessage();
-                if (!(p1.human() || p2.human())) {
+                if (!(p1.human() || p2.human())) {//TODO (Pimgd) inspect what this is doing
                     end();
                 }
                 return;
@@ -579,7 +611,7 @@ public class Combat extends Observable implements Cloneable {
                 doVictory(p1, p2);
                 phase = 2;
                 updateMessage();
-                if (!(p2.human() || p1.human())) {
+                if (!(p2.human() || p1.human())) {//TODO (Pimgd) inspect what this is doing
                     end();
                 }
                 return;
@@ -591,7 +623,7 @@ public class Combat extends Observable implements Cloneable {
                 p2.draw(this, state);
                 phase = 2;
                 updateMessage();
-                if (!(p1.human() || p2.human())) {
+                if (!(p1.human() || p2.human())) {//TODO (Pimgd) inspect what this is doing
                     end();
                 }
                 return;
@@ -921,7 +953,7 @@ public class Combat extends Observable implements Cloneable {
                     System.out.println(initiator + " initiated penetration, voluntary=" + voluntary);
                 }
             }
-            if (player.checkAddiction(AddictionType.BREEDER, opp)) {
+            if ((p1.human() || p2.human()) && player.checkAddiction(AddictionType.BREEDER, opp)) {
                 if (voluntary) {
                     write(player, "As you enter Kat, instinct immediately kicks in. It just"
                                     + " feels so right, like this is what you're supposed"
@@ -961,6 +993,6 @@ public class Combat extends Observable implements Cloneable {
     }
 
     private boolean doExtendedLog() {
-        return (p1.human() || p2.human()) && Global.checkFlag(Flag.extendedLogs);
+        return hasDisplayEntity() && Global.checkFlag(Flag.extendedLogs);
     }
 }
