@@ -1128,6 +1128,8 @@ public class GUI extends JFrame implements Observer {
         clearCommand();
         commandPanel.add(new InterveneButton(enc, p1));
         commandPanel.add(new InterveneButton(enc, p2));
+        commandPanel.add(new WatchButton(enc, p1));
+        commandPanel.add(new WatchButton(enc, p2));
         Global.getMatch().pause();
         commandPanel.revalidate();
     }
@@ -1522,6 +1524,25 @@ public class GUI extends JFrame implements Observer {
             setText("Help " + assist.name());
             addActionListener(arg0 -> GUI.InterveneButton.this.enc
                             .intrude(Global.human, GUI.InterveneButton.this.assist));
+        }
+    }
+    
+    private class WatchButton extends JButton {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 7410615523557227147L;
+        private IEncounter enc;
+        private Character assist;
+
+        public WatchButton(IEncounter enc2, Character assist) {
+            super();
+            setFont(new Font("Baskerville Old Face", 0, 18));
+            this.enc = enc2;
+            this.assist = assist;
+            setText("Watch from " + assist.name() +"'s perspective");
+            addActionListener(arg0 -> GUI.WatchButton.this.enc
+                            .watch(Global.human, GUI.WatchButton.this.assist));
         }
     }
 
