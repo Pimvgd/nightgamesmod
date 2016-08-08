@@ -476,6 +476,17 @@ public class Encounter implements Serializable, IEncounter {
     public void intrude(Character intruder, Character assist) {
         fight.intervene(intruder, assist);
     }
+    
+    public void watch(Character watcher, Character perspective) {
+        fight.addWatcher(watcher, perspective);
+        if(watcher.human())
+        {
+            Global.gui().combat = fight;
+            fight.addObserver(Global.gui());
+            System.out.println(fightTime);
+            Global.getMatch().resume();
+        }
+    }
 
     public boolean battle() {
         fightTime--;
