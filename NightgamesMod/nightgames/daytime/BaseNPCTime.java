@@ -5,15 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import nightgames.areas.Area;
 import nightgames.characters.Character;
 import nightgames.characters.NPC;
 import nightgames.characters.Trait;
+import nightgames.combat.Combat;
 import nightgames.global.Global;
+import nightgames.global.MatchListener;
 import nightgames.items.Item;
 import nightgames.items.Loot;
 import nightgames.items.clothing.Clothing;
 
-public abstract class BaseNPCTime extends Activity {
+public abstract class BaseNPCTime extends Activity implements MatchListener {
     protected NPC npc;
     String knownFlag = "";
     String noRequestedItems = "{self:SUBJECT} frowns when {self:pronoun} sees that you don't have the requested items.";
@@ -148,6 +151,8 @@ public abstract class BaseNPCTime extends Activity {
             } else {
                 subVisitIntro(choice);
             }
+        } else if (choice.equals("Fight")) {
+            startPracticeFight();
         } else if (choice.equals("Leave")) {
             done(true);
         } else {
@@ -160,6 +165,35 @@ public abstract class BaseNPCTime extends Activity {
         paramCharacter.gainAffection(npc, 1);
         npc.gainAffection(paramCharacter, 1);
 
+    }
+    
+    private void startPracticeFight() {
+        Area a = new Area(npc.getName()+"'s room", npc.getName()+"'s room", null);
+        List<Character> fighters = new ArrayList<>();
+        fighters.add(player);
+        fighters.add(npc);
+        Global.createSimpleMatch(fighters, this);
+        player.travel(a);
+        npc.travel(a);
+        Global.gui().refresh();
+        Combat c = Global.gui().beginCombat(player, npc);
+        c.turn();
+    }
+    
+    @Override
+    public void matchEnd(Map<Character, Integer> score) {
+        // TODO Auto-generated method stub
+        Integer npcScore = score.get(npc);
+        Integer playerScore = score.get(player);
+        if(npcScore > playerScore) {
+            Global.gui().message("You have lost the practice fight.");
+        } else if (playerScore > npcScore) {
+            Global.gui().message("You have won the practice fight.");
+        } else {
+            Global.gui().message("Wow, the practice match was a draw!");
+        }
+        
+        Global.gui().choose(this, "Leave");
     }
 
 }

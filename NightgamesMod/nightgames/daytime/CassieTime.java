@@ -140,6 +140,7 @@ public class CassieTime extends BaseNPCTime {
                                             + "mind spending all day like this,\"</i> she murmurs contently. <i>\"But it sounded like you had something specific planned.\"</i>");
             Global.gui().choose(this, "Games");
             Global.gui().choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui().choose(this, "Sex");
             if (npc.has(Trait.magicmilk) && Global.getPlayer().checkAddiction(AddictionType.MAGIC_MILK)) {
                 Global.gui().choose(this, "Ask for milk");
@@ -164,6 +165,7 @@ public class CassieTime extends BaseNPCTime {
                 Global.gui().choose(this, "Games");
                 Global.gui().choose(this, "Sparring");
                 Global.gui().choose(this, "Sex");
+                Global.gui().choose(this, "Fight");
             }
             Global.gui().choose(this, "Ask for milk");
         } else if (npc.getAttraction(player) < 15) {
@@ -192,6 +194,7 @@ public class CassieTime extends BaseNPCTime {
             Global.gui().choose(this, "Games");
             Global.gui().choose(this, "Sparring");
             Global.gui().choose(this, "Sex");
+            Global.gui().choose(this, "Fight");
             if (npc.has(Trait.magicmilk) && Global.getPlayer().getAddictionSeverity(AddictionType.MAGIC_MILK) != Severity.NONE) {
                 Global.gui().choose(this, "Ask for milk");
             }

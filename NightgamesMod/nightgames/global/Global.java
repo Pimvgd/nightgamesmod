@@ -90,6 +90,7 @@ import nightgames.characters.custom.CustomNPC;
 import nightgames.characters.custom.JsonSourceNPCDataLoader;
 import nightgames.characters.custom.NPCData;
 import nightgames.combat.Combat;
+import nightgames.daytime.AngelTime;
 import nightgames.daytime.Daytime;
 import nightgames.ftc.FTCMatch;
 import nightgames.gui.GUI;
@@ -697,6 +698,12 @@ public class Global {
 
     public static void startNight() {
         decideMatchType().buildPrematch(human);
+    }
+    
+    public static void createSimpleMatch(Collection<Character> lineup, MatchListener listener)
+    {
+        //TODO check match not already in progress
+        match = new SimpleMatch(lineup, new NoModifier(), listener);
     }
 
     public static void setUpMatch(Modifier matchmod) {

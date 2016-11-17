@@ -120,6 +120,7 @@ public class KatTime extends BaseNPCTime {
                                             + "'i think i'm too excited waiting for you to get here. what are you planning?'");
             Global.gui().choose(this, "Games");
             Global.gui().choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui().choose(this, "Sex");
             if (Global.checkFlag(Flag.metAisha) && !Global.checkFlag(Flag.catspirit)
                             && Global.getNPC("Kat").getAffection(player) >= 5) {
@@ -137,8 +138,9 @@ public class KatTime extends BaseNPCTime {
             } else {
                 npc.gainAffection(player, 1);
                 player.gainAffection(npc, 1);
-                Global.gui() .choose(this, "Games");
+                Global.gui().choose(this, "Games");
                 Global.gui().choose(this, "Sparring");
+                Global.gui().choose(this, "Fight");
                 Global.gui().choose(this, "Sex");
             }
             Global.gui().choose(this, "Must... Fuck...");

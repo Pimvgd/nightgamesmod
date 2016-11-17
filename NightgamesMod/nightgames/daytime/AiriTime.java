@@ -41,6 +41,7 @@ public class AiriTime extends BaseNPCTime {
                   .choose(this, "Games");
             Global.gui()
                   .choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui()
                   .choose(this, "Sex");
         } else if (npc.getAttraction(player) < 15) {

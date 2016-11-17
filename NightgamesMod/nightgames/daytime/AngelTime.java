@@ -1,8 +1,10 @@
 package nightgames.daytime;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
+import nightgames.areas.Area;
 import nightgames.characters.Attribute;
 import nightgames.characters.Character;
 import nightgames.characters.Trait;
@@ -158,6 +160,7 @@ public class AngelTime extends BaseNPCTime {
                   .choose(this, "Games");
             Global.gui()
                   .choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui()
                   .choose(this, "Sex");
             if (Global.getPlayer()
@@ -179,6 +182,7 @@ public class AngelTime extends BaseNPCTime {
                       .choose(this, "Games");
                 Global.gui()
                       .choose(this, "Sparring");
+                Global.gui().choose(this, "Fight");
                 Global.gui()
                       .choose(this, "Sex");
             }
@@ -216,6 +220,7 @@ public class AngelTime extends BaseNPCTime {
                   .choose(this, "Games");
             Global.gui()
                   .choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui()
                   .choose(this, "Sex");
             if (npc.has(Trait.zealinspiring)) {

@@ -107,6 +107,7 @@ public class MaraTime extends BaseNPCTime {
                   .choose(this, "Games");
             Global.gui()
                   .choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui()
                   .choose(this, "Sex");
             if(player.getPure(Attribute.Arcane)>=3){
@@ -124,8 +125,9 @@ public class MaraTime extends BaseNPCTime {
             } else {
                 npc.gainAffection(player, 1);
                 player.gainAffection(npc, 1);
-                Global.gui() .choose(this, "Games");
+                Global.gui().choose(this, "Games");
                 Global.gui().choose(this, "Sparring");
+                Global.gui().choose(this, "Fight");
                 Global.gui().choose(this, "Sex");
             }
             Global.gui().choose(this, "Confront about control");
@@ -166,6 +168,7 @@ public class MaraTime extends BaseNPCTime {
                   .choose(this, "Games");
             Global.gui()
                   .choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui()
                   .choose(this, "Sex");
         }

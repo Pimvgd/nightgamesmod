@@ -194,6 +194,7 @@ public class ReykaTime extends BaseNPCTime {
                   .choose(this, "Games");
             Global.gui()
                   .choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui()
                   .choose(this, "Sex");
             if (Global.getPlayer().checkAddiction(AddictionType.CORRUPTION)) {
@@ -213,6 +214,7 @@ public class ReykaTime extends BaseNPCTime {
                       .choose(this, "Games");
                 Global.gui()
                       .choose(this, "Sparring");
+                Global.gui().choose(this, "Fight");
                 Global.gui()
                       .choose(this, "Sex");
             }
@@ -270,6 +272,7 @@ public class ReykaTime extends BaseNPCTime {
                   .choose(this, "Games");
             Global.gui()
                   .choose(this, "Sparring");
+            Global.gui().choose(this, "Fight");
             Global.gui()
                   .choose(this, "Sex");
         }
