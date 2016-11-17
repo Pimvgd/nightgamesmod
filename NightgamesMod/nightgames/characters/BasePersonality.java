@@ -29,40 +29,43 @@ public abstract class BasePersonality implements Personality {
     private static final long serialVersionUID = 2279220186754458082L;
     private String type;
     public NPC character;
-    protected Growth growth;
     protected List<PreferredAttribute> preferredAttributes;
     protected CockMod preferredCockMod;
     protected AiModifiers mods;
 
-    protected BasePersonality() {
-    }
-
-    public BasePersonality(String name, int level, Optional<NpcConfiguration> charConfig,
-                    Optional<NpcConfiguration> commonConfig) {
+    protected BasePersonality(String name, int level, boolean isStartCharacter) {
         // Make the built-in character
         type = getClass().getSimpleName();
         character = new NPC(name, level, this);
-        growth = new Growth();
+        character.isStartCharacter = isStartCharacter;
         preferredCockMod = CockMod.error;
         preferredAttributes = new ArrayList<PreferredAttribute>();
+    }
+
+    public BasePersonality(String name, int level, Optional<NpcConfiguration> charConfig,
+                    Optional<NpcConfiguration> commonConfig, boolean isStartCharacter) {
+        this(name, level, isStartCharacter);
+        setupCharacter(charConfig, commonConfig);
+    }
+
+    protected void setupCharacter(Optional<NpcConfiguration> charConfig, Optional<NpcConfiguration> commonConfig) {
         setGrowth();
-        applyBasicStats();
-        character.body.makeGenitalOrgans(character.initialGender);
+        applyBasicStats(character);
+        applyStrategy(character);
 
         // Apply config changes
         Optional<NpcConfiguration> mergedConfig = NpcConfiguration.mergeOptionalNpcConfigs(charConfig, commonConfig);
         mergedConfig.ifPresent(cfg -> cfg.apply(character));
 
+        character.body.makeGenitalOrgans(character.initialGender);
         character.body.finishBody(character.initialGender);
-        getGrowth().addOrRemoveTraits(character);
+        for (int i = 1; i < character.getLevel(); i++) {
+            character.getGrowth().levelUp(character);
+        }
+        character.distributePoints(preferredAttributes);
+        character.getGrowth().addOrRemoveTraits(character);
     }
 
-    /**
-     * Apply built-in character stats. Can be later overridden by StartConfiguration.
-     */
-    // TODO: Make this data-driven, like with custom NPCs.
-    protected abstract void applyBasicStats();
-    
     public void setCharacter(NPC c) {
         this.character = c;
     }
@@ -148,13 +151,9 @@ public abstract class BasePersonality implements Personality {
                         .toLowerCase() + "_confident.jpg";
     }
 
-    public Growth getGrowth() {
-        return growth;
-    }
-
     @Override
     public void ding() {
-        growth.levelUp(character);
+        character.getGrowth().levelUp(character);
         onLevelUp();
         character.distributePoints(preferredAttributes);
     }

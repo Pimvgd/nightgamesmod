@@ -27,50 +27,52 @@ public class Reyka extends BasePersonality {
     }
 
     public Reyka(Optional<NpcConfiguration> charConfig, Optional<NpcConfiguration> commonConfig) {
-        super("Reyka", 1, charConfig, commonConfig);
+        super("Reyka", 1, charConfig, commonConfig, false);
     }
 
-    protected void applyBasicStats() {
+    @Override
+    public void applyStrategy(NPC self) {
+        self.plan = Plan.hunting;
+        self.mood = Emotion.confident;
+
+        self.addPersonalStrategy(new FootjobStrategy());
+        self.addPersonalStrategy(new FacesitStrategy());
+        self.addPersonalStrategy(new KnockdownStrategy());
+    }
+
+    @Override
+    public void applyBasicStats(Character self) {
         preferredCockMod = CockMod.incubus;
-        character.outfitPlan.add(Clothing.getByID("tanktop"));
-        character.outfitPlan.add(Clothing.getByID("miniskirt"));
-        character.outfitPlan.add(Clothing.getByID("garters"));
-        character.outfitPlan.add(Clothing.getByID("stilettopumps"));
-        character.change();
-        character.set(Attribute.Dark, 12);
-        character.set(Attribute.Seduction, 14);
-        character.set(Attribute.Cunning, 7);
-        character.set(Attribute.Speed, 5);
-        character.setTrophy(Item.ReykaTrophy);
-        character.getStamina().setMax(40);
-        character.getArousal().setMax(200);
-        character.getMojo().setMax(110);
+        self.outfitPlan.add(Clothing.getByID("tanktop"));
+        self.outfitPlan.add(Clothing.getByID("miniskirt"));
+        self.outfitPlan.add(Clothing.getByID("garters"));
+        self.outfitPlan.add(Clothing.getByID("stilettopumps"));
+        self.change();
+        self.modAttributeDontSaveData(Attribute.Dark, 2);
+        self.modAttributeDontSaveData(Attribute.Seduction, 3);
+        self.modAttributeDontSaveData(Attribute.Cunning, 2);
+        self.setTrophy(Item.ReykaTrophy);
 
-        getCharacter().addPersonalStrategy(new FootjobStrategy());
-        getCharacter().addPersonalStrategy(new FacesitStrategy());
-        getCharacter().addPersonalStrategy(new KnockdownStrategy());
+        Global.gainSkills(self);
+        self.getStamina().setMax(50);
+        self.getArousal().setMax(120);
+        self.getMojo().setMax(110);
 
-        Global.gainSkills(character);
-        character.getStamina().setMax(50 + character.getLevel() * getGrowth().stamina);
-        character.getArousal().setMax(120 + character.getLevel() * getGrowth().arousal);
-
-        character.plan = Plan.hunting;
-        character.mood = Emotion.confident;
-        character.body.add(BreastsPart.dd);
-        character.body.add(PussyPart.succubus);
-        character.body.add(TailPart.demonic);
-        character.body.add(WingsPart.demonic);
-        character.body.add(EarPart.pointed);
-        character.body.add(new FacePart(1.5, 1.1));
-        character.initialGender = CharacterSex.female;
+        self.body.add(BreastsPart.dd);
+        self.body.add(PussyPart.succubus);
+        self.body.add(TailPart.demonic);
+        self.body.add(WingsPart.demonic);
+        self.body.add(EarPart.pointed);
+        self.body.add(new FacePart(1.5, 1.1));
+        self.initialGender = CharacterSex.female;
     }
 
     @Override
     public void setGrowth() {
-        growth.stamina = 1;
-        growth.arousal = 6;
-        growth.bonusStamina = 1;
-        growth.bonusArousal = 3;
+        character.getGrowth().stamina = 1;
+        character.getGrowth().arousal = 6;
+        character.getGrowth().bonusStamina = 1;
+        character.getGrowth().bonusArousal = 3;
         preferredAttributes.add(c -> c.get(Attribute.Dark) < 50 && c.get(Attribute.Dark) <= c.get(Attribute.Fetish) + 10
                         ? Optional.of(Attribute.Dark) : Optional.empty());
         preferredAttributes
@@ -78,32 +80,32 @@ public class Reyka extends BasePersonality {
                                         ? Optional.of(Attribute.Fetish) : Optional.empty());
         preferredAttributes.add(c -> Optional.of(Attribute.Seduction));
 
-        growth.addTrait(0, Trait.succubus);
-        growth.addTrait(0, Trait.proheels);
-        growth.addTrait(0, Trait.masterheels);
-        growth.addTrait(0, Trait.darkpromises);
-        growth.addTrait(0, Trait.Confident);
-        growth.addTrait(0, Trait.shameless);
-        growth.addTrait(2, Trait.pussyTraining1);
-        growth.addTrait(5, Trait.tongueTraining1);
-        growth.addTrait(8, Trait.expertGoogler);
-        growth.addTrait(11, Trait.addictivefluids);
-        growth.addTrait(14, Trait.graceful);
-        growth.addTrait(17, Trait.insertion);
-        growth.addTrait(20, Trait.corrupting);
-        growth.addTrait(20, Trait.spiritphage);
-        growth.addTrait(23, Trait.tongueTraining2);
-        growth.addTrait(26, Trait.magicEyeTrance);
-        growth.addTrait(29, Trait.dickhandler);
-        growth.addTrait(32, Trait.lacedjuices);
-        growth.addTrait(35, Trait.energydrain);
-        growth.addTrait(38, Trait.pussyTraining2);
-        growth.addTrait(41, Trait.soulsucker);
-        growth.addTrait(44, Trait.analTraining1);
-        growth.addTrait(47, Trait.desensitized2);
-        growth.addTrait(50, Trait.pussyTraining3);
-        growth.addTrait(53, Trait.vaginaltongue);
-        growth.addTrait(56, Trait.carnalvirtuoso);
+        character.getGrowth().addTrait(0, Trait.succubus);
+        character.getGrowth().addTrait(0, Trait.proheels);
+        character.getGrowth().addTrait(0, Trait.masterheels);
+        character.getGrowth().addTrait(0, Trait.darkpromises);
+        character.getGrowth().addTrait(0, Trait.Confident);
+        character.getGrowth().addTrait(0, Trait.shameless);
+        character.getGrowth().addTrait(2, Trait.sexTraining1);
+        character.getGrowth().addTrait(5, Trait.tongueTraining1);
+        character.getGrowth().addTrait(8, Trait.expertGoogler);
+        character.getGrowth().addTrait(11, Trait.addictivefluids);
+        character.getGrowth().addTrait(14, Trait.graceful);
+        character.getGrowth().addTrait(17, Trait.insertion);
+        character.getGrowth().addTrait(20, Trait.corrupting);
+        character.getGrowth().addTrait(20, Trait.spiritphage);
+        character.getGrowth().addTrait(23, Trait.tongueTraining2);
+        character.getGrowth().addTrait(26, Trait.magicEyeTrance);
+        character.getGrowth().addTrait(29, Trait.dickhandler);
+        character.getGrowth().addTrait(32, Trait.lacedjuices);
+        character.getGrowth().addTrait(35, Trait.energydrain);
+        character.getGrowth().addTrait(38, Trait.sexTraining2);
+        character.getGrowth().addTrait(41, Trait.soulsucker);
+        character.getGrowth().addTrait(44, Trait.analTraining1);
+        character.getGrowth().addTrait(47, Trait.desensitized2);
+        character.getGrowth().addTrait(50, Trait.sexTraining3);
+        character.getGrowth().addTrait(53, Trait.vaginaltongue);
+        character.getGrowth().addTrait(56, Trait.carnalvirtuoso);
     }
 
     @Override
@@ -176,7 +178,7 @@ public class Reyka extends BasePersonality {
     @Override
     public String victory(Combat c, Result flag) {
         Character opponent = character.equals(c.p1) ? c.p2 : c.p1;
-        if (c.getStance().anallyPenetrated(opponent)) {
+        if (c.getStance().anallyPenetrated(c, opponent)) {
             return "Reyka alternates between long hard thrusts and sensual grinding to keep you from getting used to the stimulation, and the pleasure it is "
                             + "inflicting on you stops you from mustering the resolve to fight back. <i>\"I do love a good bit of pegging.\"</i> Reyka comments as she begins "
                             + "to gently rock the head of the strapon over your prostate, leaving you breathing hard as your mouth hangs open. <i>\"There's a special "

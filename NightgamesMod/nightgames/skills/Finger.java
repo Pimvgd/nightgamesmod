@@ -23,12 +23,12 @@ public class Finger extends Skill {
         return c.getStance().reachBottom(getSelf())
                         && (target.crotchAvailable() || getSelf().has(Trait.dexterous)
                                         && target.getOutfit().getTopOfSlot(ClothingSlot.bottom).getLayer() <= 1)
-                        && target.hasPussy() && getSelf().canAct() && !c.getStance().vaginallyPenetrated(target);
+                        && target.hasPussy() && getSelf().canAct() && !c.getStance().vaginallyPenetrated(c, target);
     }
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (target.roll(this, c, accuracy(c))) {
+        if (target.roll(getSelf(), c, accuracy(c))) {
             int m = Global.random(8, 13);
             if (getSelf().get(Attribute.Seduction) >= 8) {
                 m += 6;

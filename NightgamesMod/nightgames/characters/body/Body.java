@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -24,6 +22,7 @@ import nightgames.characters.Character;
 import nightgames.characters.CharacterSex;
 import nightgames.characters.Trait;
 import nightgames.combat.Combat;
+import nightgames.global.Flag;
 import nightgames.global.Global;
 import nightgames.json.JsonUtils;
 import nightgames.skills.Skill;
@@ -50,30 +49,6 @@ public class Body implements Cloneable {
             removed = new LinkedHashSet<>(original.removed);
             duration = original.duration;
         }
-    }
-
-    static private Map<String, BodyPart> prototypes;
-
-    static {
-        prototypes = new HashMap<>();
-        prototypes.put(PussyPart.class.getCanonicalName(), PussyPart.normal);
-        prototypes.put(BreastsPart.class.getCanonicalName(), BreastsPart.c);
-        prototypes.put(BasicCockPart.class.getCanonicalName(), BasicCockPart.average);
-        // for compatibility with < v1.8.1
-        prototypes.put(CockPart.class.getCanonicalName(), BasicCockPart.average);
-        prototypes.put(ModdedCockPart.class.getCanonicalName(),
-                        new ModdedCockPart(BasicCockPart.average, CockMod.bionic));
-        prototypes.put(WingsPart.class.getCanonicalName(), WingsPart.demonic);
-        prototypes.put(TailPart.class.getCanonicalName(), TailPart.cat);
-        prototypes.put(EarPart.class.getCanonicalName(), EarPart.normal);
-        prototypes.put(StraponPart.class.getCanonicalName(), StraponPart.generic);
-        prototypes.put(TentaclePart.class.getCanonicalName(), new TentaclePart("tentacles", "back", "semen", 0, 1, 1));
-        prototypes.put(AssPart.class.getCanonicalName(), new AssPart("ass", 0, 1, 1));
-        prototypes.put(MouthPart.class.getCanonicalName(), new MouthPart("mouth", 0, 1, 1));
-        prototypes.put(AnalPussyPart.class.getCanonicalName(), new AnalPussyPart());
-        prototypes.put(MouthPussyPart.class.getCanonicalName(), new MouthPussyPart());
-        prototypes.put(GenericBodyPart.class.getCanonicalName(), new GenericBodyPart("", 0, 1, 1, "none", "none"));
-        prototypes.put(FacePart.class.getCanonicalName(), new FacePart(.1, 2.3));
     }
 
     // yeah i know :(
@@ -705,6 +680,7 @@ public class Body implements Cloneable {
                 }
                 break;
             case herm:
+            case shemale:
                 baseFemininity += 1;
                 if (!has("face")) {
                     add(new FacePart(0, 0));
@@ -719,12 +695,132 @@ public class Body implements Cloneable {
                     add(new FacePart(0, 0));
                 }
                 break;
+            default:
+                break;
         }
         for (BodyPart part : requiredParts) {
             if (!has(part.getType())) {
                 add(part);
             }
         }
+    }
+
+    private void replacePussyWithCock(BasicCockPart basicCock) {
+        PussyPart pussy = getRandomPussy();
+        removeAll("pussy");
+        add(pussy == null ? basicCock : basicCock.applyMod(pussy.getEquivalentCockMod()));
+    }
+
+    private void replaceCockWithPussy() {
+        CockPart cock = getRandomCock();
+        removeAll("cock");
+        add(cock == null ? PussyPart.normal : cock.getEquivalentPussy());
+    }
+
+    private void addEquivalentCockAndPussy(BasicCockPart basicCock) {
+        boolean hasPussy = getRandomPussy() != null;
+        boolean hasCock = getRandomCock() != null;
+        if (!hasPussy) {
+            CockPart cock = getRandomCock();
+            add(cock == null ? PussyPart.normal : cock.getEquivalentPussy());
+        }
+        if (!hasCock) {
+            PussyPart pussy = getRandomPussy();
+            add(pussy == null ? basicCock : basicCock.applyMod(pussy.getEquivalentCockMod()));
+        }
+    }
+    
+    private void addBallsIfNeeded() {
+        if (getRandom("balls") == null) {
+            add(new GenericBodyPart("balls", 0, 1.0, 1.5, "balls", ""));
+        }
+    }
+
+    private void growBreastsUpTo(BreastsPart part) {
+        if (getLargestBreasts().size < part.size) {
+            addReplace(part, 1);
+        }
+    }
+
+    /**
+     * Guesses the character sex based on the current attributes.
+     * I'm sorry if I whatever you want to be considered, you're free to add it yourself.
+     */
+    public CharacterSex guessCharacterSex() {
+        if (getRandomCock() != null && getRandomPussy() != null) {
+            return CharacterSex.herm;
+        } else if (getRandomCock() == null && getRandomPussy() == null) {
+            return CharacterSex.asexual;
+        } else if (getRandomCock() == null && getRandomPussy() != null) {
+            return CharacterSex.female;
+        } else {
+            if (getLargestBreasts().size > BreastsPart.flat.size && getFace().getFemininity(character) > 0) {
+                return CharacterSex.shemale;
+            } else if (getFace().getFemininity(character) >= 1.5) {
+                return CharacterSex.shemale;
+            }
+            return CharacterSex.male;
+        }
+    }
+    
+    public void autoTG() {
+        CharacterSex currentSex = guessCharacterSex();
+        if (currentSex == CharacterSex.herm || currentSex == CharacterSex.asexual) {
+            // no TG for herms or asexuals
+            return;
+        }
+        if (character.useFemalePronouns() && Global.checkFlag(Flag.femaleTGIntoHerm)) {
+            changeSex(CharacterSex.herm);
+            return;
+        }
+        if (currentSex == CharacterSex.female) {
+            changeSex(CharacterSex.male);
+            return;
+        }
+        if (currentSex == CharacterSex.male || currentSex == CharacterSex.shemale) {
+            changeSex(CharacterSex.female);
+            return;
+        }
+    }
+    
+    public void changeSex(CharacterSex newSex) {
+        FacePart face = ((FacePart)getRandom("face"));
+        double femininity = face.getFemininity(character);
+        switch (newSex) {
+            case male:
+                femininity = Math.min(0, femininity);
+                replacePussyWithCock(BasicCockPart.average);
+                addBallsIfNeeded();
+                addReplace(BreastsPart.flat, 1);
+                break;
+            case female:
+                femininity = Math.max(2, femininity);
+                replaceCockWithPussy();
+                growBreastsUpTo(BreastsPart.c);
+                break;
+            case herm:
+                femininity = Math.max(1, femininity);
+                addEquivalentCockAndPussy(BasicCockPart.big);
+                growBreastsUpTo(BreastsPart.b);
+                break;
+            case shemale:
+                femininity = Math.max(1, femininity);
+                replacePussyWithCock(BasicCockPart.big);
+                growBreastsUpTo(BreastsPart.d);
+                addBallsIfNeeded();
+                break;
+            case asexual:
+                femininity = Math.max(0, femininity);
+                break;
+            default:
+                break;
+        }
+        if (newSex.hasBalls()) {
+            addBallsIfNeeded();
+        } else {
+            removeAll("balls");
+        }
+        addReplace(new FacePart(face.hotness, femininity), 1);
     }
 
     CharacterSex getEffectiveSex() {
@@ -753,12 +849,11 @@ public class Body implements Cloneable {
                 add(BasicCockPart.average);
             }
         }
-        if (sex == CharacterSex.male) {
+        if (sex.hasBalls()) {
             if (!has("balls")) {
                 add(new GenericBodyPart("balls", 0, 1.0, 1.5, "balls", ""));
             }
         }
-
     }
 
     @Override
@@ -786,16 +881,10 @@ public class Body implements Cloneable {
         return bodyObj;
     }
 
-    public static BodyPart loadPart(JsonObject obj) {
-        String classType = obj.get("class").getAsString();
-        return prototypes.get(classType)
-                         .load(obj);
-    }
-
     public void loadParts(JsonArray partsArr) {
         for (JsonElement element : partsArr) {
             JsonObject partJson = element.getAsJsonObject();
-            this.add(loadPart(partJson));
+            this.add(JsonUtils.gson.fromJson(partJson, BodyPart.class));
         }
     }
 
@@ -1035,7 +1124,6 @@ public class Body implements Cloneable {
         if (!(Math.abs(body.baseFemininity - baseFemininity) < 1e-6))
             return false;
         return bodyParts.equals(body.bodyParts);
-
     }
 
     @Override public int hashCode() {
@@ -1055,5 +1143,9 @@ public class Body implements Cloneable {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public FacePart getFace() {
+        return (FacePart)getRandom("face");
     }
 }

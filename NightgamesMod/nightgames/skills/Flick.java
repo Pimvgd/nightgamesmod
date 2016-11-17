@@ -14,9 +14,10 @@ public class Flick extends Skill {
 
     public Flick(Character self) {
         super("Flick", self, 2);
+        addTag(SkillTag.mean);
         addTag(SkillTag.hurt);
-        addTag(SkillTag.staminaDamage);
         addTag(SkillTag.positioning);
+        addTag(SkillTag.staminaDamage);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class Flick extends Skill {
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (target.roll(this, c, accuracy(c))) {
+        if (target.roll(getSelf(), c, accuracy(c))) {
             if (target.has(Trait.brassballs)) {
                 writeOutput(c, Result.weak, target);
             } else {
@@ -63,7 +64,7 @@ public class Flick extends Skill {
 
     @Override
     public boolean requirements(Combat c, Character user, Character target) {
-        return user.get(Attribute.Seduction) >= 17 && !user.has(Trait.softheart);
+        return user.get(Attribute.Seduction) >= 17;
     }
 
     @Override

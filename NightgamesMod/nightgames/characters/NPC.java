@@ -52,7 +52,6 @@ import nightgames.status.Stsflag;
 import nightgames.trap.Trap;
 
 public class NPC extends Character {
-
     public Personality ai;
     public HashMap<Emotion, Integer> emotes;
     public Emotion mood;
@@ -295,7 +294,7 @@ public class NPC extends Character {
             }
             HashSet<Skill> available = new HashSet<>();
             for (Skill act : possibleSkills) {
-                if (Skill.skillIsUsable(c, act, target) && cooldownAvailable(act)) {
+                if (Skill.skillIsUsable(c, act) && cooldownAvailable(act)) {
                     available.add(act);
                 }
             }
@@ -340,7 +339,7 @@ public class NPC extends Character {
             target = c.p1;
         }
         for (Skill act : getSkills()) {
-            if (Skill.skillIsUsable(c, act, target) && cooldownAvailable(act)) {
+            if (Skill.skillIsUsable(c, act) && cooldownAvailable(act)) {
                 available.add(act);
             }
         }
@@ -432,14 +431,8 @@ public class NPC extends Character {
         return ai.temptLiner(c, target);
     }
 
-    @Override public Growth getGrowth() {
-        return ai.getGrowth();
-    }
-
     @Override
     public void detect() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -903,4 +896,5 @@ public class NPC extends Character {
         update();
         notifyObservers();
     }
+
 }

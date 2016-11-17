@@ -188,17 +188,16 @@ public enum Trait {
     masterheels("Heels Master", "Master at moving in heels, resists knockdowns"), // graceful when wearing heels
     naturalgrowth("Natural Growth", "Always keeps up on levels"), // levels up to highest level + 2 after each night
     unnaturalgrowth("Unnatural Growth", "Always keeps up on levels"), // levels up to highest level + 5 after each night
+    devoteeFervor("Devotee Fervor", "Pets can sometimes act twice"),
+    congregation("Congregation", "Doubles the amount of allowed pets"),
 
     // training perks
     analTraining1("Anal Training 1", "Refined ass control."),
     analTraining2("Anal Training 2", "Perfected ass control."),
     analTraining3("Anal Training 3", "Godly ass control."),
-    pussyTraining1("Pussy Training 1", "Refined vaginal control."),
-    pussyTraining2("Pussy Training 2", "Perfected vaginal control."),
-    pussyTraining3("Pussy Training 3", "Godly vaginal control."),
-    cockTraining1("Cock Training 1", "Refined cock control."),
-    cockTraining2("Cock Training 2", "Perfected cock control."),
-    cockTraining3("Cock Training 3", "Godly cock control."),
+    sexTraining1("Sex Training 1", "Refined sex techniques."),
+    sexTraining2("Sex Training 2", "Perfected sex techniques."),
+    sexTraining3("Sex Training 3", "Godly sex techniques."),
     tongueTraining1("Tongue Training 1", "Refined tongue control."),
     tongueTraining2("Tongue Training 2", "Perfected tongue control."),
     tongueTraining3("Tongue Training 3", "Godly tongue control."),
@@ -225,6 +224,10 @@ public enum Trait {
     opportunist("Opportunist", "Always ready to stuff someone's backside."),
     carnalvirtuoso("Carnal Virtuoso", "Opponents cums twice"),
     toymaster("Toymaster", "Expert at using toys."),
+    apostles("Apostles", "Endless followers"),
+    sacrosanct("Sacrosanct", "Too sacred to hurt."),
+    mandateOfHeaven("Mandate of Heaven", "Temptation demands worship."),
+    piety("Piety", "If worshipping when dominating at sex, switch positions."),
     // Weaknesses
     ticklish("Ticklish", "Can be easily tickled into submission"), // more weaken damage and arousal from tickle
     insatiable("Insatiable", "One orgasm is never enough"), // arousal doesn't completely clear at end of match
@@ -331,6 +334,22 @@ public enum Trait {
     cautious("Cautious", "Better chance of avoiding traps"),
     responsive("Responsive", "Return more pleasure when being fucked"),
     assmaster("Ass Master", "Who needs lube? Also boosts pleasure to both parties when assfucking"),
+    
+    // Jewel's unique traits
+    powerfulcheeks("Powerful Cheeks", "As in asscheeks. Makes pulling out more difficult."),
+    temptingass("Tempting Ass", "Opponent's can't help butt fuck it"), // ... sorry
+    disablingblows("Disabling Blows", "Painful attacks may reduce Power"),
+    takedown("Takedown", "Expert at tackling weary opponents"),
+    indomitable("Indomitable", "Plainly refuses to be dominated"),
+    confidentdom("Confident Dom", "Attributes rise while dominant"),
+    drainingass("Draining Ass", "Taking it in the ass drains stamina an possibly Power"),
+    edger("Edger", "Can keep oppoenents right at the edge"),
+    commandingvoice("Commanding Voice", "Does not take 'no' for an answer"),
+    mentalfortress("Mental Fortress", "Confident enough to have a chance to resist mind control"),
+    bewitchingbottom("Bewitching Bottom", "Makes opponents go wild for ass"),
+    unquestionable("Unquestionable", "Does not tolerate resistance when on top"),
+    grappler("Grapller", "Bonus to hold strength"),
+    
     // Item
     strapped("Strapped", "Penis envy", (b, c, t) -> {
         if (c.human()) {
@@ -466,6 +485,12 @@ public enum Trait {
                if (Global.random(100) < threshold) {
                    return "Mara's Control";
                }
+           }
+           return "";
+        });
+        resistances.put(Trait.mentalfortress, (c, s) -> {
+           if (s.mindgames() && (c.getStamina().percent()*3 / 4) > Global.random(100)) {
+               return "Mental Fortress";
            }
            return "";
         });

@@ -68,6 +68,11 @@ public enum BasicCockPart implements CockPart {
         return desc;
     }
 
+    @Override
+    public String canonicalDescription() {
+        return desc;
+    }
+
     public String getName() {
         return name();
     }
@@ -88,9 +93,9 @@ public enum BasicCockPart implements CockPart {
     @Override
     public double getPleasure(Character self, BodyPart target) {
         double pleasureMod = getPleasureBase();
-        pleasureMod += self.has(Trait.cockTraining1) ? .5 : 0;
-        pleasureMod += self.has(Trait.cockTraining2) ? .7 : 0;
-        pleasureMod += self.has(Trait.cockTraining3) ? .7 : 0;
+        pleasureMod += self.has(Trait.sexTraining1) ? .5 : 0;
+        pleasureMod += self.has(Trait.sexTraining2) ? .7 : 0;
+        pleasureMod += self.has(Trait.sexTraining3) ? .7 : 0;
         return pleasureMod;
     }
 

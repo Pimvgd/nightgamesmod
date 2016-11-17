@@ -26,7 +26,7 @@ public class SlimeJob extends SimpleEnemySkill {
 
     @Override
     public boolean resolve(Combat c, Character target) {
-        if (target.roll(this, c, accuracy(c))) {
+        if (target.roll(getSelf(), c, accuracy(c))) {
             int m = Global.random(5, 11) + getSelf().getLevel() / 2;
             if (target.crotchAvailable() && !c.getStance().penisInserted(target) && target.hasDick()) {
                 c.write(getSelf(), Global.format("{self:SUBJECT} forms into a humanoid shape and grabs {other:name-possessive} dick. "
@@ -35,7 +35,7 @@ public class SlimeJob extends SimpleEnemySkill {
                 target.body.pleasure(getSelf(), getSelf().body.getRandomPussy(), target.body.getRandomCock(),
                                 getSelf().modifyDamage(DamageType.pleasure, target, m), c);
                 return true;
-            } else if (target.hasPussy() && !c.getStance().vaginallyPenetrated(target) && target.crotchAvailable() && getSelf().hasDick()) {
+            } else if (target.hasPussy() && !c.getStance().vaginallyPenetrated(c, target) && target.crotchAvailable() && getSelf().hasDick()) {
                 c.write(getSelf(), Global.format("Two long appendages extend from {self:name-do} and wrap around {other:name-possessive} legs. "
                                 + "A third, phallic shaped appendage forms and penetrates {other:possessive} "
                                 + "pussy. {self:PRONOUN} stifles a moan as the slimy phallus thrusts in and out of {other:direct-object}.",

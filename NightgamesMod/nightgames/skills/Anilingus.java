@@ -10,7 +10,6 @@ import nightgames.combat.Combat;
 import nightgames.combat.Result;
 import nightgames.global.Global;
 import nightgames.nskills.tags.SkillTag;
-import nightgames.stance.Stance;
 import nightgames.status.BodyFetish;
 import nightgames.status.Stsflag;
 
@@ -31,10 +30,10 @@ public class Anilingus extends Skill {
 
     @Override
     public boolean usable(Combat c, Character target) {
-        boolean canUse = c.getStance().enumerate() == Stance.facesitting && getSelf().canRespond()
+        boolean canUse = c.getStance().isBeingFaceSatBy(c, getSelf(), target) && getSelf().canRespond()
                         || getSelf().canAct();
         return target.crotchAvailable() && target.body.has("ass") && c.getStance().oral(getSelf(), target) && canUse
-                        && !c.getStance().anallyPenetrated(target);
+                        && !c.getStance().anallyPenetrated(c, target);
     }
 
     @Override
@@ -54,11 +53,11 @@ public class Anilingus extends Skill {
             m += 4 + Global.random(6);
             n = 20;
             selfm = 20;
-        } else if (c.getStance().enumerate() == Stance.facesitting) {
+        } else if (c.getStance().isBeingFaceSatBy(c, getSelf(), target)) {
             result = Result.reverse;
             m += Global.random(6);
             n = 10;
-        } else if (!c.getStance().mobile(target) || target.roll(this, c, accuracy(c))) {
+        } else if (!c.getStance().mobile(target) || target.roll(getSelf(), c, accuracy(c))) {
             m += Global.random(6);
             if (getSelf().has(Trait.silvertongue)) {
                 m += 4;

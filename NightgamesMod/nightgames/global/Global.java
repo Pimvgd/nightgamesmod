@@ -162,6 +162,8 @@ public class Global {
     public static final Path COMBAT_LOG_DIR = new File("combatlogs").toPath();
 
     public Global(boolean headless) {
+        debug[DebugFlags.DEBUG_SCENE.ordinal()] = true;
+        debug[DebugFlags.DEBUG_PET.ordinal()] = true;
         rng = new Random();
         flags = new HashSet<>();
         players = new HashSet<>();
@@ -229,6 +231,8 @@ public class Global {
         if (!cfgFlags.isEmpty()) {
             flags = cfgFlags.stream().map(Flag::name).collect(Collectors.toSet());
         }
+        Map<String, Boolean> configurationFlags = JsonUtils.mapFromJson(JsonUtils.rootJson(new InputStreamReader(ResourceLoader.getFileResourceAsStream("data/globalflags.json"))).getAsJsonObject(), String.class, Boolean.class);
+        configurationFlags.forEach((flag, val) -> Global.setFlag(flag, val));
         time = Time.NIGHT;
         setCharacterDisabledFlag(getNPCByType("Yui"));
         setUpMatch(new NoModifier());
@@ -495,7 +499,10 @@ public class Global {
         getSkillPool().add(new Unstrip(ch));
         getSkillPool().add(new WindUp(ch));
         getSkillPool().add(new ThrowSlime(ch));
+        getSkillPool().add(new Edge(ch));
         getSkillPool().add(new SummonYui(ch));
+        getSkillPool().add(new Simulacrum(ch));
+        getSkillPool().add(new PetThreesome(ch));
 
         if (Global.isDebugOn(DebugFlags.DEBUG_SKILLS)) {
             getSkillPool().add(new SelfStun(ch));
@@ -997,7 +1004,15 @@ public class Global {
     public static void unflag(Flag f) {
         flags.remove(f.name());
     }
-    
+
+    public static void setFlag(String f, boolean value) {
+        if (value) { 
+            flag(f);
+        } else {
+            unflag(f);
+        }
+    }
+
     public static void setFlag(Flag f, boolean value) {
         if (value) { 
             flags.add(f.name()); 
@@ -1119,6 +1134,7 @@ public class Global {
         characterPool.put(maya.getCharacter().getType(), maya.getCharacter());
         characterPool.put(yui.getCharacter().getType(), yui.getCharacter());
 
+        debugChars.add(jewel.getCharacter());
     }
     
     public static void loadWithDialog() {
@@ -1457,6 +1473,10 @@ public class Global {
 
     public static double randomdouble() {
         return rng.nextDouble();
+    }
+
+    public static double randomdouble(double to) {
+        return rng.nextDouble() * to;
     }
 
     public static String prependPrefix(String prefix, String fullDescribe) {

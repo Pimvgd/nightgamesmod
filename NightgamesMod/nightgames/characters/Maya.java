@@ -23,74 +23,79 @@ public class Maya extends BasePersonality {
     }
 
     public Maya(int playerLevel, Optional<NpcConfiguration> charConfig, Optional<NpcConfiguration> commonConfig) {
-        super("Maya", 50, charConfig, commonConfig);
+        super("Maya", 50, charConfig, commonConfig, false);
 
         while (character.getLevel() < playerLevel + 20) {
             character.ding();
         }
     }
 
-    protected void applyBasicStats() {
-        character.outfitPlan.add(Clothing.getByID("camisole"));
-        character.outfitPlan.add(Clothing.getByID("blouse"));
-        character.outfitPlan.add(Clothing.getByID("lacepanties"));
-        character.outfitPlan.add(Clothing.getByID("skirt"));
-        character.outfitPlan.add(Clothing.getByID("sneakers"));
-        character.outfitPlan.add(Clothing.getByID("socks"));
-        character.change();
-        character.set(Attribute.Dark, 40);
-        character.set(Attribute.Seduction, 66);
-        character.set(Attribute.Cunning, 39);
-        character.set(Attribute.Speed, 17);
-        character.set(Attribute.Power, 36);
-        character.set(Attribute.Hypnosis, 8);
-        character.getStamina().setMax(90 + character.getLevel() * getGrowth().stamina);
-        character.getArousal().setMax(150 + character.getLevel() * getGrowth().arousal);
-        character.getMojo().setMax(150);
-        character.getWillpower().setMax(100);
+    @Override
+    public void applyStrategy(NPC self) {
+        self.plan = Plan.hunting;
+        self.mood = Emotion.confident;
+    }
 
-        Global.gainSkills(character);
-        character.setTrophy(Item.MayaTrophy);
+    @Override
+    public void applyBasicStats(Character self) {
+        self.outfitPlan.add(Clothing.getByID("camisole"));
+        self.outfitPlan.add(Clothing.getByID("blouse"));
+        self.outfitPlan.add(Clothing.getByID("lacepanties"));
+        self.outfitPlan.add(Clothing.getByID("skirt"));
+        self.outfitPlan.add(Clothing.getByID("sneakers"));
+        self.outfitPlan.add(Clothing.getByID("socks"));
+        self.change();
+        self.modAttributeDontSaveData(Attribute.Dark, 10);
+        self.modAttributeDontSaveData(Attribute.Seduction, 15);
+        self.modAttributeDontSaveData(Attribute.Cunning, 15);
+        self.modAttributeDontSaveData(Attribute.Speed, 2);
+        self.modAttributeDontSaveData(Attribute.Power, 7);
+        self.modAttributeDontSaveData(Attribute.Hypnosis, 5);
+        self.getStamina().setMax(90);
+        self.getArousal().setMax(150);
+        self.getMojo().setMax(150);
+        self.getWillpower().setMax(100);
 
-        character.plan = Plan.hunting;
-        character.mood = Emotion.confident;
-        character.body.add(BreastsPart.d);
-        character.initialGender = CharacterSex.female;
+        Global.gainSkills(self);
+        self.setTrophy(Item.MayaTrophy);
+
+        self.body.add(BreastsPart.d);
+        self.initialGender = CharacterSex.female;
         preferredCockMod = CockMod.error;
     }
 
     @Override
     public void setGrowth() {
-        growth.stamina = 2;
-        growth.arousal = 5;
-        growth.willpower = 1;
-        growth.bonusStamina = 2;
-        growth.bonusArousal = 5;
-        growth.addTrait(0, Trait.darkpromises);
-        growth.addTrait(0, Trait.tongueTraining1);
-        growth.addTrait(0, Trait.tongueTraining2);
-        growth.addTrait(0, Trait.limbTraining1);
-        growth.addTrait(0, Trait.limbTraining2);
-        growth.addTrait(0, Trait.pussyTraining1);
-        growth.addTrait(0, Trait.pussyTraining2);
-        growth.addTrait(0, Trait.pussyTraining3);
-        growth.addTrait(0, Trait.analTraining1);
-        growth.addTrait(0, Trait.analTraining2);
-        growth.addTrait(0, Trait.Confident);
-        growth.addTrait(0, Trait.dickhandler);
-        growth.addTrait(0, Trait.tight);
-        growth.addTrait(0, Trait.vaginaltongue);
-        growth.addTrait(0, Trait.insertion);
-        growth.addTrait(0, Trait.holecontrol);
-        growth.addTrait(0, Trait.autonomousPussy);
-        growth.addTrait(0, Trait.experienced);
-        growth.addTrait(0, Trait.responsive);
-        growth.addTrait(0, Trait.powerfulhips);
+        character.getGrowth().stamina = 2;
+        character.getGrowth().arousal = 5;
+        character.getGrowth().willpower = 1;
+        character.getGrowth().bonusStamina = 2;
+        character.getGrowth().bonusArousal = 5;
+        character.getGrowth().addTrait(0, Trait.darkpromises);
+        character.getGrowth().addTrait(0, Trait.tongueTraining1);
+        character.getGrowth().addTrait(0, Trait.tongueTraining2);
+        character.getGrowth().addTrait(0, Trait.limbTraining1);
+        character.getGrowth().addTrait(0, Trait.limbTraining2);
+        character.getGrowth().addTrait(0, Trait.sexTraining1);
+        character.getGrowth().addTrait(0, Trait.sexTraining2);
+        character.getGrowth().addTrait(0, Trait.sexTraining3);
+        character.getGrowth().addTrait(0, Trait.analTraining1);
+        character.getGrowth().addTrait(0, Trait.analTraining2);
+        character.getGrowth().addTrait(0, Trait.Confident);
+        character.getGrowth().addTrait(0, Trait.dickhandler);
+        character.getGrowth().addTrait(0, Trait.tight);
+        character.getGrowth().addTrait(0, Trait.vaginaltongue);
+        character.getGrowth().addTrait(0, Trait.insertion);
+        character.getGrowth().addTrait(0, Trait.holecontrol);
+        character.getGrowth().addTrait(0, Trait.autonomousPussy);
+        character.getGrowth().addTrait(0, Trait.experienced);
+        character.getGrowth().addTrait(0, Trait.responsive);
+        character.getGrowth().addTrait(0, Trait.powerfulhips);
 
-        growth.addTrait(0, Trait.enchantingVoice);
-        growth.addTrait(0, Trait.unnaturalgrowth);
-        growth.addTrait(0, Trait.event);
-        growth.addTrait(0, Trait.cursed);
+        character.getGrowth().addTrait(0, Trait.enchantingVoice);
+        character.getGrowth().addTrait(0, Trait.unnaturalgrowth);
+        character.getGrowth().addTrait(0, Trait.event);
+        character.getGrowth().addTrait(0, Trait.cursed);
     }
 
     @Override

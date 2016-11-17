@@ -30,67 +30,71 @@ public class Kat extends BasePersonality {
     }
 
     public Kat(Optional<NpcConfiguration> charConfig, Optional<NpcConfiguration> commonConfig) {
-        super("Kat", 10, charConfig, commonConfig);
+        super("Kat", 10, charConfig, commonConfig, false);
     }
 
-    protected void applyBasicStats() {
-        preferredCockMod = CockMod.primal;
-        character.outfitPlan.add(Clothing.getByID("bra"));
-        character.outfitPlan.add(Clothing.getByID("Tshirt"));
-        character.outfitPlan.add(Clothing.getByID("panties"));
-        character.outfitPlan.add(Clothing.getByID("skirt"));
-        character.outfitPlan.add(Clothing.getByID("sneakers"));
-        character.outfitPlan.add(Clothing.getByID("socks"));
-        character.change();
-        character.setTrophy(Item.KatTrophy);
-        character.set(Attribute.Power, 10);
-        character.set(Attribute.Animism, 2);
-        character.set(Attribute.Cunning, 8);
-        character.set(Attribute.Speed, 8);
-        character.set(Attribute.Seduction, 7);
-        character.getStamina().setMax(100 + character.getLevel() * getGrowth().stamina);
-        character.getArousal().setMax(50 + character.getLevel() * getGrowth().arousal);
-        character.getMojo().setMax(80);
-        getCharacter().addPersonalStrategy(new FacesitStrategy());
+    @Override
+    public void applyStrategy(NPC self) {
+        self.plan = Plan.retreating;
+        self.mood = Emotion.confident;
+        self.addPersonalStrategy(new FacesitStrategy());
+    }
 
-        character.plan = Plan.retreating;
-        character.mood = Emotion.confident;
-        character.body.add(BreastsPart.a);
-        character.body.add(PussyPart.feral);
-        character.body.add(TailPart.cat);
-        character.body.add(EarPart.cat);
+    @Override
+    public void applyBasicStats(Character self) {
+        preferredCockMod = CockMod.primal;
+        self.outfitPlan.add(Clothing.getByID("bra"));
+        self.outfitPlan.add(Clothing.getByID("Tshirt"));
+        self.outfitPlan.add(Clothing.getByID("panties"));
+        self.outfitPlan.add(Clothing.getByID("skirt"));
+        self.outfitPlan.add(Clothing.getByID("sneakers"));
+        self.outfitPlan.add(Clothing.getByID("socks"));
+        self.change();
+        self.setTrophy(Item.KatTrophy);
+        self.modAttributeDontSaveData(Attribute.Power, 1);
+        self.modAttributeDontSaveData(Attribute.Animism, 1);
+        self.modAttributeDontSaveData(Attribute.Cunning, 1);
+        self.modAttributeDontSaveData(Attribute.Speed, 1);
+        self.getStamina().setMax(100);
+        self.getArousal().setMax(60);
+        self.getMojo().setMax(80);
+
+        self.body.add(BreastsPart.a);
+        self.body.add(PussyPart.feral);
+        self.body.add(TailPart.cat);
+        self.body.add(EarPart.cat);
         // mostly feminine face
-        character.body.add(new FacePart(.1, 2.3));
-        character.initialGender = CharacterSex.female;
+        self.body.add(new FacePart(.1, 2.3));
+        self.initialGender = CharacterSex.female;
     }
 
     @Override
     public void setGrowth() {
-        growth.stamina = 2;
-        growth.arousal = 2;
-        growth.bonusStamina = 1;
-        growth.bonusArousal = 2;
+        character.getGrowth().stamina = 2;
+        character.getGrowth().arousal = 2;
+        character.getGrowth().bonusStamina = 1;
+        character.getGrowth().bonusArousal = 2;
         preferredAttributes.add(c -> Optional.of(Attribute.Animism));
-        growth.addTrait(0, Trait.dexterous);
-        growth.addTrait(0, Trait.pheromones);
-        growth.addTrait(0, Trait.shy);
-        growth.addTrait(0, Trait.petite);
-        growth.addTrait(10, Trait.sympathetic);
-        growth.addTrait(13, Trait.analTraining1);
-        growth.addTrait(16, Trait.powerfulhips);
-        growth.addTrait(19, Trait.alwaysready);
-        growth.addTrait(20, Trait.breeder);
-        growth.addTrait(22, Trait.cute);
-        growth.addTrait(25, Trait.nymphomania);
-        growth.addTrait(28, Trait.tongueTraining1);
-        growth.addTrait(31, Trait.lacedjuices);
-        growth.addTrait(34, Trait.tight);
-        growth.addTrait(37, Trait.catstongue);
-        growth.addTrait(40, Trait.graceful);
-        growth.addTrait(43, Trait.tongueTraining2);
-        growth.addTrait(46, Trait.strongwilled);
-        growth.addTrait(49, Trait.holecontrol);
-        growth.addTrait(52, Trait.analTraining3);
+        character.getGrowth().addTrait(0, Trait.dexterous);
+        character.getGrowth().addTrait(0, Trait.pheromones);
+        character.getGrowth().addTrait(0, Trait.shy);
+        character.getGrowth().addTrait(0, Trait.petite);
+        character.getGrowth().addTrait(10, Trait.sympathetic);
+        character.getGrowth().addTrait(13, Trait.analTraining1);
+        character.getGrowth().addTrait(16, Trait.powerfulhips);
+        character.getGrowth().addTrait(19, Trait.alwaysready);
+        character.getGrowth().addTrait(20, Trait.breeder);
+        character.getGrowth().addTrait(22, Trait.cute);
+        character.getGrowth().addTrait(25, Trait.nymphomania);
+        character.getGrowth().addTrait(28, Trait.tongueTraining1);
+        character.getGrowth().addTrait(31, Trait.lacedjuices);
+        character.getGrowth().addTrait(34, Trait.tight);
+        character.getGrowth().addTrait(37, Trait.catstongue);
+        character.getGrowth().addTrait(40, Trait.graceful);
+        character.getGrowth().addTrait(43, Trait.tongueTraining2);
+        character.getGrowth().addTrait(46, Trait.strongwilled);
+        character.getGrowth().addTrait(49, Trait.holecontrol);
+        character.getGrowth().addTrait(52, Trait.analTraining3);
     }
 
     @Override
@@ -165,7 +169,7 @@ public class Kat extends BasePersonality {
     public String victory(Combat c, Result flag) {
         Character opponent = c.getOpponent(character);
         character.arousal.empty();
-        if (c.getStance().vaginallyPenetrated(character)) {
+        if (c.getStance().vaginallyPenetrated(c, character)) {
             opponent.add(c, Horny.getWithBiologicalType(character, opponent, 5, 10, character.nameOrPossessivePronoun() + " pheromones"));
             return "She pounces at you, pushing you onto your back and holds you down with the weight of her body. A cute mew of a smile crosses her face, and her tongue sticks "
                             + "out slightly from between her lips. She is riding your cock in a regular rhythm now, not worried as she knows you are much closer to your climax than her.<p>"
@@ -222,7 +226,7 @@ public class Kat extends BasePersonality {
     @Override
     public String defeat(Combat c, Result flag) {
         Character opponent = c.getOpponent(character);
-        if (c.getStance().vaginallyPenetrated(character)) {
+        if (c.getStance().vaginallyPenetrated(c, character)) {
             opponent.add(c, Horny.getWithBiologicalType(character, opponent, 5, 10, character.nameOrPossessivePronoun() + " pheromones"));
             return "Kat squeaks as you pump your cock inside her over and over, penetrating her deeper with each thrust. She seems to be particularly vulnerable to being fucked"
                             + " doggy style; perhaps it makes her g-spot easier to hit each time you thrust into her.<p>"

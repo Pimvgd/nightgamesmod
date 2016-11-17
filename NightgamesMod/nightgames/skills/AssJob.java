@@ -2,10 +2,12 @@ package nightgames.skills;
 
 import nightgames.characters.Attribute;
 import nightgames.characters.Character;
+import nightgames.characters.Trait;
 import nightgames.combat.Combat;
 import nightgames.combat.Result;
 import nightgames.global.Global;
 import nightgames.items.clothing.ClothingSlot;
+import nightgames.nskills.tags.SkillTag;
 import nightgames.stance.Stance;
 import nightgames.status.BodyFetish;
 
@@ -13,6 +15,7 @@ public class AssJob extends Skill {
 
     public AssJob(Character self) {
         super("Assjob", self);
+        addTag(SkillTag.anal);
     }
 
     @Override
@@ -48,13 +51,16 @@ public class AssJob extends Skill {
                     m += 3;
                     fetishChance += 15;
                 }
+                if (getSelf().has(Trait.bewitchingbottom)) {
+                    fetishChance *= 2;
+                }
             }
             target.body.pleasure(getSelf(), getSelf().body.getRandomAss(), target.body.getRandomCock(), m, c, this);
 
             if (Global.random(100) < fetishChance) {
                 target.add(c, new BodyFetish(target, getSelf(), "ass", .1 + getSelf().get(Attribute.Fetish) * .05));
             }
-        } else if (target.roll(this, c, accuracy(c))) {
+        } else if (target.roll(getSelf(), c, accuracy(c))) {
             if (c.getStance().en == Stance.reversemount) {
                 writeOutput(c, Result.strong, target);
                 int m = 4 + Global.random(4);
@@ -66,6 +72,9 @@ public class AssJob extends Skill {
                     } else {
                         m += 3;
                         fetishChance += 15;
+                    }
+                    if (getSelf().has(Trait.bewitchingbottom)) {
+                        fetishChance *= 2;
                     }
                 }
                 if (target.body.getRandomCock().isReady(target)) {
@@ -172,7 +181,7 @@ public class AssJob extends Skill {
                 } else {
                     res += String.format(
                                     "The swells of %s ass feel great on %s cock even through the clothing between %s.",
-                                    getSelf().possessivePronoun(), target.possessivePronoun(), c.bothDirectObject());
+                                    getSelf().possessivePronoun(), target.possessivePronoun(), c.bothDirectObject(target));
                 }
                 return res;
             case strong:
