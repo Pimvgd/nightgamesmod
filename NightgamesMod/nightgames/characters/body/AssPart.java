@@ -51,10 +51,10 @@ public class AssPart extends GenericBodyPart {
     @Override
     public int mod(Attribute a, int total) { 
         int bonus = super.mod(a, total);
-        if (getSize() > SizeMod.ASS_SIZE_NORMAL & a == Attribute.Seduction) {
+        if (getSize() > SizeMod.ASS_SIZE_NORMAL && a == Attribute.Seduction) {
             bonus += (getSize() - SizeMod.ASS_SIZE_NORMAL) * 2;
         }
-        if (getSize() > SizeMod.ASS_SIZE_FLARED & a == Attribute.Speed) {
+        if (getSize() > SizeMod.ASS_SIZE_FLARED && a == Attribute.Speed) {
             bonus += (getSize() - SizeMod.ASS_SIZE_FLARED);
         }
         return bonus;

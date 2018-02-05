@@ -37,7 +37,7 @@ public class PinningPaizuri extends Skill {
                 && !c.getStance().connected(c)
                 && c.getStance().en != Stance.paizuripin
                 && getSelf().hasBreasts() && getSelf().body.getLargestBreasts().getSize() >= MIN_REQUIRED_BREAST_SIZE
-                && target.hasDick() && getSelf().breastsAvailable() && target.crotchAvailable();
+                && target.hasDick() && getSelf().breastsAvailable();
     }
 
     @Override

@@ -60,6 +60,6 @@ public class DisablingStrategy extends KnockdownThenActionStrategy {
         if (skills.stream().anyMatch(skill -> skill.usable(c, c.getOpponent(self)))) {
             return skills;
         }
-        return skills = new FuckStrategy().filterSkills(c, self, allowedSkills);
+        return new FuckStrategy().filterSkills(c, self, allowedSkills);
     }
 }

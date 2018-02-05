@@ -8,12 +8,8 @@ import nightgames.skills.damage.DamageType;
 
 public class FlyingCowgirl extends FemdomSexStance {
 
-    private Character top, bottom;
-
     public FlyingCowgirl(Character succ, Character target) {
         super(succ, target, Stance.flying);
-        top = succ;
-        bottom = target;
     }
 
     @Override

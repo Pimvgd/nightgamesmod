@@ -33,7 +33,7 @@ public class Main {
         List<String> debugArgs = splitArgs.get(true);
         List<String> otherArgs = splitArgs.get(false);
         Optional<Path> saveFile = parseArgs(otherArgs);
-        new Logwriter();
+        Logwriter.setupExceptionHandler();
         Logwriter.makeLogger(new Date());
         try {
             DebugFlags.parseDebugFlags(debugArgs);

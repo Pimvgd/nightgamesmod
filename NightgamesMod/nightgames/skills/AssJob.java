@@ -162,11 +162,11 @@ public class AssJob extends Skill {
                 }
             case normal:
                 return String.format("You back up against %s and grab %s by the waist."
-                                + " Before %s has a chance to push you away, you rub your ass against" + " %s crotch.",
+                                + " Before %s has a chance to push you away, you rub your ass against %s crotch.",
                                 target.getName(), target.directObject(), target.pronoun(), target.possessiveAdjective());
             case miss:
             default:
-                return String.format("You try to mash your ass against %s crotch, but %s" + " pushes you away.",
+                return String.format("You try to mash your ass against %s crotch, but %s pushes you away.",
                                 target.nameOrPossessivePronoun(), target.pronoun());
         }
     }

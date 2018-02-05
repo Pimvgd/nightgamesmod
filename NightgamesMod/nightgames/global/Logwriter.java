@@ -6,7 +6,11 @@ import java.util.Date;
 import java.util.Properties;
 
 public class Logwriter {
-    public Logwriter() {
+    private Logwriter() {
+        
+    }
+    
+    public static void setupExceptionHandler() {
         Thread.currentThread().setUncaughtExceptionHandler((t, e) -> {
             StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));

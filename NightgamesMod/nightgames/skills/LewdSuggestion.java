@@ -74,15 +74,15 @@ public class LewdSuggestion extends Skill {
         if (modifier == Result.strong) {
             return String.format(
                             "You take advantage of the erotic fantasies already swirling through %s's head, whispering ideas that fan the flame of %s lust.",
-                            new Object[] {target.getName(), target.possessiveAdjective()});
+                            target.getName(), target.possessiveAdjective());
         }
         if (modifier == Result.miss) {
             return String.format(
-                            "You whisper ideas that attempt to fan the flame of %s lust, but it doesn't seem to do much",
-                            new Object[] {target.nameOrPossessivePronoun()});
+                            "You whisper ideas that attempt to fan the flame of %s lust, but it doesn't seem to do much.",
+                            target.nameOrPossessivePronoun());
         }
         return String.format("You plant an erotic suggestion in %s's mind, distracting %s with lewd fantasies.",
-                        new Object[] {target.getName(), target.directObject()});
+                        target.getName(), target.directObject());
     }
 
     @Override

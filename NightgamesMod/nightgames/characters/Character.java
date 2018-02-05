@@ -3224,7 +3224,7 @@ public abstract class Character extends Observable implements Cloneable {
         double bottomFitness = 4.0;
         // If I'm horny, I don't care about my clothing, so I put more less
         // fitness in them
-        if (getMood() == Emotion.horny || is(Stsflag.feral) | has(Trait.leveldrainer)) {
+        if (getMood() == Emotion.horny || is(Stsflag.feral) || has(Trait.leveldrainer)) {
             topFitness = .5;
             bottomFitness = .5;
             // If I'm horny, I put less importance on my own arousal

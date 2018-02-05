@@ -52,8 +52,7 @@ public class Haste extends Skill {
 
     @Override
     public String deal(Combat c, int damage, Result modifier, Character target) {
-        return String.format(
-                        "You spend a stored time charge. The world around you appears to slow down as your personal time accelerates.");
+        return "You spend a stored time charge. The world around you appears to slow down as your personal time accelerates.";
     }
 
     @Override

@@ -8,12 +8,8 @@ import nightgames.skills.damage.DamageType;
 
 public class FlyingCarry extends MaledomSexStance {
 
-    private Character top, bottom;
-
     public FlyingCarry(Character succ, Character target) {
         super(succ, target, Stance.flying);
-        top = succ;
-        bottom = target;
     }
 
     @Override

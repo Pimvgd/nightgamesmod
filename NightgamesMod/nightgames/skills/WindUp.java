@@ -68,8 +68,7 @@ public class WindUp extends Skill {
 
     @Override
     public String deal(Combat c, int damage, Result modifier, Character target) {
-        return String.format(
-                        "You take advantage of a brief lull in the fight to wind up your Procrastinator, priming time charges for later use.");
+        return "You take advantage of a brief lull in the fight to wind up your Procrastinator, priming time charges for later use.";
     }
 
     @Override
