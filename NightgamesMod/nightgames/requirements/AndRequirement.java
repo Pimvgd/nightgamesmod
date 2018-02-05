@@ -17,7 +17,7 @@ public class AndRequirement extends BaseRequirement {
     }
 
     @Override public boolean meets(Combat c, Character self, Character other) {
-        return reqs.size() > 0 && reqs.stream().allMatch(r -> r.meets(c, self, other));
+        return !reqs.isEmpty() && reqs.stream().allMatch(r -> r.meets(c, self, other));
     }
 
     public List<Requirement> getSubRequirements() {

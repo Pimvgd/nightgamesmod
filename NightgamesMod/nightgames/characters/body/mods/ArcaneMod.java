@@ -30,6 +30,7 @@ public class ArcaneMod extends PartMod {
         */
     }
 
+    @Override
     public double applyBonuses(Combat c, Character self, Character opponent, BodyPart part, BodyPart target, double damage) { 
         int strength;
         boolean fucking = c.getStance().isPartFuckingPartInserted(c, opponent, target, self, part);
@@ -73,6 +74,7 @@ public class ArcaneMod extends PartMod {
         return 0;
     }
 
+    @Override
     public int counterValue(BodyPart part, BodyPart otherPart, Character self, Character other) { 
         return otherPart.moddedPartCountsAs(other, CockMod.primal) ? 1 : otherPart.moddedPartCountsAs(other, CockMod.bionic) ? -1 : 0;
     }

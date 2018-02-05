@@ -154,7 +154,7 @@ public class Daytime {
     }
 
     public void buildActivities() {
-        activities = new ArrayList<Activity>();
+        activities = new ArrayList<>();
         activities.add(new Exercise(player));
         activities.add(new Porn(player));
         activities.add(new VideoGames(player));

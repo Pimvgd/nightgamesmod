@@ -107,7 +107,7 @@ public class BreastSmothering extends AbstractFacingStance {
         if (self != bottom) {
             return Collections.emptySet();
         } else {
-            Collection<Skill> avail = new HashSet<Skill>();
+            Collection<Skill> avail = new HashSet<>();
             avail.add(new FondleBreasts(bottom));
             avail.add(new Suckle(bottom));
             avail.add(new Tickle(bottom));

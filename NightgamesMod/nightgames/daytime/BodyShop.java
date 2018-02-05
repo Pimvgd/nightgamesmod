@@ -27,7 +27,7 @@ public class BodyShop extends Activity {
 
     public BodyShop(Character player) {
         super("Body Shop", player);
-        selection = new ArrayList<ShopSelection>();
+        selection = new ArrayList<>();
         populateSelection();
     }
 
@@ -592,7 +592,7 @@ public class BodyShop extends Activity {
                 break;
             }
             chance /= 3;
-            List<ShopSelection> avail = new ArrayList<ShopSelection>();
+            List<ShopSelection> avail = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
                 avail.add(new ShopSelection("none" + i, 0) {
                     @Override

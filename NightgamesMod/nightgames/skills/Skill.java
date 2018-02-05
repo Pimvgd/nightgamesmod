@@ -54,13 +54,13 @@ public abstract class Skill {
     }
     public static void filterAllowedSkills(Combat c, Collection<Skill> skills, Character user, Character target) {
         boolean filtered = false;
-        Set<Skill> stanceSkills = new HashSet<Skill>(c.getStance().availSkills(c, user));
+        Set<Skill> stanceSkills = new HashSet<>(c.getStance().availSkills(c, user));
 
         if (!stanceSkills.isEmpty()) {
             skills.retainAll(stanceSkills);
             filtered = true;
         }
-        Set<Skill> availSkills = new HashSet<Skill>();
+        Set<Skill> availSkills = new HashSet<>();
         for (Status st : user.status) {
             for (Skill sk : st.allowedSkills(c)) {
                 if ((target != null && skillIsUsable(c, sk, target)) || skillIsUsable(c, sk)) {
@@ -72,7 +72,7 @@ public abstract class Skill {
             skills.retainAll(availSkills);
             filtered = true;
         }
-        Set<Skill> noReqs = new HashSet<Skill>();
+        Set<Skill> noReqs = new HashSet<>();
         if (!filtered) {
             // if the skill is restricted by status/stance, do not check for
             // requirements

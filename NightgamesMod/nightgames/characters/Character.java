@@ -3871,8 +3871,8 @@ public abstract class Character extends Observable implements Cloneable {
         if (availableAttributePoints <= 0) {
             return;
         }
-        ArrayList<Attribute> avail = new ArrayList<Attribute>();
-        Deque<PreferredAttribute> preferred = new ArrayDeque<PreferredAttribute>(preferredAttributes);
+        ArrayList<Attribute> avail = new ArrayList<>();
+        Deque<PreferredAttribute> preferred = new ArrayDeque<>(preferredAttributes);
         for (Attribute a : att.keySet()) {
             if (Attribute.isTrainable(this, a) && (getPure(a) > 0 || Attribute.isBasic(this, a))) {
                 avail.add(a);

@@ -21,7 +21,7 @@ public class Cache implements Deployable {
     private ArrayList<Loot> reward;
 
     public Cache(int level) {
-        reward = new ArrayList<Loot>();
+        reward = new ArrayList<>();
         dc = 10 + level;
         this.level = level;
         switch (Random.random(4)) {

@@ -48,7 +48,7 @@ public class ThrowDraft extends Skill {
 
     @Override
     public Collection<String> subChoices(Combat c) {
-        ArrayList<String> usables = new ArrayList<String>();
+        ArrayList<String> usables = new ArrayList<>();
         for (Item i : getSelf().getInventory().keySet()) {
             if (getSelf().has(i) && i.getEffects().get(0).throwable()) {
                 usables.add(i.getName());
@@ -99,7 +99,7 @@ public class ThrowDraft extends Skill {
                 }
             }
         } else {
-            ArrayList<Item> usables = new ArrayList<Item>();
+            ArrayList<Item> usables = new ArrayList<>();
             for (Item i : getSelf().getInventory().keySet()) {
                 if (i.getEffects().get(0).throwable() && i.usable(c, getSelf(), c.getOpponent(getSelf()))) {
                     usables.add(i);

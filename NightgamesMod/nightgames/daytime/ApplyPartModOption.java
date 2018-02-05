@@ -12,7 +12,7 @@ import nightgames.requirements.RequirementShortcuts;
 
 public class ApplyPartModOption extends TransformationOption {
     public static Function<Character, Integer> createCostForNumberOfMods(String type) {
-        return (c) -> {
+        return c -> {
             BodyPart part = c.body.getRandom(type);
             long nMods = 0;
             if (part != null) {
