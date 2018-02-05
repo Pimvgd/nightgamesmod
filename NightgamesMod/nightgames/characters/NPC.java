@@ -261,7 +261,13 @@ public class NPC extends Character {
     private boolean chooseSkill(Combat c, Character target) {
         if (target.human() && DebugFlags.isDebugOn(DebugFlags.DEBUG_SKILL_CHOICES)) {
             showSkillChoices(c, target);
-            return true;
+            try {
+                c.chooseSkill(this, GUI.gui.getChosenSkill());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
+            return false;
         } else {
             // if there's no strategy, try getting a new one.
             if (!c.getCombatantData(this).getStrategy().isPresent()) {
