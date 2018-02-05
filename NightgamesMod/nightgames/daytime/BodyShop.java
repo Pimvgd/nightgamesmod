@@ -614,7 +614,7 @@ public class BodyShop extends Activity {
                 }
             }
 
-            if (avail.size() == 0) {
+            if (avail.isEmpty()) {
                 return;
             }
             int randomindex = Random.random(avail.size());

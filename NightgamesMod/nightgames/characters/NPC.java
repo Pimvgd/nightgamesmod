@@ -157,7 +157,7 @@ public class NPC extends Character {
         if (per >= 5) {
             visible += Stage.describe(this);
         }
-        if (per >= 6 && status.size() > 0) {
+        if (per >= 6 && !status.isEmpty()) {
             visible += "List of statuses:<br/><i>";
             visible += status.stream().filter(s -> !s.flags().contains(Stsflag.disguised) || per >= 9).map(Status::toString).collect(Collectors.joining(", "));
             visible += "</i><br/>";
@@ -303,7 +303,7 @@ public class NPC extends Character {
                 }
             }
             Skill.filterAllowedSkills(c, available, this, target);
-            if (available.size() == 0) {
+            if (available.isEmpty()) {
                 available.add(new Nothing(this));
             }
             c.chooseSkill(this, ai.chooseSkill(available, c));
@@ -360,7 +360,7 @@ public class NPC extends Character {
             }
         }
         Skill.filterAllowedSkills(c, available, this, target);
-        if (available.size() == 0) {
+        if (available.isEmpty()) {
             available.add(new Nothing(this));
         }
         return ai.chooseSkill(available, c);

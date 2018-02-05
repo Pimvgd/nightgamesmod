@@ -45,7 +45,7 @@ public enum DebugFlags {
                 invalid.add(arg);
             }
         }
-        if (invalid.size() > 0) {
+        if (!invalid.isEmpty()) {
             throw new UnknownDebugFlagException(invalid);
         }
     }

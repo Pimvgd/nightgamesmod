@@ -278,7 +278,7 @@ public class Decider {
             sum += rating;
             moveList.add(new WeightedSkill(sum, raw_rating, rating, wskill.skill));
         }
-        if (sum == 0 || moveList.size() == 0) {
+        if (sum == 0 || moveList.isEmpty()) {
             return null;
         }
         // Debug
@@ -342,7 +342,7 @@ public class Decider {
             sum += rating;
             moveList.add(new WeightedSkill(sum, raw_rating, rating, wskill.skill));
         }
-        if (sum == 0 || moveList.size() == 0) {
+        if (sum == 0 || moveList.isEmpty()) {
             return null;
         }
         // Debug

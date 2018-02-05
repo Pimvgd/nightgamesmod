@@ -154,7 +154,7 @@ public abstract class BasePersonality implements Personality {
                 available.add(feat);
             }
         }
-        if (available.size() == 0) {
+        if (available.isEmpty()) {
             return;
         }
         character.add((Trait) available.toArray()[Random.random(available.size())]);

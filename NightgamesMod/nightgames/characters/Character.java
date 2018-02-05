@@ -1226,19 +1226,19 @@ public abstract class Character extends Observable implements Cloneable {
     }
 
     public boolean hasDick() {
-        return body.get("cock").size() > 0;
+        return body.has("cock");
     }
 
     public boolean hasBalls() {
-        return body.get("balls").size() > 0;
+        return body.has("balls");
     }
 
     public boolean hasPussy() {
-        return body.get("pussy").size() > 0;
+        return body.has("pussy");
     }
 
     public boolean hasBreasts() {
-        return body.get("breasts").size() > 0;
+        return body.has("breasts");
     }
 
     public int countFeats() {
@@ -2997,7 +2997,7 @@ public abstract class Character extends Observable implements Cloneable {
         } else {
             body.describeBodyText(b, GameState.gameState.characterPool.getPlayer(), notableOnly);
         }
-        if (getTraits().size() > 0) {
+        if (hasTraits()) {
             b.append("<br/>Traits:<br/>");
             List<Trait> traits = new ArrayList<>(getTraits());
             traits.sort((first, second) -> first.toString().compareTo(second.toString()));
@@ -3009,6 +3009,10 @@ public abstract class Character extends Observable implements Cloneable {
         b.append("</p>");
 
         return b.toString();
+    }
+
+    public boolean hasTraits() {
+        return !getTraits().isEmpty();
     }
 
     public void accept(Challenge c) {
@@ -3055,7 +3059,7 @@ public abstract class Character extends Observable implements Cloneable {
         HashSet<Skill> stripping = new HashSet<>();
         HashSet<Skill> misc = new HashSet<>();
         Skill.filterAllowedSkills(c, available, this, target);
-        if (available.size() == 0) {
+        if (available.isEmpty()) {
             available.add(new Nothing(this));
         }
         available.addAll(cds);
@@ -3874,7 +3878,7 @@ public abstract class Character extends Observable implements Cloneable {
                 avail.add(a);
             }
         }
-        if (avail.size() == 0) {
+        if (avail.isEmpty()) {
             avail.add(Attribute.Cunning);
             avail.add(Attribute.Power);
             avail.add(Attribute.Seduction);
@@ -3889,7 +3893,7 @@ public abstract class Character extends Observable implements Cloneable {
                                                       return att.isPresent() && avail.contains(att.get());
                                                   })
                                                   .collect(Collectors.toList()));
-            if (preferred.size() > 0) {
+            if (!preferred.isEmpty()) {
                 if (noPrefAdded > 1) {
                     noPrefAdded = 0;
                     Optional<Attribute> pref = preferred.removeFirst()

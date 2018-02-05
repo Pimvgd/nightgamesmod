@@ -38,7 +38,7 @@ public class Random {
     }
 
     public static <T> Optional<T> pickRandom(List<T> list) {
-        if (list == null || list.size() == 0) {
+        if (list == null || list.isEmpty()) {
             return Optional.empty();
         } else {
             return Optional.of(list.get(random(list.size())));

@@ -56,7 +56,7 @@ public abstract class Skill {
         boolean filtered = false;
         Set<Skill> stanceSkills = new HashSet<Skill>(c.getStance().availSkills(c, user));
 
-        if (stanceSkills.size() > 0) {
+        if (!stanceSkills.isEmpty()) {
             skills.retainAll(stanceSkills);
             filtered = true;
         }
@@ -68,7 +68,7 @@ public abstract class Skill {
                 }
             }
         }
-        if (availSkills.size() > 0) {
+        if (!availSkills.isEmpty()) {
             skills.retainAll(availSkills);
             filtered = true;
         }

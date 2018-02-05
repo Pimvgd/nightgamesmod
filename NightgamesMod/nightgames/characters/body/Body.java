@@ -381,7 +381,7 @@ public class Body implements Cloneable {
 
     public CockPart getLargestCock() {
         List<BodyPart> parts = get("cock");
-        if (parts.size() == 0) {
+        if (parts.isEmpty()) {
             return null;
         }
         CockPart largest = (CockPart) new CockPart().applyMod(new SizeMod(SizeMod.COCK_SIZE_TINY));
@@ -401,11 +401,7 @@ public class Body implements Cloneable {
                 upgradable.add(cock);
             }
         }
-        if (upgradable.size() == 0) {
-            return null;
-        }
-
-        return upgradable.get(Random.random(upgradable.size()));
+        return Random.pickRandom(upgradable).orElse(null);
     }
 
     public CockPart getCockAbove(double size) {
@@ -417,11 +413,7 @@ public class Body implements Cloneable {
                 upgradable.add(b);
             }
         }
-        if (upgradable.size() == 0) {
-            return null;
-        }
-
-        return upgradable.get(Random.random(upgradable.size()));
+        return Random.pickRandom(upgradable).orElse(null);
     }
 
     public BreastsPart getBreastsBelow(double size) {
@@ -433,11 +425,7 @@ public class Body implements Cloneable {
                 upgradable.add(b);
             }
         }
-        if (upgradable.size() == 0) {
-            return null;
-        }
-
-        return upgradable.get(Random.random(upgradable.size()));
+        return Random.pickRandom(upgradable).orElse(null);
     }
 
     public BreastsPart getBreastsAbove(double size) {
@@ -449,11 +437,7 @@ public class Body implements Cloneable {
                 upgradable.add(b);
             }
         }
-        if (upgradable.size() == 0) {
-            return null;
-        }
-
-        return upgradable.get(Random.random(upgradable.size()));
+        return Random.pickRandom(upgradable).orElse(null);
     }
 
     public Optional<BodyFetish> getFetish(String part) {
@@ -570,16 +554,11 @@ public class Body implements Cloneable {
     }
 
     public boolean has(String type) {
-        return get(type).size() > 0;
+        return currentParts.stream().anyMatch(p -> p.isType(type));
     }
 
     public BodyPart getRandom(String type) {
-        List<BodyPart> parts = get(type);
-        BodyPart part = null;
-        if (parts.size() > 0) {
-            part = parts.get(Random.random(parts.size()));
-        }
-        return part;
+        return Random.pickRandom(get(type)).orElse(null);
     }
 
     public int pleasure(Character opponent, BodyPart with, BodyPart target, double magnitude, Combat c) {
@@ -885,10 +864,10 @@ public class Body implements Cloneable {
                 if (!has("face")) {
                     add(new FacePart(0, 2));
                 }
-                if (get("breasts").size() == 0) {
+                if (!has("breasts")) {
                     add(BreastsPart.b);
                 }
-                if (get("ass").size() == 0) {
+                if (!has("ass")) {
                     add(AssPart.generateGeneric().upgrade().upgrade());
                 }
                 break;
@@ -903,7 +882,7 @@ public class Body implements Cloneable {
                 if (!has("face")) {
                     add(new FacePart(0, 2));
                 }
-                if (get("ass").size() == 0) {
+                if (!has("ass")) {
                     add(AssPart.generateGeneric().upgrade());
                 }
                 break;
@@ -912,10 +891,10 @@ public class Body implements Cloneable {
                 if (!has("face")) {
                     add(new FacePart(0, 1));
                 }
-                if (get("breasts").size() == 0) {
+                if (!has("breasts")) {
                     add(BreastsPart.b);
                 }
-                if (get("ass").size() == 0) {
+                if (!has("ass")) {
                     add(AssPart.generateGeneric().upgrade().upgrade());
                 }
                 break;
@@ -924,10 +903,10 @@ public class Body implements Cloneable {
                 if (!has("face")) {
                     add(new FacePart(0, 1));
                 }
-                if (get("breasts").size() == 0) {
+                if (!has("breasts")) {
                     add(BreastsPart.d);
                 }
-                if (get("ass").size() == 0) {
+                if (!has("ass")) {
                     add(AssPart.generateGeneric().upgrade().upgrade());
                 }
                 break;
@@ -1174,7 +1153,7 @@ public class Body implements Cloneable {
             StringBuilder sb = new StringBuilder();
             LinkedList<BodyPart> added = new LinkedList<>(r.added);
             LinkedList<BodyPart> removed = new LinkedList<>(r.removed);
-            if (added.size() > 0 && removed.size() == 0) {
+            if (!added.isEmpty() && removed.isEmpty()) {
                 sb.append(Formatter.format("{self:NAME-POSSESSIVE} ", character, character));
                 for (BodyPart p : added.subList(0, added.size() - 1)) {
                     sb.append(p.fullDescribe(character))
@@ -1186,7 +1165,7 @@ public class Body implements Cloneable {
                 sb.append(added.get(added.size() - 1)
                                .fullDescribe(character));
                 sb.append(" disappeared.");
-            } else if (removed.size() > 0 && added.size() == 0) {
+            } else if (!removed.isEmpty() && added.isEmpty()) {
                 sb.append(Formatter.format("{self:NAME-POSSESSIVE} ", character, character));
                 for (BodyPart p : removed.subList(0, removed.size() - 1)) {
                     sb.append(p.fullDescribe(character))
@@ -1198,7 +1177,7 @@ public class Body implements Cloneable {
                 sb.append(removed.get(removed.size() - 1)
                                  .fullDescribe(character));
                 sb.append(" reappeared.");
-            } else if (removed.size() > 0 && added.size() > 0) {
+            } else if (!removed.isEmpty() && !added.isEmpty()) {
                 sb.append(Formatter.format("{self:NAME-POSSESSIVE} ", character, character));
                 for (BodyPart p : added.subList(0, added.size() - 1)) {
                     sb.append(p.fullDescribe(character))
@@ -1223,7 +1202,7 @@ public class Body implements Cloneable {
                 }
                 BodyPart last = removed.get(removed.size() - 1);
                 if (last != null)
-                sb.append(Formatter.prependPrefix(last.prefix(), last.fullDescribe(character)));
+                    sb.append(Formatter.prependPrefix(last.prefix(), last.fullDescribe(character)));
                 sb.append('.');
             }
             Formatter.writeIfCombat(c, character, sb.toString());
@@ -1376,8 +1355,8 @@ public class Body implements Cloneable {
         if (cock != null) {
             parts.add(cock);
         }
-        Collections.shuffle(parts);
-        if (parts.size() >= 1) {
+        if (!parts.isEmpty()) {
+            Collections.shuffle(parts);
             return parts.get(0);
         } else {
             return getRandomBreasts();
@@ -1438,10 +1417,7 @@ public class Body implements Cloneable {
                 upgradable.add(b);
             }
         }
-        if (upgradable.size() == 0) {
-            return null;
-        }
-        return Random.pickRandom(upgradable).get();
+        return Random.pickRandom(upgradable).orElse(null);
     }
 
     public AssPart getAssAbove(int size) {
@@ -1453,10 +1429,7 @@ public class Body implements Cloneable {
                 downgradable.add(b);
             }
         }
-        if (downgradable.size() == 0) {
-            return null;
-        }
-        return Random.pickRandom(downgradable).get();
+        return Random.pickRandom(downgradable).orElse(null);
     }
 
     public static String partPronoun(String type) {

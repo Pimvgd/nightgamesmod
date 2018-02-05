@@ -112,8 +112,7 @@ public class AngelTime extends BaseNPCTime {
             TransformationOption angelWings = new TransformationOption();
             angelWings.ingredients.put(Item.HolyWater, 2);
             angelWings.addRequirement((c, self, other) -> {
-                return self.body.get("wings")
-                                .size() == 0;
+                return self.body.has("wings");
             }, "No wings");
             angelWings.addRequirement((c, self, other) -> {
                 return self.get(Attribute.Divinity) >= 10;

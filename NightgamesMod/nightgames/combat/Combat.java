@@ -871,7 +871,7 @@ public class Combat extends Observable implements Cloneable {
      */
     private boolean doPetActions() {
         Set<PetCharacter> alreadyBattled = new HashSet<>();
-        if (otherCombatants.size() > 0) {
+        if (!otherCombatants.isEmpty()) {
             ArrayList<PetCharacter> pets = new ArrayList<>(otherCombatants);
             for (PetCharacter pet : pets) {
                 if (!otherCombatants.contains(pet) || alreadyBattled.contains(pet)) { continue; }

@@ -82,7 +82,7 @@ public class Main {
     }
 
     private static Optional<Path> parseArgs(List<String> otherArgs) {
-        if (otherArgs.size() > 0) {
+        if (!otherArgs.isEmpty()) {
             if (otherArgs.stream().anyMatch(arg -> arg.matches("-{1,2}help"))) {
                 displayHelp();
             } else {

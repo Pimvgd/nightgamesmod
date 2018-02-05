@@ -7,6 +7,7 @@ import nightgames.skills.Stage;
 
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 public class SkillButton extends ValueButton<Skill> {
@@ -76,9 +77,10 @@ public class SkillButton extends ValueButton<Skill> {
     }
 
     @Override protected void run() {
-        if (skill.subChoices(combat).size() != 0) {
+        Collection<String> subChoices = skill.subChoices(combat);
+        if (!subChoices.isEmpty()) {
             GUI.gui.commandPanel.reset();
-            for (String choice : skill.subChoices(combat)) {
+            for (String choice : subChoices) {
                 GUI.gui.commandPanel.add(new SubSkillButton(skill, choice, this.future));
             }
             GUI.gui.commandPanel.refresh();

@@ -91,7 +91,7 @@ public class UseDraft extends Skill {
                     usables.add(i);
                 }
             }
-            if (usables.size() > 0 && getSelf() instanceof NPC) {
+            if (!usables.isEmpty() && getSelf() instanceof NPC) {
                 used = pickBest(c, (NPC) getSelf(), target, usables);
             }
         }

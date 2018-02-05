@@ -1045,7 +1045,7 @@ public class GUI extends JFrame implements Observer {
         for (TacticGroup group : TacticGroup.values()) {
             flatList.addAll(skills.get(group));
         }
-        if (currentTactics == TacticGroup.all || flatList.size() <= 6 || skills.get(currentTactics).size() == 0) {
+        if (currentTactics == TacticGroup.all || flatList.size() <= 6 || skills.get(currentTactics).isEmpty()) {
             flatList.forEach(commandPanel::add);
         } else {
             for (SkillButton button : skills.get(currentTactics)) {

@@ -117,7 +117,7 @@ public class Player extends Character {
         } else {
             body.describeBodyText(b, GameState.gameState.characterPool.getCharacterByType("Angel"), false);
         }
-        if (getTraits().size() > 0) {
+        if (hasTraits()) {
             b.append("<br/>Traits:<br/>");
             List<Trait> traits = new ArrayList<>(getTraits());
             traits.removeIf(t -> t.isOverridden(this));
@@ -126,7 +126,7 @@ public class Player extends Character {
                            .map(Object::toString)
                            .collect(Collectors.joining(", ")));
         }
-        if (status.size() > 0) {
+        if (!status.isEmpty()) {
             b.append("<br/><br/>Statuses:<br/>");
             List<Status> statuses = new ArrayList<>(status);
             statuses.sort((first, second) -> first.name.compareTo(second.name));
@@ -145,7 +145,7 @@ public class Player extends Character {
         }
         description = description + "</i>";
         description = description + outfit.describe(this);
-        if (per >= 5 && status.size() > 0) {
+        if (per >= 5 && !status.isEmpty()) {
             description += "<br/>List of statuses:<br/><i>";
             description += status.stream().map(Status::toString).collect(Collectors.joining(", "));
             description += "</i><br/>";
