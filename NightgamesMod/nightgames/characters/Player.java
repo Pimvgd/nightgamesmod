@@ -403,6 +403,7 @@ public class Player extends Character {
         if (getLevel() % 3 == 0 && level < 10 || (getLevel() + 1) % 2 == 0 && level > 10) {
             traitPoints += 1;
         }
+        spendLevels(c);
     }
 
     @Override public void addLevels(Combat c, int levelsToGain) {

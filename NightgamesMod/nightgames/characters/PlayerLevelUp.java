@@ -63,7 +63,9 @@ class PlayerLevelUp {
 
     private void spendTraitPoints(GUI gui) throws InterruptedException {
         boolean wantsToSpendTraitPoints = true;
-        Formatter.writeIfCombatUpdateImmediately(gui.combat, player, "You've earned %d new perk%s. Select below.");
+        if (remainingTraitPoints() > 0) {
+            Formatter.writeIfCombatUpdateImmediately(gui.combat, player, "You've earned %d new perk%s. Select below.");
+        }
         CompletableFuture<Trait> chosenTrait = new CompletableFuture<>();
         while (wantsToSpendTraitPoints && remainingTraitPoints() > 0) {
             Stream<Trait> traitChoices = Trait.getFeats(player).stream().filter(feat -> !player.has(feat));
@@ -71,6 +73,8 @@ class PlayerLevelUp {
                             traitChoices.map(feat -> new ValueButton<>(feat, feat.toString(), chosenTrait))
                                             .collect(Collectors.toList());
             featButtons.forEach(button -> button.setToolTipText(button.getValue().getDesc()));
+            gui.commandPanel.reset();
+            featButtons.forEach(button -> gui.addButton(button));
             CancelButton skipButton = new CancelButton("Skip", chosenTrait);
             skipButton.setToolTipText("Save perk points for next level-up");
             gui.addButton(skipButton);
@@ -78,7 +82,7 @@ class PlayerLevelUp {
                 Trait trait = chosenTrait.get();
                 newTraits.push(trait);
                 gui.clearTextIfNeeded();
-                gui.message("Gained feat: " + trait.toString());
+                gui.message("Gained feat: " + trait.toString() + ": " + trait.getDesc());
             } catch (CancellationException e) {
                 wantsToSpendTraitPoints = false;
             } catch (ExecutionException e) {
