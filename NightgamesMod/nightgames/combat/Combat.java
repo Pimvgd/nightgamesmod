@@ -1281,6 +1281,7 @@ public class Combat extends Observable implements Cloneable {
             if (beingObserved) {
                 removeCombatGUI(GUI.gui);
             }
+            combatantData.clear();
             return;
         }
         boolean hasScene = false;
@@ -1805,10 +1806,12 @@ public class Combat extends Observable implements Cloneable {
             }
             if (phase == CombatPhase.ENDED) {
                 end();
-                finished = true;
+                finished = processedEnding;
+                pause = !processedEnding;
             } else if (pause) {
                 next();
             }
         }
+        combatantData.clear();
     }
 }
