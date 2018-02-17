@@ -5,6 +5,7 @@ import nightgames.characters.Character;
 import nightgames.combat.Combat;
 import nightgames.combat.Result;
 import nightgames.global.Global;
+import nightgames.nskills.tags.SkillTag;
 import nightgames.stance.Kneeling;
 import nightgames.stance.Stance;
 import nightgames.status.addiction.Addiction;
@@ -14,11 +15,13 @@ public class Kneel extends Skill {
 
     public Kneel(Character self) {
         super("Kneel", self);
+        addTag(SkillTag.positioning);
+        addTag(SkillTag.suicidal);
     }
 
     @Override
     public boolean requirements(Combat c, Character user, Character target) {
-        return getSelf().getPure(Attribute.Submissive) >= 10;
+        return getSelf().getPure(Attribute.Submissive) >= 10 || user.human() || user.humanControlled(c);
     }
 
     @Override
@@ -53,8 +56,18 @@ public class Kneel extends Skill {
     }
 
     @Override
+    public int speed() {
+        return 0;
+    }
+
+    @Override
     public Tactics type(Combat c) {
-        return Tactics.misc;
+        return Tactics.positioning;
+    }
+
+    @Override
+    public float priorityMod(Combat c) {
+        return -2;
     }
 
     @Override
@@ -64,8 +77,8 @@ public class Kneel extends Skill {
 
     @Override
     public String receive(Combat c, int damage, Result modifier, Character target) {
-        return String.format("%s drops to %s knees in front of %s.", 
-                            getSelf().subject(), getSelf().pronoun(), target.subject());
+        return String.format("%s drops down to %s knees in front of %s.",
+                        getSelf().subject(), getSelf().possessiveAdjective(),
+                        target.nameDirectObject());
     }
-
 }
