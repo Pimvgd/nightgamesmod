@@ -271,7 +271,8 @@ public class Mara extends BasePersonality {
         character.getGrowth().addTrait(40, Trait.ControlledRelease);
         if (Global.checkFlag(MARA_GENERAL_TECH_FOCUS)) {
             character.getGrowth().addTrait(53, Trait.RemoteControl);
-        } else {
+        }
+        if (Global.checkFlag(MARA_HARPOON_FOCUS)) {
             character.getGrowth().addTrait(53, Trait.EyeOpener);
         }
     }

@@ -148,7 +148,8 @@ public class Reyka extends BasePersonality {
         character.getGrowth().addTrait(40, Trait.LastingCorruption);
         if (Global.checkFlag(REYKA_DISABLING_FOCUS)) {
             character.getGrowth().addTrait(52, Trait.TotalSubjugation);
-        } else if (Global.checkFlag(REYKA_SEDUCTION_FOCUS)) {
+        }
+        if (Global.checkFlag(REYKA_SEDUCTION_FOCUS)) {
             character.getGrowth().addTrait(52, Trait.Subversion);
         }
     }
@@ -160,7 +161,8 @@ public class Reyka extends BasePersonality {
         character.getGrowth().addTrait(40, Trait.BottomlessPit);
         if (Global.checkFlag(REYKA_DISABLING_FOCUS)) {
             character.getGrowth().addTrait(52, Trait.SpecificSapping);
-        } else if (Global.checkFlag(REYKA_SEDUCTION_FOCUS)) {
+        }
+        if (Global.checkFlag(REYKA_SEDUCTION_FOCUS)) {
             character.getGrowth().addTrait(52, Trait.WillingSacrifice);
         }
     }
