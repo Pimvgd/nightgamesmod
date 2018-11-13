@@ -508,6 +508,7 @@ public class Global {
         getSkillPool().add(new Charm(ch));
         getSkillPool().add(new Tempt(ch));
         getSkillPool().add(new EyesOfTemptation(ch));
+        getSkillPool().add(new ForceBreastStrategy(ch));
         getSkillPool().add(new TailJob(ch));
         getSkillPool().add(new FaceSit(ch));
         getSkillPool().add(new Smother(ch));
