@@ -561,11 +561,11 @@ public abstract class Character extends Observable implements Cloneable {
      *  NOTE: This also removes traits off the level plan, but may not be doing it elsewhere where traits or level data may exist. - DSM    
      *  */
     public String dong() {
-        getLevelUpFor(getLevel()).unapply(this);;
+        getLevelUpFor(getLevel()).unapply(this);
         getGrowth().levelDown(this);
         levelPlan.remove(getLevel());
         level--;
-        return Global.capitalizeFirstLetter(subject()) + " lost a level! <br/>" + Global.gainSkills(this);
+        return Global.capitalizeFirstLetter(subject()) + " lost a level and is now level "+level+"! <br/>" + Global.gainSkills(this);
     }
 
     public int getXP() {
