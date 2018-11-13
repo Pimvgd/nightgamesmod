@@ -46,7 +46,7 @@ public class HeldOral extends AbstractFacingStance {
         } else if (bottom.hasPussy()){
             return Collections.singletonList(bottom.body.getRandomPussy());
         }
-        return Collections.emptyList();
+        return Collections.singletonList(bottom.body.getRandom("skin"));
     }
 
     @Override

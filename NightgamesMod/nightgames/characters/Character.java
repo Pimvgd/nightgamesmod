@@ -2986,6 +2986,7 @@ public abstract class Character extends Observable implements Cloneable {
             victor.bounty(has(Trait.event) ? 5 : 1, victor);
         }
         mercy.clear();
+        Global.getMatch().resetMercyFor(this);
         change();
         state = State.ready;
         getWillpower().fill();

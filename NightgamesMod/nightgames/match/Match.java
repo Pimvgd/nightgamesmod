@@ -176,6 +176,10 @@ public class Match {
             mercy.values().forEach(l -> l.remove(combatant));
         }
     }
+    
+    public void resetMercyFor(Character combatant) {
+        mercy.values().forEach(l -> l.remove(combatant));
+    }
 
     public void score(Character combatant, int amt) {
         score(combatant, amt, Optional.empty());
