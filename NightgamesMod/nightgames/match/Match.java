@@ -40,7 +40,7 @@ public class Match {
     protected Map<String, Area> map;
     protected List<Character> combatants;
     protected Map<Character, Integer> score;
-    private int index;
+    protected int index;
     private boolean pause;
     protected Modifier condition;
     protected MatchData matchData;
@@ -300,7 +300,7 @@ public class Match {
 
     }
 
-    private void end() {
+    protected void end() {
         beforeEnd();
         for (Character next : combatants) {
             next.finishMatch();

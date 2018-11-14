@@ -6,6 +6,7 @@ import nightgames.characters.Attribute;
 import nightgames.characters.Character;
 import nightgames.characters.NPC;
 import nightgames.characters.Player;
+import nightgames.daytime.match.DaytimeMatchActivity;
 import nightgames.global.Flag;
 import nightgames.global.Global;
 import nightgames.status.addiction.Addiction;
@@ -17,7 +18,7 @@ public class Daytime {
     private int daylength;
     private DaytimeEventManager eventMgr;
 
-    public Daytime(Player player) {
+    public Daytime(Player player, int time) {
         this.player = player;
         this.eventMgr = new DaytimeEventManager(player);
         buildActivities();
@@ -34,15 +35,19 @@ public class Daytime {
         if (Global.checkFlag(Flag.YuiUnlocking)) {
             Global.unflag(Flag.YuiUnlocking);
         }
-        
+
         Global.unflag(Flag.threesome);
-        time = 10;
+        this.time = time;
         // do NPC day length
         if (Global.getDate() % 7 == 6 || Global.getDate() % 7 == 0) {
             daylength = 10;
         } else {
             daylength = 7;
         }
+    }
+
+    public Daytime(Player player) {
+        this(player, 10);
     }
 
     private boolean morning() {
@@ -161,6 +166,7 @@ public class Daytime {
         activities.add(new HWStore(player));
         activities.add(new Bookstore(player));
         activities.add(new Meditation(player));
+        activities.add(new DaytimeMatchActivity(player));
         activities.add(new AngelTime(player));
         activities.add(new AiriTime(player));
         activities.add(new CassieTime(player));

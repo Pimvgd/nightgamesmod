@@ -902,28 +902,13 @@ public class Global {
         Set<Character> lineup = new HashSet<>(debugChars);
         Character lover = null;
         int maxaffection = 0;
-        unflag(Flag.FTC);
         for (Character player : players) {
-            player.getStamina().fill();
-            player.getArousal().empty();
-            player.getMojo().empty();
-            player.getWillpower().fill();
-            if (player.getPure(Attribute.Science) > 0) {
-                player.chargeBattery();
-            }
             if (human.getAffection(player) > maxaffection && !player.has(Trait.event) && !checkCharacterDisabledFlag(player)) {
                 maxaffection = human.getAffection(player);
                 lover = player;
             }
         }
-        List<Character> participants = new ArrayList<>();
-        // Disable characters flagged as disabled
-        for (Character c : players) {
-            // Disabling the player wouldn't make much sense, and there's no PlayerDisabled flag.
-            if (c.getType().equals("Player") || !checkCharacterDisabledFlag(c)) {
-                participants.add(c);
-            }
-        }
+        List<Character> participants = getEnabledCharacters();
         if (lover != null) {
             lineup.add(lover);
         }
@@ -954,7 +939,7 @@ public class Global {
             maya.gain(Item.Onahole2);
             maya.gain(Item.Dildo2);
             maya.gain(Item.Strapon2);
-            match = new Match(lineup, matchmod);
+            setUpMetersForMatch(matchmod, lineup);
         } else if (matchmod.name().equals("ftc")) {
             Character prey = ((FTCModifier) matchmod).getPrey();
             if (!prey.human()) {
@@ -963,16 +948,46 @@ public class Global {
             lineup = pickCharacters(participants, lineup, LINEUP_SIZE);
             resting = new HashSet<>(players);
             resting.removeAll(lineup);
-            match = buildMatch(lineup, matchmod);
+            setUpMetersForMatch(matchmod, lineup);
         } else if (participants.size() > LINEUP_SIZE) {
             lineup = pickCharacters(participants, lineup, LINEUP_SIZE);
             resting = new HashSet<>(players);
             resting.removeAll(lineup);
-            match = buildMatch(lineup, matchmod);
+            setUpMetersForMatch(matchmod, lineup);
         } else {
-            match = buildMatch(participants, matchmod);
+            setUpMetersForMatch(matchmod, new HashSet<>(participants));
+        }
+    }
+
+    public static void setUpMetersForMatch(Modifier matchmod, Set<Character> lineup) {
+        unflag(Flag.FTC);
+        for (Character player : players) {
+            player.getStamina().fill();
+            player.getArousal().empty();
+            player.getMojo().empty();
+            player.getWillpower().fill();
+            if (player.getPure(Attribute.Science) > 0) {
+                player.chargeBattery();
+            }
+        }
+        if (matchmod.name().equals("maya")) {
+            match = new Match(lineup, matchmod);
+        } else {
+            match = buildMatch(lineup, matchmod);
         }
         startMatch();
+    }
+
+    public static List<Character> getEnabledCharacters() {
+        List<Character> participants = new ArrayList<>();
+        // Disable characters flagged as disabled
+        for (Character c : players) {
+            // Disabling the player wouldn't make much sense, and there's no PlayerDisabled flag.
+            if (c.getType().equals("Player") || !checkCharacterDisabledFlag(c)) {
+                participants.add(c);
+            }
+        }
+        return participants;
     }
 
     public static void startMatch() {

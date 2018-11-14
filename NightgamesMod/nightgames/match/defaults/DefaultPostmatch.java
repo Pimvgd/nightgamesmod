@@ -15,7 +15,7 @@ public class DefaultPostmatch extends Postmatch {
     private boolean normal;
 
     public DefaultPostmatch(List<Character> combatants) {
-        super(combatants);
+        super(combatants, true);
         normal = true;
     }
 

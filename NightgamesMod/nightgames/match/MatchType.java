@@ -3,6 +3,8 @@ package nightgames.match;
 import java.util.Collection;
 
 import nightgames.characters.Character;
+import nightgames.daytime.match.DaytimeMatch;
+import nightgames.daytime.match.DaytimePrematch;
 import nightgames.global.Flag;
 import nightgames.global.Global;
 import nightgames.match.defaults.DefaultPrematch;
@@ -17,7 +19,8 @@ import nightgames.modifier.standard.NoModifier;
 public enum MatchType {
     NORMAL,
     FTC,
-    TEAM;
+    TEAM,
+    DAYTIME;
 
     public Match buildMatch(Collection<Character> combatants, Modifier condition) {
         switch (this) {
@@ -31,6 +34,8 @@ public enum MatchType {
                 return new Match(combatants, condition);
             case TEAM:
                 return new TeamMatch(combatants, condition);
+            case DAYTIME:
+                return new DaytimeMatch(combatants, condition);
             default:
                 throw new Error();
         }
