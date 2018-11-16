@@ -147,7 +147,7 @@ public abstract class Character extends Observable implements Cloneable {
     private BodyPart lastOrgasmPart;                //Merge into tracker object for combat session. - DSM 
     
     //TODO: Merge orgasms, cloned, pleasured, location, and lastorgasmpart in this CombatStats object.
-    protected CombatStats combatStats;          //TODO: Finish class and implement - Constructors, clones, and being able to serialize members. - DSM
+    //protected CombatStats combatStats;          //TODO: Finish class and implement - Constructors, clones, and being able to serialize members. - DSM
     
     
     //TODO: Merge various pieces of data into a MatchStats object. busy, state, location, challenges, mercy, victories, etc.
@@ -209,14 +209,14 @@ public abstract class Character extends Observable implements Cloneable {
         location = new Area("", "", null);
         state = State.ready;
         busy = 0;
-        this.combatStats = new CombatStats();       //TODO: Reading, writing, cloning?
+        //this.combatStats = new CombatStats();       //TODO: Reading, writing, cloning?
         
         setRank(0);
 
         Global.learnSkills(this);
     }
 
-    public CombatStats getCombatStats() {  return combatStats;  }  public void setCombatStats(CombatStats combatStats) {  this.combatStats = combatStats; }
+   // public CombatStats getCombatStats() {  return combatStats;  }  public void setCombatStats(CombatStats combatStats) {  this.combatStats = combatStats; }
 
     /**Overridden clone() method for Character. Returns a character with values the same as this one.
      * 
