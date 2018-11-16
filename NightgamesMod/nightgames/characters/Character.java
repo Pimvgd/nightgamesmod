@@ -148,6 +148,7 @@ public abstract class Character extends Observable implements Cloneable {
     
     //TODO: Merge orgasms, cloned, pleasured, location, and lastorgasmpart in this CombatStats object.
     //protected CombatStats combatStats;          //TODO: Finish class and implement - Constructors, clones, and being able to serialize members. - DSM
+    //Where'd I put that, anyways? - DSM
     
     
     //TODO: Merge various pieces of data into a MatchStats object. busy, state, location, challenges, mercy, victories, etc.
@@ -209,7 +210,7 @@ public abstract class Character extends Observable implements Cloneable {
         location = new Area("", "", null);
         state = State.ready;
         busy = 0;
-        //this.combatStats = new CombatStats();       //TODO: Reading, writing, cloning?
+        //this.combatStats = new CombatStats();       //TODO: Reading, writing, cloning? 
         
         setRank(0);
 
