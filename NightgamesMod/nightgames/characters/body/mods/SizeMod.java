@@ -30,7 +30,7 @@ public class SizeMod extends PartMod {
     private static final Map<Integer, String> COCK_SIZE_DESCRIPTIONS = new HashMap<>(); 
     static {
         COCK_SIZE_DESCRIPTIONS.put(COCK_SIZE_TINY, "tiny ");
-        COCK_SIZE_DESCRIPTIONS.put(COCK_SIZE_SMALL, "small ");
+        COCK_SIZE_DESCRIPTIONS.put(COCK_SIZE_SMALL, "little ");
         COCK_SIZE_DESCRIPTIONS.put(COCK_SIZE_LITTLE, "small ");
         COCK_SIZE_DESCRIPTIONS.put(COCK_SIZE_AVERAGE, "");
         COCK_SIZE_DESCRIPTIONS.put(COCK_SIZE_LARGE, "big ");
