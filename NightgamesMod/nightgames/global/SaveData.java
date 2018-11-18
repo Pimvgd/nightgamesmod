@@ -72,7 +72,9 @@ public class SaveData {
 
         if (rootJSON.has(JSONKey.QUESTS.key)) {
             JsonArray questsJSON = rootJSON.getAsJsonArray(JSONKey.QUESTS.key);
-            quests.addAll(JsonUtils.collectionFromJson(questsJSON, Quest.class));
+            for (int i = 0; i < questsJSON.size(); i++) {
+                quests.add(Quest.load((JsonObject)questsJSON.get(i)));
+            }
         }
         
         date = rootJSON.get(JSONKey.DATE.key).getAsInt();
