@@ -76,7 +76,7 @@ public class Slime extends Pet {
                             + " seizes your slime and holds it near her groin. The ooze reacts to the closeness of her vagina and immediately forms a phallic appendage. She grabs the slimy "
                             + "cock before it can penetrate her and strokes it quickly. With each stroke, the shape becomes more defined, until the slime has a perfectly human penis and a set of testicles. "
                             + captor.getName()
-                            + " speeds up her stokes and grabs the artifical balls with her free hand. The slime ejaculates its own fluid and melts into a puddle.");
+                            + " speeds up her stokes and grabs the artificial balls with her free hand. The slime ejaculates its own fluid and melts into a puddle.");
         } else if (captor.human()) {
             c.write(captor, "You manage to catch " + own()
                             + "slime, but you're not sure what to do with it. It occurs to you that this thing is actively seeking sexual pleasure, so you push two fingers "

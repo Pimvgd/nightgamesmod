@@ -230,13 +230,13 @@ public class Eve extends BasePersonality {
                                 .map(bp -> bp.getType())
                                 .orElse("pussy");
             if (other.getLevel() < self.getLevel() - 5) {       //FIXME: Is self.body.getRandom(part).describe(self) the same funcationally as just using "part"? Should this be standardized? -DSM 
-                return "{self:SUBJECT} laughs uncontrolably while you feel your orgasm cause your power and experience to be sucked right into {self:SUBJECT}'s " + self.body.getRandom(part).describe(self) + ". {self:SUBJECT}'s hands squeeze and grope you lewdly while they continue slamming away, "
+                return "{self:SUBJECT} laughs uncontrollably while you feel your orgasm cause your power and experience to be sucked right into {self:SUBJECT}'s " + self.body.getRandom(part).describe(self) + ". {self:SUBJECT}'s hands squeeze and grope you lewdly while they continue slamming away, "
                                 + "<i>\"UNGH! Oh hohoooYEAH! You poor {other:guy}, being raped and dominated so much that you're cumming your worthless soul out. Holy shit, this feels so good, I don't wanna stoooop!\"</i> "
                                 + "They push their whole body into yours and grope you while whispering in your ear, "
                                 + "<i>\"Don't worry...We're gonna have lots of fun. Fucking the shit out of you is really <b>FUN! UNGH!</b>\"</i>";
             } else if (other.getLevel() >= self.getLevel()) {
-                return "{self:SUBJECT} holds you down and slams themselves into you repeatedly until you violently climax. You cum as is you were a bursting dam - your strength and experience streams out of you and into {self:possessive} " + self.body.getRandom(part).describe(self) + ". "
-                                + "By the time you finally regain yopur senses, you're being held down by {self:SUBJECT}, who's licking your face while taunting you. "
+                return "{self:SUBJECT} holds you down and slams themselves into you repeatedly until you violently climax. You cum as if you were a bursting dam - your strength and experience streams out of you and into {self:possessive} " + self.body.getRandom(part).describe(self) + ". "
+                                + "By the time you finally regain your senses, you're being held down by {self:SUBJECT}, who's licking your face while taunting you. "
                                 + "<i>\"That was good, my little slut - now get ready do it again. Cum your fucking soul out and make me stronger...\"</i>";
             } else {
                 return "{self:SUBJECT} keeps at you without relenting in the slightest - you are cumming out of control right into her " + part + ". After you finally collapse from the ordeal, the wild girl laughs; she shows no sign that she's done. "
@@ -253,7 +253,7 @@ public class Eve extends BasePersonality {
         
         
         character.addLine(CharacterLine.VICTORY_LINER, (c, self, other) -> {
-            return "Realzing she's won the night, Eve shouts in victory, <i>\"Hah! See? Your asses are ALL mine!\"</i>";
+            return "Realizing she's won the night, Eve shouts in victory, <i>\"Hah! See? Your asses are ALL mine!\"</i>";
         });
         
         character.addLine(CharacterLine.LOSER_LINER, (c, self, other) -> {

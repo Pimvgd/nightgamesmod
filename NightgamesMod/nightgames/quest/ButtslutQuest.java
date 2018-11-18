@@ -45,7 +45,7 @@ public class ButtslutQuest extends Quest {
     }
     
     public String getDescription() {
-        return "A quest to avoid becoming a buttslut. Enemies will be more likely to try to fuck your ass, and losing with a cock in your ass maskes you more of a buttslut. "
+        return "A quest to avoid becoming a buttslut. Enemies will be more likely to try to fuck your ass, and losing with a cock in your ass makes you more of a buttslut. "
                         + "Winning gives bonus attributes. Win and loss bonuses depend on who you defeat or are defeated by.";
     }
     
