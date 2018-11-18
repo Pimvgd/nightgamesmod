@@ -10,6 +10,7 @@ import nightgames.characters.Airi;
 import nightgames.characters.Character;
 import nightgames.characters.Eve;
 import nightgames.characters.Kat;
+import nightgames.characters.Maid;
 import nightgames.characters.NPC;
 import nightgames.characters.Player;
 import nightgames.characters.Reyka;
@@ -336,6 +337,11 @@ public class Informant extends Activity {
                          + "She's definitely still a cutie though. So whaddaya say, want me to try and talk to her for you?\"</i><br/><br/>");
             Global.gui().choose(this, "Airi: $1000");
         }
+        if (!Global.checkFlag(Flag.Mai)) {
+            Global.gui()
+                  .message("<i>\"I have this shy maid girl, Mai. She's cheap, if you don't ask any questions.\"</i>");
+            Global.gui().choose(this, "Mai: $100");
+        }
         if (!Global.checkFlag(Flag.Kat) && Global.checkFlag(Flag.magicstore)) {
             Global.gui()
                   .message("<i>\"So last year Kat (funny name, you'll see why later) was responsible for a couple of all time firsts. The first 'first'.... The first unprecedented event "
@@ -442,6 +448,19 @@ public class Informant extends Activity {
             } else {
                 Global.gui()
                       .message("You don't have enough money<br/><br/>");
+            }
+        }
+        if (choice.equals("Mai: $100")) {
+            if (player.money >= 100) {
+                player.money -= 100;
+                Global.gui()
+                        .message("<i>\"Pleasure doing business with you. Mai added.\"</i>");
+                acted = true;
+                Global.newChallenger(Global.getNPCByType(new Maid().getType()).ai);
+                Global.flag(Flag.Mai);
+            } else {
+                Global.gui()
+                        .message("You don't have enough money<br/><br/>");
             }
         }
         if (choice.equals("Eve: $1000")) {

@@ -43,6 +43,10 @@ public class BreastsPart extends GenericBodyPart {
         super("breasts", "", 0.0, 1.0, 1.0, true, "breasts", "");
     }
 
+    public BreastsPart(double sens) {
+        super("breasts", "", 0.0, 1.0, sens, true, "breasts", "");
+    }
+
     @Override
     public boolean isVisible(Character c) {
         return c.crotchAvailable() || getSize() > 0;

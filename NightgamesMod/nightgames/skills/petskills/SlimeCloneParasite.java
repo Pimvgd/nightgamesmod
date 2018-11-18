@@ -42,8 +42,9 @@ public class SlimeCloneParasite extends SimpleEnemySkill {
         if (target.roll(getSelf(), c, accuracy(c, target))) {
             List<BodyPart> possibleTargets = new ArrayList<>();
             for (String type : PARASITEABLE_PARTS) {
-                if (!target.body.getRandom(type).moddedPartCountsAs(target, ParasitedMod.INSTANCE)) {
-                    possibleTargets.add(target.body.getRandom(type));
+                BodyPart selectedBodyPart = target.body.getRandom(type);
+                if (selectedBodyPart != null && !selectedBodyPart.moddedPartCountsAs(target, ParasitedMod.INSTANCE)) {
+                    possibleTargets.add(selectedBodyPart);
                 }
             }
             Optional<BodyPart> result = Global.pickRandom(possibleTargets);

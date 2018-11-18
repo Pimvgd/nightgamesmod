@@ -85,6 +85,7 @@ public enum Flag {
     NoFTC,
     smallfonts, 
     basicSystemMessages,
+    Mai
     ;
     
     public static boolean exists(String flag) {

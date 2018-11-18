@@ -81,6 +81,7 @@ import nightgames.characters.CharacterSex;
 import nightgames.characters.Eve;
 import nightgames.characters.Jewel;
 import nightgames.characters.Kat;
+import nightgames.characters.Maid;
 import nightgames.characters.Mara;
 import nightgames.characters.Maya;
 import nightgames.characters.NPC;
@@ -1327,6 +1328,7 @@ public class Global {
 
         // TODO: Refactor into function and unify with CustomNPC handling.
         Personality cassie = new Cassie(findNpcConfig("Cassie", startConfig), commonConfig);
+        Personality maid = new Maid(findNpcConfig("Maid", startConfig), commonConfig);
         Personality angel = new Angel(findNpcConfig("Angel", startConfig), commonConfig);
         Personality reyka = new Reyka(findNpcConfig("Reyka", startConfig), commonConfig);
         Personality kat = new Kat(findNpcConfig("Kat", startConfig), commonConfig);
@@ -1337,6 +1339,7 @@ public class Global {
         Personality maya = new Maya(1, findNpcConfig("Maya", startConfig), commonConfig);
         Personality yui = new Yui(findNpcConfig("Yui", startConfig), commonConfig);
         characterPool.put(cassie.getCharacter().getType(), cassie.getCharacter());
+        characterPool.put(maid.getCharacter().getType(), maid.getCharacter());
         characterPool.put(angel.getCharacter().getType(), angel.getCharacter());
         characterPool.put(reyka.getCharacter().getType(), reyka.getCharacter());
         characterPool.put(kat.getCharacter().getType(), kat.getCharacter());

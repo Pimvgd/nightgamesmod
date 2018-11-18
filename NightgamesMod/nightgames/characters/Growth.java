@@ -141,7 +141,7 @@ public class Growth implements Cloneable {
                     if (existingPart != null && existingPart instanceof GenericBodyPart) {
                         GenericBodyPart part = (GenericBodyPart) existingPart;
                         GenericBodyPart newPart = (GenericBodyPart) part.applyMod(mod.getMod());
-                        if (newPart.canonicalDescription().equals(existingPartDesc)) {
+                        if (!newPart.canonicalDescription().equals(existingPartDesc)) {
                             character.body.addReplace(newPart, 1);
                         }
                     }
