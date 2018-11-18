@@ -88,6 +88,13 @@ public class StripSelf extends Skill {
                 }
                 return 0;
             }).get().getKey();
+            if (!choice.isEmpty()) {
+                Optional<Clothing> stripped = getSelf().getOutfit().getEquipped().stream()
+                        .filter(article -> article.getName().equals(choice)).filter(checks.keySet()::contains).findAny();
+                if (stripped.isPresent()) {
+                    best = stripped.get();
+                }
+            }
             getSelf().strip(best, c);
             clothing = best;
         }
