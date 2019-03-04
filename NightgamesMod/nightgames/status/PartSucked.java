@@ -31,9 +31,7 @@ public class PartSucked extends Status implements InsertedStatus {
          * */
         requirements.add((c, self, opponent) -> { 
             if (c != null) {
-                if (c.getStance().distance() > 1) {
-                    return false;
-                } 
+                return c.getStance().distance() <= 1;
             } else {
                    System.out.println("ERROR: c in PartSucked() constructor is null!"); 
             }
