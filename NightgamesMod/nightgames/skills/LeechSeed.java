@@ -38,7 +38,7 @@ public class LeechSeed extends Skill {
     public boolean resolve(Combat c, Character target) {
         if (!target.canAct() || target.roll(getSelf(), c, accuracy(c, target))) {
             Result results = Result.anal;
-            if (!c.getStance().vaginallyPenetrated(c, target)) { //TODO fix bug with flower stance
+            if (!c.getStance().vaginallyPenetrated(c, target) && target.hasPussy()) { //TODO fix bug with flower stance
                 results = Result.normal;
             }
             writeOutput(c, results, target);
