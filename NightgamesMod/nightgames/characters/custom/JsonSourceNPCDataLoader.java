@@ -191,7 +191,7 @@ public class JsonSourceNPCDataLoader {
             if (trait != null) {
                 growth.addTrait(obj.get("level").getAsInt(), trait);
             } else {
-                System.err.println("Tried to load a null trait into growth!");
+                System.err.println("Tried to load a null trait into growth!" + obj.get("trait"));
                 DebugHelper.printStackFrame(3, 1);
             }
         }
