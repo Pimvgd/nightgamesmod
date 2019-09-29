@@ -40,7 +40,7 @@ public class Horny extends DurationStatus {
     @Override
     public String describe(Combat c) {
         if (affected.human()) {
-            return "Your heart pounds in your chest as you try to surpress your arousal from contacting " + source
+            return "Your heart pounds in your chest as you try to suppress your arousal from contacting " + source
                             + ".";
         } else {
             return affected.getName() + " is flushed and "+affected.possessiveAdjective()
