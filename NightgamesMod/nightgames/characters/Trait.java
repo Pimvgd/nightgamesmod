@@ -357,7 +357,7 @@ public enum Trait {
     nymphomania("Nymphomania", "Restores willpower upon orgasm"),
     alwaysready("Always Ready", "Always ready for penetration", (b, c, t) -> {
         if (c.hasPussy() && c.crotchAvailable()) {
-            b.append("Juices constainly drool from ");
+            b.append("Juices constantly drool from ");
             if (c.human()) {
                 b.append("your slobbering pussy.");
             } else {
