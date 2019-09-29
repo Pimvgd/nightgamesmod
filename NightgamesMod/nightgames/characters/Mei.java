@@ -153,7 +153,7 @@ public class Mei extends BasePersonality {
                                    + "I seem to be half naked and Angel has wings? Wait what's going on?\"</i> "
                                    + "<br/><br/>"
                                    + "When neither you nor Angel deigned to respond, she just shrugs <i>\"Ahhhh, I get it! This must be one of those sexy dreams right? "
-                                   + "I wonder if I'm just pent up... ah well, no point in minding the details.\"<i/> Mei cracks her fingers. <i>\"Since we're doing this, I'm going all out!\"</i>"
+                                   + "I wonder if I'm just pent up... ah well, no point in minding the details.\"</i> Mei cracks her fingers. <i>\"Since we're doing this, I'm going all out!\"</i>"
                                    + "<br/><br/>"
                                    + "Errr... while you're glad she's so adaptable, it looks like the fight's become a two on one!";
                } else if (self.has(Trait.fallenAngel) && meiFought == 1) {

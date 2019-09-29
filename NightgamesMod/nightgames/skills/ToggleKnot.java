@@ -68,7 +68,7 @@ public class ToggleKnot extends Skill {
                                 "You'd like to stay inside " + target.getName() + " for a bit, so you "
                                                 + (c.getStance().canthrust(c, getSelf()) ? "thrust" : "buck up")
                                                 + " as deep inside of her as you can and send a mental command to the base of your cock, where your"
-                                                + " knot soon swells up, locking you inside,");
+                                                + " knot soon swells up, locking you inside.");
             } else if (c.shouldPrintReceive(target, c)) {
                 String firstPart;
                 if (c.getStance().dom(getSelf())) {

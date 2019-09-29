@@ -105,7 +105,7 @@ public class Parasited extends Status {
                                     Global.format("\"...You will please me...\"",
                                     affected, other));
                     Global.gui().message(c, affected,
-                                    Global.format("{self:SUBJECT-ACTION:feel|feels} an immense need to service {self:NAME}!",
+                                    Global.format("{self:SUBJECT-ACTION:feel|feels} an immense need to service {other:NAME}!",
                                     affected, other));
                     c.getRandomWorshipSkill(affected, other).orElse(new FootWorship(affected)).resolve(c, other);
                     break;
@@ -125,7 +125,7 @@ public class Parasited extends Status {
                                     Global.format("\"...You will pleasure yourself...\"",
                                     affected, other));
                     Global.gui().message(c, affected,
-                                    Global.format("{self:name-possessive} hands involunarily reach into {self:possessive} crotch and start masturbating!",
+                                    Global.format("{self:name-possessive} hands involuntarily reach into {self:possessive} crotch and start masturbating!",
                                     affected, other));
                     (new Masturbate(affected)).resolve(c, other);
             }

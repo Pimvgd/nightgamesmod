@@ -95,7 +95,7 @@ public class Seeded extends Status implements InsertedStatus {
                 if (!c.shouldAutoresolve())
                 Global.gui().message(c, affected,
                                 Global.format("{other:name-possessive} seedling has finally flowered. A brilliant white lilly now covers {self:name-possessive} %s, displaying {self:possessive} verdant submission for everyone to see. "
-                                                + "While the little seedling has finally stopped sapping your vitality, the now-matured root network has somehow integrated with your nervous system and bloodsteam. As pulses of chemical and electrical obedience wrack {self:possessive} body, "
+                                                + "While the little seedling has finally stopped sapping your vitality, the now-matured root network has somehow integrated with your nervous system and bloodstream. As pulses of chemical and electrical obedience wrack {self:possessive} body, "
                                                 + "{self:subject-action:know|knows} that {self:pronoun} {self:action:have|has} lost this fight.",
                                 affected, other, hole.describe(affected), hole.describe(affected)));
             }
@@ -108,21 +108,21 @@ public class Seeded extends Status implements InsertedStatus {
             affected.arouse(Math.max(Global.random(50, 100), affected.getArousal().max() / 4), c,
                             other.nameOrPossessivePronoun() + " seedling");
             affected.body.pleasure(other, seed, hole, Global.random(10, 20) + other.get(Attribute.Bio) / 2, c);
-            affected.add(c, new Frenzied(other, 1000));
+            affected.add(c, new Frenzied(affected, 1000));
         } else if (time >= 2) {
             if (stage < 2) {
                 stage = 2;
                 if (!c.shouldAutoresolve())
                 Global.gui().message(c, affected,
                                 Global.format("Having drained enough of {self:name-possessive} essence, the seed shows yet more changes. "
-                                                + "The roots growth thicker and more active, now constantly grinding against {self:possessive} walls. "
+                                                + "The roots grow thicker and more active, now constantly grinding against {self:possessive} walls. "
                                                 + "On the other side, a small green bud has poked its head out from inside {self:possessive} %s. "
                                                 + "{self:SUBJECT-ACTION:worry|worries} about its implications, but the constant piston motion from your %s is making it hard to concentrate.",
                                 affected, other, hole.describe(affected), hole.describe(affected)));
             }
             if (!c.shouldAutoresolve())
             Global.gui().message(c, affected,
-                            Global.format("The thick tuber-like roots inside {self:direct-object} constantly shift and scrape against {self:possessive} %s, leaving {self:direct-object} both horny and lenthargic at the same time.",
+                            Global.format("The thick tuber-like roots inside {self:direct-object} constantly shift and scrape against {self:possessive} %s, leaving {self:direct-object} both horny and lethargic at the same time.",
                                             affected, other, hole.describe(affected)));
             affected.drainStaminaAsMojo(c, other, Global.random(5, 11), 1.0f);
             affected.body.pleasure(other, seed, hole, Global.random(10, 20) + other.get(Attribute.Bio) / 2, c);
@@ -131,7 +131,7 @@ public class Seeded extends Status implements InsertedStatus {
                 stage = 1;
                 if (!c.shouldAutoresolve())
                 Global.gui().message(c, affected,
-                                Global.format("With a quiet rumble, the seed burried inside {self:name-possessive} %s sprouts thin spindly roots that reach into {self:possessive} innards.",
+                                Global.format("With a quiet rumble, the seed buried inside {self:name-possessive} %s sprouts thin spindly roots that reach into {self:possessive} innards.",
                                                 affected, other, hole.describe(affected)));
             }
             if (!c.shouldAutoresolve())
