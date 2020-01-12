@@ -1047,11 +1047,11 @@ private static HashMap<String, HashMap<String, List<Integer>>> resultTracker=new
         if (otherCombatants.size() == 1 || Global.random(2) == 0) {
             return getOpponent(pet);
         }
-        Character tgt;
-        do {
-            tgt = Global.pickRandom(otherCombatants).get();
-        } while (!petsCanFight(pet, tgt));
-        return tgt;
+        List<PetCharacter> petTargets = otherCombatants.stream().filter(combatant -> petsCanFight(pet, combatant)).collect(Collectors.toList());
+        if (petTargets.isEmpty()) {
+            return getOpponent(pet);
+        }
+        return Global.pickRandom(petTargets).get();
     }
 
     private boolean petsCanFight(PetCharacter pet, Character target) {
